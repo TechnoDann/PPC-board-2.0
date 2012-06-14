@@ -1,3 +1,6 @@
+PPC Posting Board 2.0 
+==========
+
 Ahoy there!
 
 This is a little project to build a web 1.5 posting board. The community is currently using an ancient bulletin-board system, several members have been extolling the virtues of a PHPbb setup with subforums and whatnot, and I opened my big fat mouth and said "Hey! This looks like a perfect use for the Model-View-Controller design pattern!"
@@ -7,14 +10,19 @@ I may come to regret this.
 Design documents should all be OS-agnostic, in the /docs directory.
 
 What to expect:
-Ruby on Rails
-One set of posts, many ways to look at it
-Optional authentication, with options
+ * Ruby on Rails
+ * One set of posts, many ways to look at it
+ * Optional authentication, with options
 
 What not to expect:
-Magic
-Fast development
-Incredibly mind-blowing code
+ * Magic
+ * Fast development
+ * Incredibly mind-blowing code
 
 Developers:
 Techno-Dann (AKA Captain Vim, Techno.Dann@gmail.com)
+
+Development setup
+----------
+Please copy `config/database.yml.example` to `config/database.yml` and
+customize it to fit your local database setup.
