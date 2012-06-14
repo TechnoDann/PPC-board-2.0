@@ -1,0 +1,48 @@
+What's all this, then?
+
+This is the model-view-controller design pattern applied to an internet forum, for fun and science. It's being built for a community that's currently using an ancient bulletin board setup. Several members of the community are attached to the bulletin-board-esque thread style, where everyone can respond to everyone. Other people want PHPbbesque subfora and linear threads. Thus, this project - an attempt to make both systems coexist in the same world.
+
+Wish us luck.
+
+Design Abstractions:
+
+The whole thing is going to have to be modular, and settable by user preferences. The various components, with a couple examples of each:
+
+Category Management
+	Subfora, tags, or all in one big heap? All the threads are going to have categories, but how those categories affect the homepage of the forum is going to be variable. Some people may want to see a subforum for each category. Others are going to want to see (and filter by) tags on a single page. Some people just want to see everything on a single page.
+	
+Thread Sorting
+	On a single page, how are threads arranged? The current board is newest-thread-first, and some users want to keep it. Another option is the PHPbb-esque most-recently-replied-to-first. Other things we may want: Karma-based sorting, where higher-karma threads (for some mechanism of determining karma) tend towards the top. Weighted most-recent, where as threads age, they require more and more activity to remain on the page.
+	
+Thread Display
+	How should each thread appear on a given page? The current Board shows thread titles, and the complete reply tree for each thread. PhPBB shows only the opening post's title and a total thread size. Another thought would be Blog mode - show the complete opening post of each thread, with a "n many replies" link at the bottom of each.
+	
+Post Display
+	Probably the most technically difficult section. Conversations on the current board are inherently trees - people can reply to anything they want, as they see fit. PHPbb threads are inherently linear. Thus, we need a way to elegantly serialize and deserialize a tree.
+	
+Obviously, more options are possible. Add them! (Or discuss with other people working on the project, at the very least.)
+
+And other complications:
+
+Authentication. The current Board allows posting under a registered username without logging in. While we want to maintain this behavior (as many people use it), we also want it to be disableable for people with concerns of spoofing.
+
+Editing. The current Board does not have an 'edit' button. We want to allow people to fix typos. At the same time, we want an edit history to be attached to the post, to make certain forms of internet-argument stupidity (saying something inflamitory and then editing it away) impossible.
+
+Category Tagging. People have mentioned wanting categories to be applicable after the fact - adding a 'politics' tag to a 'newbie introduction' thread should (according to the users I talked with) make it show up in the 'politics' subforum as well as the 'newbie introduction' subforum. The same thread showing up in multiple subfora didn't seem to bother anyone I talked with.
+
+Ypur-proofing. Posting the same thread over and over again should be disallowed with prejudice. Diff, IP sensing, etc. Just a static "must wait thirty seconds between posting per IP" isn't going to stick - they'll use proxies. We also have Boarders who have used proxies to get around ISP blocks. So, we'll need to be sneaky.
+
+Design:
+
+Very briefly, because it's getting late. Strings are going to be stored in their own table - each row will have a string ID, a version, a section number, and a large (4k?) blob for the string itself. If a post is longer than 4k, we'll split it into 4k chunks and store them as sections 1 through n. Editing a post will store an entirely new version - it'll take more space than storing diffs, but be much easier to compute.
+
+Posts have an ID for the relevant string, a title, a poster name and IP, tags (which may be their own table to allow n-many per post), a timestamp, a parent post ID, and a karma score. For security's sake, we will want to make the display of some of these - namely, poster IP addresses and whether or not they were logged in - displayable or not displayable based on mod-settable settings.
+
+Threads have their own IDs, point at a root post, have their own timestamp (which should be identical to the root post's timestamp), and also maintain karma and a ballast score (for a weighted most-recent system, or general soft-modding. Adding ballast to a thread makes it sink faster and fall off the front page.)
+
+Authors is your fairly typical users table. Name, E-mail, allow unauthorized posting, etc. Passwords must be salted and hashed.
+
+
+Moderation is an open question at this point. I'm really not a fan of mods with the power to arbitrarily delete or edit posts - that just has too much risk for my blood. Locking threads and/or poofing them away so they only appear as a "This post has been poofed away because X. If you really want to see it, click here..." is a better option, IMO.
+
+Ideally, I'd like it to be to the point where if you want a thread to truly be deleted, you'll need to have the root password for the server and know how to write SQL.
