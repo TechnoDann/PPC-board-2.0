@@ -1,0 +1,94 @@
+Proposed URLs (feel free to add more)
+=====================================
+(get/post URLs: `get`ing gives you a form, `post`ing creates the
+resource. Similar for get/put. )
+
+get / -- Redirect to user's preferred forum view (cookie ?)
+
+Forum views
+-----------
+
+get /subfora -- Subforum list
+get /tags/all -- By tag, then thread-recent
+get /subfora/[do we want slugs]/<tag id> -- Specific subforum
+get /tags/<tag id> -- Thread-recent in the one tag
+get /newest -- Classic mode
+get /active -- Bump mode (?)
+etc ......
+
+Threads
+-------
+
+(Hm ... thread presentation style (linear/tree) should be separate
+from forum viewing mode (tree-threads from a subforum would be a
+thing))
+
+get /threads/<id> -- View the thread (per preference)
+get /threads/<id>/tree -- View the thread as a tree
+get /threads/<id>/flat -- View the thread linearly
+get /threads/<id>/reply -- Form for replying to the top-level of a
+thread (alias for /posts/<top-level-post>/reply
+post /threads/<id>/reply -- Add a reply to the thread
+get /threads/<id>/edit -- Edit a thread (add tags, fudge timestamp etc.) 
+put /threads/<id> -- Apply edits to a thread
+get /threads/<id>/poof -- Form to poof the whole thread (including the
+replies) [Mods only]
+delete /threads/<id> -- Poof the thread
+
+
+Posts
+-----
+
+get /posts/<id> -- View a post
+get /posts/<id>/reply -- Form to reply to a post
+post /posts/<id>/reply -- Add a reply to a post
+get /posts/<id>/edit -- Form to edit a post
+put /posts/<id> -- Edit a post
+get /posts/<id>/poof -- Form to poof a post (only authenticated author or mod)
+delete /posts/<id> -- Poof a post (not the replies ?)
+
+Authentication and Login
+------------------------
+
+get /signup
+get /users/new -- Form to add a new user account
+post /users/new -- Create a new user account
+get /login -- Form for logins
+post /login -- Login as a user
+get /users/<id> -- User's profile
+get /users/<id>/posts -- Posts by user
+get /users/<id>/edit -- Form to edit a profile (password change and
+such) 
+put /users/<id> -- Update user information
+Optional: get/put /users/<id>/password -- Change user password
+
+Hats
+----
+
+Put on mod hat; you can moderate. Put on PG hat; you look spiffy when
+dealing with permission requests. Possibility: Permission Givers can
+grant Permission hats, and the "Can wear Permission hat" flag grants
+that account the right to post under the "PPC Stories" tag. Of course,
+this is easily circumvented by not logging in, but Official Records
+might come in handy.
+
+get /hats -- See the hats you can put on
+post /hats/<id> -- Put on a hat
+post /hats/off -- Take off the hat you're wearing.
+get/post /hats/<id>/grant -- Grant a user a hat (`get`'s the form,
+`post` does it)
+
+Administration
+--------------
+
+get /admin/bans -- Handle the various sorts of bans
+get /admin/bans/new -- Ban something (such as an IP)
+delete /admin/bans/<id> -- Remove a ban
+Nice *optional* extra: post /admin/maintenance -- Temporarily bring
+the site down
+get/put /admin/settings -- Interface for changing Board settings
+
+Miscellaneous 
+-------------
+
+get /coffee -- Return an HTTP 418 (worth looking up)
