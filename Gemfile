@@ -7,7 +7,6 @@ gem 'rails', '3.2.7'
 
 gem 'pg'
 
-
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
@@ -20,8 +19,14 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
 end
 
+group :development do
+  gem "immigrant", "~> 0.1.2"
+end
+
 gem 'jquery-rails'
 
+# Add foreign key support
+gem "foreigner", "~> 1.2.0"
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 
