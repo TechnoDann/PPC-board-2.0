@@ -24,6 +24,11 @@ group :development do
   gem "immigrant", "~> 0.1.2"
 end
 
+group :development, :test do
+  gem 'capybara', '~> 1.1.2'
+  gem "rspec-rails", "~> 2.11.0"
+end 
+
 gem 'jquery-rails'
 
 # Add foreign key support
