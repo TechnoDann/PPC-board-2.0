@@ -6,6 +6,7 @@ gem 'rails', '3.2.7'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 gem 'pg'
+gem 'awesome_nested_set', '~> 2.1.3'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -21,18 +22,18 @@ group :assets do
 end
 
 group :development do
-  gem "immigrant", "~> 0.1.2"
+  gem 'immigrant', '~> 0.1.2'
 end
 
 group :development, :test do
   gem 'capybara', '~> 1.1.2'
-  gem "rspec-rails", "~> 2.11.0"
+  gem 'rspec-rails', '~> 2.11.0'
 end 
 
 gem 'jquery-rails'
 
 # Add foreign key support
-gem "foreigner", "~> 1.2.0"
+gem 'foreigner', '~> 1.2.0'
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 
