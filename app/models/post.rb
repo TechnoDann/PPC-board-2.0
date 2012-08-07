@@ -1,7 +1,7 @@
 class Post < ActiveRecord::Base
+  has_ancestry
   attr_accessible :body, :subject, :author
   attr_accessible :author, :body, :subject, :locked, :poofed, :sort_timestamp, :as => :moderator
-  acts_as_nested_set
   before_create :set_sort_timestamp
   
   private

@@ -11,12 +11,9 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120807155544) do
+ActiveRecord::Schema.define(:version => 20120807210832) do
 
   create_table "posts", :force => true do |t|
-    t.integer  "parent_id"
-    t.integer  "lft"
-    t.integer  "rgt"
     t.boolean  "locked"
     t.boolean  "poofed"
     t.datetime "sort_timestamp"
@@ -26,6 +23,9 @@ ActiveRecord::Schema.define(:version => 20120807155544) do
     t.text     "body"
     t.datetime "created_at",     :null => false
     t.datetime "updated_at",     :null => false
+    t.string   "ancestry"
   end
+
+  add_index "posts", ["ancestry"], :name => "index_posts_on_ancestry"
 
 end
