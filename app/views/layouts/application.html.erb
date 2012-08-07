@@ -1,21 +1,23 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>PPCBoard20</title>
+  <title><%= "PPC Posting Board - " + ( yield(:title) || "Home") %></title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
 </head>
 <body>
-
 <%= yield %>
 
-<div id="app-footer">
-This software is licensed under the 
-<%= link_to "GNU Affero GPL version 3 or later", "http://www.gnu.org/licenses/agpl-3.0.html" =%>. 
-Source code is located <%= "at Github", "https://github.com/TechnoDann/PPC-board-2.0" =%>
-
+<div class="row-fluid">
+  <footer>
+    <p>
+      This software is licensed under the 
+      <%= link_to "GNU Affero GPL version 3 or later", "http://www.gnu.org/licenses/agpl-3.0.html" =%>. 
+      Source code is located <%= link_to "at Github", "https://github.com/TechnoDann/PPC-board-2.0" %>
+    </p>
+  </footer>
 </div>
-
 </body>
 </html>
