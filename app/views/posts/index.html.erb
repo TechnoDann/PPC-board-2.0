@@ -1,0 +1,41 @@
+<h1>Listing posts</h1>
+
+<table>
+  <tr>
+    <th>Parent</th>
+    <th>Lft</th>
+    <th>Rgt</th>
+    <th>Locked</th>
+    <th>Poofed</th>
+    <th>Sort timestamp</th>
+    <th>Subject</th>
+    <th>User</th>
+    <th>Author</th>
+    <th>Body</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @posts.each do |post| %>
+  <tr>
+    <td><%= post.parent_id %></td>
+    <td><%= post.lft %></td>
+    <td><%= post.rgt %></td>
+    <td><%= post.locked %></td>
+    <td><%= post.poofed %></td>
+    <td><%= post.sort_timestamp %></td>
+    <td><%= post.subject %></td>
+    <td><%= post.user_id %></td>
+    <td><%= post.author %></td>
+    <td><%= post.body %></td>
+    <td><%= link_to 'Show', post %></td>
+    <td><%= link_to 'Edit', edit_post_path(post) %></td>
+    <td><%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Post', new_post_path %>

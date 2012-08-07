@@ -1,0 +1,55 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Parent:</b>
+  <%= @post.parent_id %>
+</p>
+
+<p>
+  <b>Lft:</b>
+  <%= @post.lft %>
+</p>
+
+<p>
+  <b>Rgt:</b>
+  <%= @post.rgt %>
+</p>
+
+<p>
+  <b>Locked:</b>
+  <%= @post.locked %>
+</p>
+
+<p>
+  <b>Poofed:</b>
+  <%= @post.poofed %>
+</p>
+
+<p>
+  <b>Sort timestamp:</b>
+  <%= @post.sort_timestamp %>
+</p>
+
+<p>
+  <b>Subject:</b>
+  <%= @post.subject %>
+</p>
+
+<p>
+  <b>User:</b>
+  <%= @post.user_id %>
+</p>
+
+<p>
+  <b>Author:</b>
+  <%= @post.author %>
+</p>
+
+<p>
+  <b>Body:</b>
+  <%= @post.body %>
+</p>
+
+
+<%= link_to 'Edit', edit_post_path(@post) %> |
+<%= link_to 'Back', posts_path %>

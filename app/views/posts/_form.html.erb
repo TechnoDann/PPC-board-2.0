@@ -1,0 +1,57 @@
+<%= form_for(@post) do |f| %>
+  <% if @post.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@post.errors.count, "error") %> prohibited this post from being saved:</h2>
+
+      <ul>
+      <% @post.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :parent_id %><br />
+    <%= f.number_field :parent_id %>
+  </div>
+  <div class="field">
+    <%= f.label :lft %><br />
+    <%= f.number_field :lft %>
+  </div>
+  <div class="field">
+    <%= f.label :rgt %><br />
+    <%= f.number_field :rgt %>
+  </div>
+  <div class="field">
+    <%= f.label :locked %><br />
+    <%= f.check_box :locked %>
+  </div>
+  <div class="field">
+    <%= f.label :poofed %><br />
+    <%= f.check_box :poofed %>
+  </div>
+  <div class="field">
+    <%= f.label :sort_timestamp %><br />
+    <%= f.datetime_select :sort_timestamp %>
+  </div>
+  <div class="field">
+    <%= f.label :subject %><br />
+    <%= f.text_field :subject %>
+  </div>
+  <div class="field">
+    <%= f.label :user_id %><br />
+    <%= f.number_field :user_id %>
+  </div>
+  <div class="field">
+    <%= f.label :author %><br />
+    <%= f.text_field :author %>
+  </div>
+  <div class="field">
+    <%= f.label :body %><br />
+    <%= f.text_area :body %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
