@@ -31,7 +31,6 @@ group :development, :test do
 end 
 
 gem 'jquery-rails'
-gem "audited", "~> 3.0.0.rc2"
 
 # Add foreign key support
 gem 'foreigner', '~> 1.2.0'
