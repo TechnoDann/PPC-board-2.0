@@ -1,0 +1,14 @@
+<div class="row-fluid">
+  <% flash ||= {} %>
+  <% flash.each do |type, msg| %>
+    <% if type == :notice 
+         type = :success
+       end
+       if type == :alert 
+         type = :error
+       end %>
+    <% msg.each do |text| %>
+      <div class="alert alert-<%= type %>"> <%= text %> </div>
+    <% end %>
+  <% end %>
+</div>

@@ -4,3 +4,7 @@
 textarea {
     width: auto;
 }
+
+div .center {
+    @include center-block;
+}

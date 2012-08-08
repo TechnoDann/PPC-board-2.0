@@ -44,7 +44,8 @@ class PostsController < ApplicationController
 
     respond_to do |format|
       if @post.save
-        format.html { redirect_to @post, notice: 'Post was successfully created.' }
+        format.html { flash[:success] = ['Post was successfully created.']
+          redirect_to @post }
         format.json { render json: @post, status: :created, location: @post }
       else
         format.html { render action: "new" }
@@ -61,7 +62,8 @@ class PostsController < ApplicationController
     respond_to do |format|
       if @post.update_attributes(params[:post], :as => :moderator)
         @post.close_edit_cycle @clone
-        format.html { redirect_to @post, notice: 'Post was successfully updated.' }
+        format.html { flash[:success] = ['Post was successfully updated.']
+          redirect_to @post }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
