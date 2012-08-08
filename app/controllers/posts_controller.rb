@@ -57,9 +57,13 @@ class PostsController < ApplicationController
   # PUT /posts/1.json
   def update
     @post = Post.find(params[:id])
-
+    @clone = @post.dup
     respond_to do |format|
       if @post.update_attributes(params[:post], :as => :moderator)
+        if @clone.save!
+          @post.previous_version = @clone 
+          @post.save!
+        end
         format.html { redirect_to @post, notice: 'Post was successfully updated.' }
         format.json { head :no_content }
       else
