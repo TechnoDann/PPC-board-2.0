@@ -8,6 +8,7 @@ class Post < ActiveRecord::Base
   belongs_to :next_version, :class_name => 'Post', :foreign_key => 'next_version_id' 
 
   validate :no_memory_hole
+  validates :subject, :author, :presence => true
 
   def clone_before_edit
     clone = Post.new
