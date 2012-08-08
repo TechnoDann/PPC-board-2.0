@@ -8,6 +8,7 @@ class Post < ActiveRecord::Base
   belongs_to :next_version, :class_name => 'Post', :foreign_key => 'next_version_id' 
 
   validate :no_memory_hole
+  validate :no_locked_reply, :on => :create
   validates :subject, :author, :presence => true
 
   def clone_before_edit
@@ -36,6 +37,12 @@ class Post < ActiveRecord::Base
   def no_memory_hole
     if self.next_version && !self.being_cloned
       errors[:base] << "You aren\'t allowed to edit anything other than the current version of a post. What is this, 1984?"
+    end
+  end
+
+  def no_locked_reply
+    if self.locked || self.ancestors.where(:locked => true).count > 0
+      errors[:base] << "You aren't allowed to reply to locked threads."
     end
   end
 
