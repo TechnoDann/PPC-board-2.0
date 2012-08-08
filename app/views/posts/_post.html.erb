@@ -1,5 +1,5 @@
 <div class="post">
-  <% hide_status_info ||= false %>
+  <% hide_status_info ||= false; flash[:info] = [] %>
   <% unless hide_status_info %>
   <% if post.locked %>
     <% flash_message(:info, "This (sub)thread has been locked. No more replies can be added to it.") %>

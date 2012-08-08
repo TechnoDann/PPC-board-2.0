@@ -8,25 +8,32 @@ class Post < ActiveRecord::Base
   belongs_to :next_version, :class_name => 'Post', :foreign_key => 'next_version_id' 
 
   validate :no_memory_hole
+
   def clone_before_edit
     clone = Post.new
     attrs = self.attributes
     attrs.delete("id")
     clone.update_attributes(attrs, :without_protection => true)
+    clone.being_cloned = true
+    # Note, all pasts of a post have a next_version of the most recent version.
+    # This is now a feature.
     clone.next_version = self
+    logger.debug "Clone before save, after assignment: #{clone.attributes.inspect}\n"
     clone.sort_timestamp = self.sort_timestamp
     clone.save
+    logger.debug "Clone after save, after assignment: #{clone.attributes.inspect}\n"
     clone
   end
   
   def close_edit_cycle(clone)
     self.previous_version = clone
+    self.being_cloned = false
     self.save :validate => false
   end
 
   private
   def no_memory_hole
-    if self.next_version && self.next_version.previous_version == self
+    if self.next_version && !self.being_cloned
       errors[:base] << "You aren\'t allowed to edit anything other than the current version of a post. What is this, 1984?"
     end
   end

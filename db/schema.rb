@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120808145818) do
+ActiveRecord::Schema.define(:version => 20120808215504) do
 
   create_table "posts", :force => true do |t|
     t.boolean  "locked"
@@ -21,11 +21,12 @@ ActiveRecord::Schema.define(:version => 20120808145818) do
     t.integer  "user_id"
     t.string   "author"
     t.text     "body"
-    t.datetime "created_at",          :null => false
-    t.datetime "updated_at",          :null => false
+    t.datetime "created_at",                             :null => false
+    t.datetime "updated_at",                             :null => false
     t.string   "ancestry"
     t.integer  "previous_version_id"
     t.integer  "next_version_id"
+    t.boolean  "being_cloned",        :default => false
   end
 
   add_index "posts", ["ancestry"], :name => "index_posts_on_ancestry"

@@ -41,7 +41,10 @@ class PostsController < ApplicationController
   # POST /posts.json
   def create
     @post = Post.new(params[:post], :as => :moderator)
-
+    parent = Post.find_by_id(params[:parent_id])
+    if parent && parent.next_version
+      redirect_to posts_path, :flash => { :error => ["You aren\'t allowed to reply to anything other than the current version of a post. What are you trying to do, talk to ghosts?"] }
+    end
     respond_to do |format|
       if @post.save
         format.html { flash[:success] = ['Post was successfully created.']
@@ -75,11 +78,8 @@ class PostsController < ApplicationController
   # DELETE /posts/1
   # DELETE /posts/1.json
   def destroy
-    @post = Post.find(params[:id])
-    @post.destroy
-
     respond_to do |format|
-      format.html { redirect_to posts_url }
+      format.html { redirect_to posts_url, :flash => { :error => "Posts can't be deleted." } }
       format.json { head :no_content }
     end
   end
