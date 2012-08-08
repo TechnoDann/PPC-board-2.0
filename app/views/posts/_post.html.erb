@@ -1,4 +1,6 @@
 <div class="post">
+  <% hide_status_info ||= false %>
+  <% unless hide_status_info %>
   <% if post.locked %>
     <% flash_message(:info, "This (sub)thread has been locked. No more replies can be added to it.") %>
   <% end %>
@@ -12,6 +14,7 @@
     <% flash_message(:info, "This post has been superseded by an edit, which is located #{link_to 'here.', post.next_version}") %>
   <% end %>
   <%= render :partial => 'layouts/information', :locals => { :flash => flash } %>
+  <% end %>
   <b>Subject:</b> <%= post.subject %> <br />
   <b>Author:</b> <%= post.author %> <br />
   <b>Posted on:</b> <%= post.created_at %><br />
