@@ -1,10 +1,31 @@
 <div class="post">
+  <% if post.locked %>
+  <div class="alert alert-info">
+    This (sub)thread has been locked. No more replies can be added to it.
+  </div>
+  <% end %>
+  <% if reSorted? post %>
+  <div class="alert alert-info">
+    This post sorts as if it had been posted on <%= post.sort_timestamp %>, that is
+    <%= distance_of_time_in_words(post.created_at, post.sort_timestamp) %>.
+  </div>
+  <% end %>
+  <% if post.previous_version %>
+  <div class="alert alert-info">
+    This post has been edited. The previous version is located
+    <%= link_to 'here.', post.previous_version %>
+  </div>
+  <% end %>
+  <% if post.next_version %>
+  <div class="alert alert-info">
+    This post has been superseded by an edit, which is located
+    <%= link_to 'here.', post.next_version %>
+  </div>
+  <% end %>
   <b>Subject:</b> <%= post.subject %> <br />
   <b>Author:</b> <%= post.author %> <br />
   <b>Posted on:</b> <%= post.created_at %><br />
-  <b>Locked:</b> <%= post.locked %> <br />
   <b>Poofed:</b> <%= post.poofed %> <br />
-  <b>Sort Timestamp:</b> <%= post.sort_timestamp %> <br />
   <br />
   <div class="post-body">
     <%= post.body %>
