@@ -31,6 +31,7 @@ group :development, :test do
 end 
 
 gem 'jquery-rails'
+gem 'simple_form'
 
 # Add foreign key support
 gem 'foreigner', '~> 1.2.0'

@@ -1,45 +1,12 @@
 <div class="row-fluid">
-  <div class="span12">
-    <%= form_for(@post) do |f| %>
-    <% if @post.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@post.errors.count, "error") %> prohibited this post from being saved:</h2>
-      
-      <ul>
-        <% @post.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-        <% end %>
-      </ul>
-    </div>
+    <%= simple_form_for @post, :html => { :class => 'form-vertical' } do |f| %>
+    <%= f.input:parent_id, :as => :hidden %>
+    <%= f.input :subject  %>
+    <%= f.input :author %>
+    <%= f.input :body, :rows => 15, :cols => 100 %>
+    <%= f.input :locked, :label => 'Locked thread?' %>
+    <%= f.input :poofed, :label => 'Poofed thread?' %>
+    <%= f.input :sort_timestamp %>
+    <%= f.button :submit, :class => 'btn-primary' %>
     <% end %>
-    <%= f.hidden_field :parent_id %>
-    <div class="field">
-      <%= f.label :subject %>
-      <%= f.text_field :subject %>
-    </div>
-    <div class="field">
-      <%= f.label :author %>
-      <%= f.text_field :author %>
-    </div>
-    <div class="field">
-      <%= f.label :body %><br />
-      <%= f.text_area :body, :rows => 15, :cols => 100 %>
-    </div>
-    <div class="field">
-      <%= f.label :locked %>
-      <%= f.check_box :locked %>
-    </div>
-    <div class="field">
-      <%= f.label :poofed %>
-      <%= f.check_box :poofed %>
-    </div>
-    <div class="field">
-      <%= f.label :sort_timestamp %><br />
-      <%= f.datetime_select :sort_timestamp %>
-    </div>
-    <div class="actions">
-      <%= f.submit %>
-    </div>
-    <% end %>
-  </div>
 </div>
