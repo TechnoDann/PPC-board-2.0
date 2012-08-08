@@ -1,16 +1,10 @@
 <p id="notice"><%= notice %></p>
-<div class="post">
-  <b>Subject:</b> <%= @post.subject %> <br />
-  <b>Author:</b> <%= @post.author %> <br />
-  <b>Posted on:</b> <%= @post.created_at %><br />
-  <b>Locked:</b> <%= @post.locked %> <br />
-  <b>Poofed:</b> <%= @post.poofed %> <br />
-  <b>Sort Timestamp:</b> <%= @post.sort_timestamp %> <br />
-  <br />
-  <div class="post-body">
-    <%= @post.body %>
-  </div>
-</div>
 
-<%= link_to 'Edit', edit_post_path(@post) %> |
+<%= render @post %>
+<%= link_to 'Edit', edit_post_path(@post) %> | 
+<%= link_to 'Reply', new_post_path(:parent_id => @post) %> | 
 <%= link_to 'Back', posts_path %>
+<div class="rest-of-thread"> <br />
+<%= render :partial => 'thread', :locals => { :bodies => true, :id => @post.id },
+   :object => @post.root.subtree.arrange(:order => "sort_timestamp DESC" ) %>
+</div> 

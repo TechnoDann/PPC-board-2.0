@@ -2,7 +2,7 @@ class PostsController < ApplicationController
   # GET /posts
   # GET /posts.json
   def index
-    @posts = Post.all
+    @posts = Post.scoped
 
     respond_to do |format|
       format.html # index.html.erb
@@ -24,7 +24,7 @@ class PostsController < ApplicationController
   # GET /posts/new
   # GET /posts/new.json
   def new
-    @post = Post.new
+    @post = Post.new(:parent_id => params[:parent_id])
 
     respond_to do |format|
       format.html # new.html.erb
