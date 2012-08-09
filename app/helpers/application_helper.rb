@@ -7,9 +7,17 @@ module ApplicationHelper
     flash[type] ||= []
     flash[type] << text
   end
+  
+  class MarkdownHolder
+    @@markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML.new(:filter_html => true), {
+                                           :autolink => true, :strikethrough => true,
+                                           :lax_html_blocks => true, :superscript => true})
+    def self.renderer
+      @@markdown
+    end
+  end
 
   def markdown(text)
-    options = {:auto_links => true, :escape_html => true}
-    BlueCloth::new(text, options).to_html.html_safe
+    MarkdownHolder.renderer.render(text)
   end
 end

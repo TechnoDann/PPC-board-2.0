@@ -25,10 +25,13 @@ What not to expect:
  * Incredibly mind-blowing code
 
 Developers:
-Techno-Dann (AKA Captain Vim, Techno.Dann@gmail.com)
-
+ * Techno-Dann (AKA Captain Vim, Techno.Dann@gmail.com)
+ * Tomash ( krzysdrewniak <AT> gmail.com )
 Development setup
 -----------------
+In addition to the gems listed in the Gemfile, the
+[Sphinx daemon](http://freelancing-god.github.com/ts/en/installing_sphinx.html)
+is required to enable full-text search.
 
 Please copy `config/database.yml.example` to `config/database.yml` and
 customize it to fit your local database setup.
