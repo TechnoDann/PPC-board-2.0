@@ -1,8 +1,7 @@
 <% post = post_subject %>
-<%= link_to post.subject, post %> by <%= post.author %> at <%= post.created_at %> 
-<span class="post-modifications">
-  <%= "[LOCKED] " if post.locked %>
-  <%= "[POOFED] " if post.poofed %>
-  <%= "[EDITED] " if post.previous_version %>
-  <%= "[PREVIOUS VERSION] " if post.next_version %>
-</span>
+<%= link_to post.subject, post %> by <%= post.author %> 
+<span style="font-size: 70%">at <%= post.created_at %></span> 
+<%= raw '<span class="label label-warning">Locked</span>' if post.locked %>
+<%= raw '<span class="label label-important">Poofed</span>' if post.poofed %>
+<%= raw '<span class="label label-info">Edited</span>' if post.previous_version %>
+<%= raw '<span class="label label-important">Previous Version</span>' if post.next_version %>

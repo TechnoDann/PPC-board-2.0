@@ -9,7 +9,7 @@ module ApplicationHelper
   end
   
   class MarkdownHolder
-    @@markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML.new(:filter_html => true), {
+    @@markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML.new(:filter_html => false), {
                                            :autolink => true, :strikethrough => true,
                                            :lax_html_blocks => true, :superscript => true})
     def self.renderer

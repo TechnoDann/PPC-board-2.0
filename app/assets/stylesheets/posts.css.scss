@@ -4,6 +4,31 @@
 .subthread {
     margin-left: 2%;
 }
+
 .current-post {
     font-weight: bold;
+}
+
+.post h1 {
+    font-size: 18px;
+}
+
+.post h2, h3 {
+    font-size: 16px;
+}
+
+.modal-backdrop {
+    opacity: 1.0;
+}
+
+.thread {
+    border-bottom: 1px solid $grayLight;
+    @media (max-width: 767px) { 
+        margin-top: 15px;
+        padding-bottom: 15px;
+    }
+    @media (min-width: 767px) { 
+        margin-top: 30px;
+        padding-bottom: 30px;
+    }
 }
