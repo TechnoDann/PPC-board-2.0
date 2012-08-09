@@ -34,6 +34,8 @@ GEM
     arel (3.0.2)
     bluecloth (2.2.0)
     bootstrap-sass (2.0.4.0)
+    bootstrap-will_paginate (0.0.7)
+      will_paginate
     builder (3.0.0)
     capybara (1.1.2)
       mime-types (>= 1.16)
@@ -158,6 +160,7 @@ DEPENDENCIES
   ancestry
   bluecloth
   bootstrap-sass (~> 2.0.4.0)
+  bootstrap-will_paginate
   capybara (~> 1.1.2)
   coffee-rails (~> 3.2.1)
   foreigner (~> 1.2.0)

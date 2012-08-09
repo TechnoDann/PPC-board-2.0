@@ -8,7 +8,8 @@ gem 'rails', '3.2.7'
 gem 'pg'
 gem 'ancestry'
 gem 'bluecloth'
-gem "will_paginate", "~> 3.0.3"
+gem 'will_paginate', '~> 3.0.3'
+gem 'bootstrap-will_paginate'
 
 # Gems used only for assets and not required
 # in production environments by default.
