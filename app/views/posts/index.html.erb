@@ -1,0 +1,6 @@
+<h1>PPC Posting Board</h1>
+
+<%= render :partial => 'thread', :locals => { :bodies => false, :id => false },
+    :object => @posts.arrange(:order => "sort_timestamp DESC" ) %>
+<br />
+<%= link_to 'New Post', new_post_path %>
