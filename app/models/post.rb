@@ -12,6 +12,15 @@ class Post < ActiveRecord::Base
   validates :subject, :author, :presence => true
 
   self.per_page = 30
+
+  define_index do
+    indexes body
+    indexes author
+    indexes subject
+    
+    has sort_timestamp
+  end
+
   def clone_before_edit
     clone = Post.new
     attrs = self.attributes
