@@ -1,7 +1,7 @@
 class Post < ActiveRecord::Base
   has_ancestry
-  attr_accessible :body, :subject, :author, :parent_id, :tags
-  attr_accessible :author, :body, :subject, :locked, :poofed, :sort_timestamp, :tags, :as => :moderator
+  attr_accessible :body, :subject, :author, :parent_id, :tag_ids
+  attr_accessible :author, :body, :subject, :locked, :poofed, :sort_timestamp, :parent_id, :tag_ids, :as => :moderator
   before_create :set_sort_timestamp
 
   belongs_to :previous_version, :class_name => 'Post', :foreign_key => 'previous_version_id'
