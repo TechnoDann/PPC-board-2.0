@@ -41,6 +41,6 @@
   <b>Posted at:</b> <%= post.created_at %><br />
   <br />
   <div class="post-body">
-    <%= post.body %>
+    <%= raw(markdown(post.body)) %>
   </div>
 </div>

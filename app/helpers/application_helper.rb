@@ -8,4 +8,8 @@ module ApplicationHelper
     flash[type] << text
   end
 
+  def markdown(text)
+    options = {:auto_links => true, :escape_html => true}
+    BlueCloth::new(text, options).to_html.html_safe
+  end
 end

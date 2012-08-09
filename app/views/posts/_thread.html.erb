@@ -17,7 +17,7 @@
       </span>
       <% if bodies %>
         <br />
-        <%= post.body %>
+        <%= raw(markdown(post.body)) %>
       <% end %>
     </div>
     <div class="subthread">
