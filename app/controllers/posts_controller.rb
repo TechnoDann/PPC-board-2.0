@@ -2,8 +2,8 @@ class PostsController < ApplicationController
   # GET /posts
   # GET /posts.json
   def index
-    @posts = Post.where(:ancestry => nil, :next_version_id => nil).order("sort_timestamp DESC")
-#      .paginate(:page => params[:page]).order("sort_timestamp DESC")
+    @posts = Post.where(:ancestry => nil, :next_version_id => nil)
+      .paginate(:page => params[:page]).order("sort_timestamp DESC")
 
     respond_to do |format|
       format.html # index.html.erb

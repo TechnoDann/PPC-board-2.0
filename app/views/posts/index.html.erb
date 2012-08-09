@@ -1,7 +1,9 @@
 <h1>PPC Posting Board</h1>
+<%= will_paginate @posts %>
 <% @posts.each do |post| %>
 <%= render :partial => 'thread', :locals => { :bodies => false, :id => false },
     :object => post.subtree.arrange(:order => "sort_timestamp DESC" ) %>
 <% end %>
 <br />
 <%= link_to 'New Post', new_post_path %>
+<%= will_paginate @posts %>
