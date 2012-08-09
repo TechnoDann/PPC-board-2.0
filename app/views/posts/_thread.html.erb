@@ -8,16 +8,22 @@
     <% unless subthread %>
       <div class="thread row-fluid">
     <% end %>
-    <div class="<%= (post.id == id) ? 'post current-post' : 'post' %>">
+    <div class="post">
+      <span class="<%= 'current-post' if post.id == id %>">
       <%= link_to post.subject, post %> by <%= post.author %> at <%= post.created_at %> 
       <span class="post-modifications">
         <%= "[LOCKED] " if post.locked %>
         <%= "[POOFED] " if post.poofed %>
         <%= "[EDITED] " if post.previous_version %>
       </span>
-      <% if bodies %>
-        <br />
-        <%= raw(markdown(post.body)) %>
+      </span>
+      <% if bodies && !(!subthread && post.id == id) %>
+        <% unless post.next_version %>
+          <%= link_to 'Reply', new_post_path(:parent_id => @post) %> |
+          <%= link_to 'Edit', edit_post_path(@post) %>
+        <% end %>
+      <br />
+      <%= raw(markdown(post.body)) %>
       <% end %>
     </div>
     <div class="subthread">
