@@ -1,0 +1,14 @@
+<div class="row-fluid">
+    <%= simple_form_for @post, :html => { :class => 'form-vertical' } do |f| %>
+    <%= f.error_notification %>
+    <%= f.error :base, :class => 'error' %>
+    <%= f.input:parent_id, :as => :hidden %>
+    <%= f.input :subject  %>
+    <%= f.input :author %>
+    <%= f.input :body, :hint => "Written in #{link_to 'Markdown', 'http://daringfireball.net/projects/markdown/basics/'}", :rows => 15, :cols => 100 %>
+    <%= f.input :locked, :label => 'Locked thread?' %>
+    <%= f.input :poofed, :label => 'Poofed thread?' %>
+    <%= f.input :sort_timestamp %>
+    <%= f.button :submit, :class => 'btn-primary' %>
+    <% end %>
+</div>
