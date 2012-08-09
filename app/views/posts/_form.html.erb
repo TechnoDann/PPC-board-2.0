@@ -1,5 +1,7 @@
 <div class="row-fluid">
     <%= simple_form_for @post, :html => { :class => 'form-vertical' } do |f| %>
+    <%= f.error_notification %>
+    <%= f.error :base, :class => 'error' %>
     <%= f.input:parent_id, :as => :hidden %>
     <%= f.input :subject  %>
     <%= f.input :author %>

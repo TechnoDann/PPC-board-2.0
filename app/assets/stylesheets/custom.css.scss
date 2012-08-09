@@ -5,6 +5,6 @@ textarea {
     width: auto;
 }
 
-div .center {
-    @include center-block;
+.error span {
+    color: red;
 }
