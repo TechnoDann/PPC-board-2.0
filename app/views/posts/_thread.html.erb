@@ -10,12 +10,7 @@
     <% end %>
     <div class="post">
       <span class="<%= 'current-post' if post.id == id %>">
-      <%= link_to post.subject, post %> by <%= post.author %> at <%= post.created_at %> 
-      <span class="post-modifications">
-        <%= "[LOCKED] " if post.locked %>
-        <%= "[POOFED] " if post.poofed %>
-        <%= "[EDITED] " if post.previous_version %>
-      </span>
+        <%= render :partial => 'post_subject', :object => post %>
       </span>
       <% if bodies && !(!subthread && post.id == id) %>
         <% unless post.next_version %>

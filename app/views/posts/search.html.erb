@@ -1,0 +1,10 @@
+<% title("Search results for #{@query}") %>
+<h1><%= yield(:title) %></h1>
+
+<% @posts.each do |post| %>
+<div class="search-result post">
+<%= render :partial => 'post_subject', :object => post %>
+<br />
+<%= raw(markdown(post.excerpts.body)) %>
+</div>
+<% end %>

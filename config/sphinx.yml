@@ -1,0 +1,6 @@
+development:
+  morphology: stem_en
+testing:
+  morphology: stem_en
+production:
+  morphology: stem_en

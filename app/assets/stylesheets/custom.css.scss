@@ -5,6 +5,14 @@ textarea {
     width: auto;
 }
 
-.error span {
+span.error-message {
     color: red;
+}
+
+.post h1 {
+    font-size: 18px;
+}
+
+.post h2, h3 {
+    font-size: 16px;
 }

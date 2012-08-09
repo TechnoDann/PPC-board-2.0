@@ -1,0 +1,8 @@
+<% post = post_subject %>
+<%= link_to post.subject, post %> by <%= post.author %> at <%= post.created_at %> 
+<span class="post-modifications">
+  <%= "[LOCKED] " if post.locked %>
+  <%= "[POOFED] " if post.poofed %>
+  <%= "[EDITED] " if post.previous_version %>
+  <%= "[PREVIOUS VERSION] " if post.next_version %>
+</span>

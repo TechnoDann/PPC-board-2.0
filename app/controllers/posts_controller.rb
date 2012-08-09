@@ -1,4 +1,15 @@
 class PostsController < ApplicationController
+  # GET /posts/search
+  # GET /posts/search.json
+  def search
+    @query = params[:query]
+    @posts = Post.search @query, :match_mode => :extended
+    respond_to do |format|
+      format.html
+      format.json { render json: @posts }
+      end
+  end
+
   # GET /posts
   # GET /posts.json
   def index
