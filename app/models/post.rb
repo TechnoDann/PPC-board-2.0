@@ -1,11 +1,12 @@
 class Post < ActiveRecord::Base
   has_ancestry
-  attr_accessible :body, :subject, :author, :parent_id
-  attr_accessible :author, :body, :subject, :locked, :poofed, :sort_timestamp, :parent_id , :as => :moderator
+  attr_accessible :body, :subject, :author, :parent_id, :tags
+  attr_accessible :author, :body, :subject, :locked, :poofed, :sort_timestamp, :tags, :as => :moderator
   before_create :set_sort_timestamp
 
   belongs_to :previous_version, :class_name => 'Post', :foreign_key => 'previous_version_id'
   belongs_to :next_version, :class_name => 'Post', :foreign_key => 'next_version_id' 
+  has_and_belongs_to_many :tags
 
   validate :no_memory_hole
   validate :no_locked_reply, :on => :create
@@ -17,7 +18,7 @@ class Post < ActiveRecord::Base
     indexes body
     indexes author
     indexes subject
-    
+    indexes tags.name, :as => :tags
     has sort_timestamp
   end
 

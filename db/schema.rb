@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120808215504) do
+ActiveRecord::Schema.define(:version => 20120809212240) do
 
   create_table "posts", :force => true do |t|
     t.boolean  "locked"
@@ -30,5 +30,14 @@ ActiveRecord::Schema.define(:version => 20120808215504) do
   end
 
   add_index "posts", ["ancestry"], :name => "index_posts_on_ancestry"
+
+  create_table "posts_tags", :id => false, :force => true do |t|
+    t.integer "tag_id"
+    t.integer "post_id"
+  end
+
+  create_table "tags", :force => true do |t|
+    t.string "name"
+  end
 
 end
