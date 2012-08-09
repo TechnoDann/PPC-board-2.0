@@ -1,7 +1,11 @@
 <div class="row-fluid">
-    <%= simple_form_for @post, :html => { :class => 'form-vertical' } do |f| %>
+    <%= simple_form_for @post, :html => { :class => 'form-horizontal' } do |f| %>
     <%= f.error_notification %>
-    <%= f.error :base, :class => 'error-message' %>
+    <% if @post.errors[:base] %>
+    <div class="alert alert-error">
+      <%= f.error :base %>
+    </div>
+    <% end %>
     <%= f.input:parent_id, :as => :hidden %>
     <%= f.input :subject  %>
     <%= f.input :author %>
