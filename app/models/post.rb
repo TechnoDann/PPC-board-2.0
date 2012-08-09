@@ -11,6 +11,7 @@ class Post < ActiveRecord::Base
   validate :no_locked_reply, :on => :create
   validates :subject, :author, :presence => true
 
+  self.per_page = 30
   def clone_before_edit
     clone = Post.new
     attrs = self.attributes
