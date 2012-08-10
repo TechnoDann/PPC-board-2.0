@@ -1,10 +1,12 @@
-<% title("Search results for \"#{@query}\"") %>
+<% title(@tag_id ? "All posts tagged \"#{Tag.find_by_id(@tag_id).name}\"" : "Search results for \"#{@query}\"") %>
 <h1><%= yield(:title) %></h1>
-
+<%= link_to 'Back to Messages', posts_path %> <br />
 <% @posts.each do |post| %>
 <div class="search-result post">
 <%= render :partial => 'post_subject', :object => post %>
+<% unless @tag_id %>
 <br />
 <%= raw(markdown(post.excerpts.body)) %>
+<% end %>
 </div>
 <% end %>

@@ -7,6 +7,7 @@ PPCBoard20::Application.routes.draw do
     end
   end
   
+  match 'posts/tagged/:tag_id' => 'Posts#search', :as => :tagged
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
