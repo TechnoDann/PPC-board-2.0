@@ -9,10 +9,19 @@ Before you start, have some <b>important</b> links. Read them first!<ul>
 </ul>
 <%= will_paginate @posts %>
 <ul class="nav nav-pills">
-<li class="<%= 'active' if !(cookies[:posts_by_tag] == true) %>">
-<%= link_to 'Sort by date', posts_path(:sort_by_tag => 0) %> </li>
-<li class="<%= 'active' if cookies[:posts_by_tag] == true %>">
-<%= link_to 'Sort by tags', posts_path(:sort_by_tag => 1) %> </li>
+  <li class="<%= 'active' if !(cookies[:posts_by_tag] == true) %>">
+    <%= link_to 'Sort by date', posts_path(:sort_by_tag => 0) %> </li>
+  <li class="<%= 'active' if cookies[:posts_by_tag] == true %>">
+    <%= link_to 'Sort by tags', posts_path(:sort_by_tag => 1) %> </li>
+  <li class="dropdown">
+    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+      All posts tagged ... (Subforum) <b class="caret"></b></a>
+    <ul class="dropdown-menu">
+      <% Tag.all.each do |tag| %>
+        <%= link_to tag.name, tagged_url(:tag_id => tag.id) %>
+      <% end %>
+    </ul>
+  </li>
 </ul>
 <%= link_to 'New Post', new_post_path, :class => "btn btn-success" %>
 <% @tagged_posts.each do |tag, posts| %>
