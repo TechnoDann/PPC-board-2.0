@@ -34,4 +34,7 @@ PPCBoard20::Application.configure do
 
   # Expands the lines which load the assets
   config.assets.debug = true
+
+  # Mailer host
+  config.action_mailer.default_url_options = { :host => '71.252.172.135:3000' }
 end

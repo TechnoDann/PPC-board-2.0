@@ -1,4 +1,5 @@
 class PostsController < ApplicationController
+  
   # GET /posts/search
   # GET /posts/search.json
   def search

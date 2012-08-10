@@ -30,7 +30,8 @@
     </div>
   </div>
 </div>
-
+<%= render :partial => 'layouts/information', :locals => { :flash => flash } %>
+<% flash[:info] = [] %>
 <div id="main" role="main">
   <div class="container-fluid">
     <%= yield %>

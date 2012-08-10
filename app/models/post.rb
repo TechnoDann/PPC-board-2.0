@@ -2,22 +2,24 @@ class Post < ActiveRecord::Base
   has_ancestry
   attr_accessible :body, :subject, :author, :parent_id, :tag_ids
   attr_accessible :author, :body, :subject, :locked, :poofed, :sort_timestamp, :parent_id, :tag_ids, :as => :moderator
-  attr_readonly :parent_id
+  attr_readonly :parent_id, :user_id
   before_create :set_sort_timestamp
 
   belongs_to :previous_version, :class_name => 'Post', :foreign_key => 'previous_version_id'
   belongs_to :next_version, :class_name => 'Post', :foreign_key => 'next_version_id' 
   has_and_belongs_to_many :tags
+  belongs_to :user
 
   validate :no_memory_hole
   validate :no_locked_reply, :on => :create
-  validates :subject, :author, :presence => true
+  validates :subject, :author, :user_id, :presence => true
 
   self.per_page = 30
 
   define_index do
     indexes body
     indexes author
+    indexes user.name, :as => :real_author
     indexes subject
     indexes tags.name, :as => :tags
     has sort_timestamp
@@ -46,6 +48,10 @@ class Post < ActiveRecord::Base
 
   def new_reply?
     (Time.now - self.created_at < 48.hours) && (Time.now - self.root.created_at > 24.hours) && !self.is_root?
+  end
+
+  def reSorted?
+    (self.sort_timestamp - self.created_at).abs > 60
   end
 
   private

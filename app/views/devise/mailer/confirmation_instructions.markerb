@@ -1,0 +1,5 @@
+Welcome to the PPC, <%= @resource.name %>! If you haven't read [the Constitution](https://docs.google.com/document/pub?id=18hztHpDehxcfrjaXoFUew1vb0BdZPDAusHxMHzHiCzM) yet, please do so. It's important.
+
+You **must** confirm your account through the link below:
+
+<%= link_to 'Confirm my account', confirmation_url(@resource, :confirmation_token => @resource.confirmation_token) %>

@@ -1,3 +1,4 @@
+<div class="container">
 <div class="row-fluid">
   <% flash ||= {} %>
   <% flash.each do |type, msg| %>
@@ -7,8 +8,10 @@
        if type == :alert 
          type = :error
        end %>
+    <% msg = [msg] unless msg.kind_of?(Array) %>
     <% msg.each do |text| %>
       <div class="alert alert-<%= type %>"> <%=raw text %> </div>
     <% end %>
   <% end %>
+</div>
 </div>

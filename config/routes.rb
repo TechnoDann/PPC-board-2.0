@@ -1,4 +1,8 @@
 PPCBoard20::Application.routes.draw do
+  devise_for :users
+
+  resources :users
+
   root :to => 'posts#index'
   
   resources :posts do
@@ -7,7 +11,7 @@ PPCBoard20::Application.routes.draw do
     end
   end
   
-  match 'posts/tagged/:tag_id' => 'Posts#search', :as => :tagged
+  match 'posts/tagged/:tag_id' => 'posts#search', :as => :tagged
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
