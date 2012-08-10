@@ -10,7 +10,7 @@
     <%= f.input :subject  %>
     <%= f.input :author %>
     <%= f.input :body, :hint => "Written in #{link_to 'Markdown', 'http://daringfireball.net/projects/markdown/basics/'} <br/ > Enabled extensions: ~~text~~ creates strikethroughs, ^ creates superscripts, bare links are linked automatically.", :rows => 15, :cols => 100 %>
-    <%= f.association :tags, :as => :select, :hint => 'You can select multiple tags.' %>
+    <%= f.association :tags, :as => :check_boxes %>
     <%= f.input :locked, :label => 'Locked thread?' %>
     <%= f.input :poofed, :label => 'Poofed thread?' %>
     <%= f.input :sort_timestamp %>

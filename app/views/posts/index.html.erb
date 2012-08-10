@@ -1,9 +1,14 @@
 <h1>PPC Posting Board</h1>
 <%= will_paginate @posts %>
 <%= link_to 'New Post', new_post_path, :class => "btn btn-success" %>
-<% @posts.each do |post| %>
-<%= render :partial => 'thread', :locals => { :bodies => false, :id => false },
-    :object => post.subtree.arrange(:order => "sort_timestamp DESC" ) %>
+<% @tagged_posts.each do |tag, posts| %>
+  <% unless tag == false %>
+    <h2><%= tag %></h2>
+  <% end %>
+  <% posts.each do |post| %>
+    <%= render :partial => 'thread', :locals => { :bodies => false, :id => false },
+      :object => post.subtree.arrange(:order => "sort_timestamp DESC" ) %>
+  <% end %>
 <% end %>
 <br />
 <%= link_to 'New Post', new_post_path, :class => "btn btn-success" %>
