@@ -43,6 +43,10 @@ class Post < ActiveRecord::Base
     self.save
   end
 
+  def new_reply?
+    (Time.now - self.created_at < 48.hours) && (Time.now - self.root.created_at > 24.hours) && !self.is_root?
+  end
+
   private
   def no_memory_hole
     self.next_version
