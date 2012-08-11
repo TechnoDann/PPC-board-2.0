@@ -20,7 +20,7 @@
   <tbody>
     <% @bans.each do |ban| %>
     <tr>
-      <td><%= ban.user.name %></td>
+      <td><%= ban.user && ban.user.name %></td>
       <td><%= ban.ip %></td>
       <td><%= ban.email %></td>
       <td><%= ban.length %></td>
