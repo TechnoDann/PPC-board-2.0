@@ -15,7 +15,14 @@ class User < ActiveRecord::Base
   has_many :posts
   has_one :ban
 
+  validates :name, :presence => true
+  validates :name, :uniqueness => true
   validate :check_email_ban
+
+  def email_changed?
+    false
+  end
+
   private
   def de_guest
     self.guest_user = false
