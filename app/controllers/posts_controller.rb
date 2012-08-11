@@ -1,6 +1,8 @@
 class PostsController < ApplicationController
   before_filter :clear_return_url
   before_filter :authenticate_user_board!, :only => [:new, :create, :update, :edit]  
+
+  helper_method :allowed_to_edit?
   # GET /posts/search
   # GET /posts/search.json
   def search
@@ -75,8 +77,8 @@ class PostsController < ApplicationController
   # GET /posts/1/edit
   def edit
     @post = Post.find(params[:id])
-    if (@post.user != current_user) || current_user.moderator?
-      format.html { redirect_to posts_url, :flash => { :error => "You can't edit other people's posts." } }
+    if !allowed_to_edit? @post, current_user
+      redirect_to posts_url, :flash => { :error => "You can\'t edit other people\'s posts." } 
     end
   end
 
@@ -101,6 +103,10 @@ class PostsController < ApplicationController
   # PUT /posts/1.json
   def update
     @post = Post.find(params[:id])
+    if !allowed_to_edit @post, current_user
+      redirect_to posts_url, :flash => { :error => "You can\'t edit other people\'s posts. Also, why are you bypassing access controls?" }
+      logger.error("#{current_user.name} (#{current_user.id}) is trying to PUT #{@post.author}'s post (#{post.id}). CRACKER!")
+    end
     @clone = @post.clone_before_edit
     @post.user = current_user
     respond_to do |format|
@@ -124,5 +130,13 @@ class PostsController < ApplicationController
   def authenticate_user_board!
     session[:user_return_to] = request.fullpath
     authenticate_user!
+  end
+
+  def allowed_to_edit?(post, user)
+    status = post.user == user || user.moderator?
+    if !status && post.previous_version_id
+      status = clear_to_edit? post.previous_version
+    end
+    status
   end
 end
