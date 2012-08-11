@@ -7,7 +7,6 @@
       <%= link_to 'Edit', edit_post_path(@post), :class => 'btn' %> 
     <% end %>
   <% end %>
-  <%= link_to 'Back to messages', posts_path, :class => 'btn' %>
 </div>
 <div class="rest-of-thread"> <br />
 <%= render :partial => 'thread', :locals => { :bodies => true, :id => @post.id },

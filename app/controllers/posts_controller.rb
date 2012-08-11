@@ -103,7 +103,7 @@ class PostsController < ApplicationController
   # PUT /posts/1.json
   def update
     @post = Post.find(params[:id])
-    if !allowed_to_edit @post, current_user
+    if !allowed_to_edit? @post, current_user
       redirect_to posts_url, :flash => { :error => "You can\'t edit other people\'s posts. Also, why are you bypassing access controls?" }
       logger.error("#{current_user.name} (#{current_user.id}) is trying to PUT #{@post.author}'s post (#{post.id}). CRACKER!")
     end
@@ -123,6 +123,7 @@ class PostsController < ApplicationController
   end
 
   def allowed_to_edit?(post, user)
+    return false if !user
     status = post.user == user || user.moderator?
     if !status && (post.previous_version_id != nil)
       status = allowed_to_edit? post.previous_version, user

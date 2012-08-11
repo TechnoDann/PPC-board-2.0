@@ -3,7 +3,18 @@
 
 <%= render 'form' %>
 <% if @post.parent %>
-<h2> Post being replied to:</h2>
-<%= render :partial => 'post', :object => @post.parent, :locals => { :hide_status_info => true } %>
+<div class="accordion" id="parent-post">
+  <div class="accordion-group">
+    <div class="accordion-heading">
+      <a class="accordion-toggle" data-toggle="collapse" data-parent="#parent-post" href="#parent-post-content">
+        Post being replied to
+      </a>
+    </div>
+    <div id="parent-post-content" class="accordion-body collapse" >
+      <div class="accordion-inner">
+        <%= render :partial => 'post', :object => @post.parent, :locals => { :hide_status_info => true } %>
+      </div>
+    </div>
+  </div>
+</div>
 <% end %>
-<%= link_to 'Back to messages', posts_path %>
