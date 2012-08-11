@@ -11,7 +11,20 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120811142914) do
+ActiveRecord::Schema.define(:version => 20120811181007) do
+
+  create_table "bans", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "ip"
+    t.string   "email"
+    t.integer  "length",                    :default => 60, :null => false
+    t.string   "reason",     :limit => 500,                 :null => false
+    t.datetime "created_at",                                :null => false
+    t.datetime "updated_at",                                :null => false
+  end
+
+  add_index "bans", ["email"], :name => "index_bans_on_email"
+  add_index "bans", ["ip"], :name => "index_bans_on_ip"
 
   create_table "posts", :force => true do |t|
     t.boolean  "locked"

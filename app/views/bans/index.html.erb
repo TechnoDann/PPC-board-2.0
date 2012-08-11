@@ -1,0 +1,27 @@
+<h1>Listing bans</h1>
+
+<table>
+  <tr>
+    <th>User</th>
+    <th>Ip</th>
+    <th>Email</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @bans.each do |ban| %>
+  <tr>
+    <td><%= ban.user_id %></td>
+    <td><%= ban.ip %></td>
+    <td><%= ban.email %></td>
+    <td><%= link_to 'Show', ban %></td>
+    <td><%= link_to 'Edit', edit_ban_path(ban) %></td>
+    <td><%= link_to 'Destroy', ban, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Ban', new_ban_path %>

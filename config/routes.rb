@@ -1,4 +1,6 @@
 PPCBoard20::Application.routes.draw do
+  resources :bans
+
   root :to => 'posts#index'
   match 'users' => 'posts#index', :via => :delete
   devise_for :users

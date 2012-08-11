@@ -12,6 +12,9 @@ class User < ActiveRecord::Base
                   :name
   before_create :de_guest
 
+  has_many :posts
+  has_one :ban
+
   private
   def de_guest
     self.guest_user = false

@@ -26,7 +26,7 @@ class PostsController < ApplicationController
       cookies[:posts_by_tag] = { :value => (params[:sort_by_tag] == "1"),
         :expires => 20.years.from_now }
     end
-    @posts = Post.where(:ancestry => nil, :next_version_id => nil)
+    @posts = Post.includes(:user, :tags).where(:ancestry => nil, :next_version_id => nil)
       .paginate(:page => params[:page]).order("sort_timestamp DESC")
     
     @tagged_posts = Hash.new do |hash, key|
