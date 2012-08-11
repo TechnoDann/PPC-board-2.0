@@ -1,15 +1,4 @@
-<p id="notice"><%= notice %></p>
-
-<p>
-  <b>Name:</b>
-  <%= @user.name %>
-</p>
-
-<p>
-  <b>Email:</b>
-  <%= @user.email %>
-</p>
-
-
-<%= link_to 'Edit', edit_user_path(@user) %> |
-<%= link_to 'Back', users_path %>
+<% title(@user.name) %>
+<h1><%= @user.name %></h1>
+<a href="mailto:<%= @user.email %>">Email <%= @user.name %></a>
+<br /><br /><%= link_to 'Back to Messages', posts_path %>

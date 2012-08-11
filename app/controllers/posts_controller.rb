@@ -1,5 +1,6 @@
 class PostsController < ApplicationController
-  
+  before_filter :clear_return_url
+  before_filter :authenticate_user_board!, :only => [:new, :create, :update, :edit]  
   # GET /posts/search
   # GET /posts/search.json
   def search
@@ -63,7 +64,7 @@ class PostsController < ApplicationController
   # GET /posts/new
   # GET /posts/new.json
   def new
-    @post = Post.new(:parent_id => params[:parent_id])
+    @post = Post.new(:parent_id => params[:parent_id], :author => current_user.name)
 
     respond_to do |format|
       format.html # new.html.erb
@@ -74,12 +75,16 @@ class PostsController < ApplicationController
   # GET /posts/1/edit
   def edit
     @post = Post.find(params[:id])
+    if (@post.user != current_user) || current_user.moderator?
+      format.html { redirect_to posts_url, :flash => { :error => "You can't edit other people's posts." } }
+    end
   end
 
   # POST /posts
   # POST /posts.json
   def create
-    @post = Post.new(params[:post], :as => :moderator)
+    @post = Post.new(params[:post], :as => (current_user.moderator? ? :moderator : :default))
+    @post.user = current_user
     respond_to do |format|
       if @post.save
         format.html { flash[:success] = ['Post was successfully created.']
@@ -97,8 +102,9 @@ class PostsController < ApplicationController
   def update
     @post = Post.find(params[:id])
     @clone = @post.clone_before_edit
+    @post.user = current_user
     respond_to do |format|
-      if @post.update_attributes(params[:post], :as => :moderator)
+      if @post.update_attributes(params[:post], :as => (current_user.moderator? ? :moderator : :default))
         @post.close_edit_cycle @clone
         format.html { flash[:success] = ['Post was successfully updated.']
           redirect_to @post }
@@ -110,12 +116,13 @@ class PostsController < ApplicationController
     end
   end
 
-  # DELETE /posts/1
-  # DELETE /posts/1.json
-  def destroy
-    respond_to do |format|
-      format.html { redirect_to posts_url, :flash => { :error => "Posts can't be deleted." } }
-      format.json { head :no_content }
-    end
+  private
+  def clear_return_url
+    session[:user_return_to] = nil
+  end
+
+  def authenticate_user_board!
+    session[:user_return_to] = request.fullpath
+    authenticate_user!
   end
 end

@@ -7,4 +7,5 @@ class ApplicationController < ActionController::Base
     flash[type] ||= []
     flash[type] << text
   end
+
 end

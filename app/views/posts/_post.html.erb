@@ -37,7 +37,13 @@
   <% end %>
   <% end %>
   <b>Subject:</b> <%= post.subject %> <br />
-  <b>Author:</b> <%= post.author %> <br />
+  <b>Author:</b> 
+  <% if post.author == post.user.name %>
+    <%= link_to post.author, post.user %>
+  <% else %>
+    <%= post.author %> (posted by <%= link_to post.user.name, post.user %>)
+  <% end %>
+  <br />
   <b>Posted at:</b> <%= post.created_at %><br />
   <br />
   <div class="post-body">

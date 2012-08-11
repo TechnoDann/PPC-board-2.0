@@ -1,11 +1,10 @@
 PPCBoard20::Application.routes.draw do
-  devise_for :users
-
-  resources :users
-
   root :to => 'posts#index'
-  
-  resources :posts do
+  match 'users' => 'posts#index', :via => :delete
+  devise_for :users
+  resources :users, :only => [:show]
+
+  resources :posts, :except => [:delete, :destroy] do
     collection do
       get 'search'
     end
