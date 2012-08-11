@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120810161317) do
+ActiveRecord::Schema.define(:version => 20120811142914) do
 
   create_table "posts", :force => true do |t|
     t.boolean  "locked"
@@ -49,7 +49,6 @@ ActiveRecord::Schema.define(:version => 20120810161317) do
     t.datetime "updated_at",                                :null => false
     t.boolean  "guest_user",             :default => true
     t.string   "encrypted_password",     :default => "",    :null => false
-    t.string   "identity_url",           :default => "",    :null => false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
@@ -61,7 +60,6 @@ ActiveRecord::Schema.define(:version => 20120810161317) do
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
-  add_index "users", ["identity_url"], :name => "index_users_on_identity_url", :unique => true
   add_index "users", ["name"], :name => "index_users_on_name", :unique => true
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
 

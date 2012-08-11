@@ -14,9 +14,9 @@
       </span>
       <% if bodies && !(!subthread && post.id == id) %>
         <% unless post.next_version %>
-          <%= link_to 'Reply', new_post_path(:parent_id => @post) %>
-          <% if allowed_to_edit? @post, current_user %>
-             | <%= link_to 'Edit', edit_post_path(@post) %>
+          <%= link_to 'Reply', new_post_path(:parent_id => ppost) %>
+          <% if allowed_to_edit? ppost, current_user %>
+             | <%= link_to 'Edit', edit_post_path(ppost) %>
           <% end %>
         <% end %>
         <br />

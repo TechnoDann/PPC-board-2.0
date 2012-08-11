@@ -122,6 +122,14 @@ class PostsController < ApplicationController
     end
   end
 
+  def allowed_to_edit?(post, user)
+    status = post.user == user || user.moderator?
+    if !status && (post.previous_version_id != nil)
+      status = allowed_to_edit? post.previous_version, user
+    end
+    status
+  end
+
   private
   def clear_return_url
     session[:user_return_to] = nil
@@ -130,13 +138,5 @@ class PostsController < ApplicationController
   def authenticate_user_board!
     session[:user_return_to] = request.fullpath
     authenticate_user!
-  end
-
-  def allowed_to_edit?(post, user)
-    status = post.user == user || user.moderator?
-    if !status && post.previous_version_id
-      status = clear_to_edit? post.previous_version
-    end
-    status
   end
 end
