@@ -1,5 +1,6 @@
 class BansController < ApplicationController
-  before_filter :autnenticate_user!, :except => [ :show ]
+  skip_before_filter :ip_ban, :only => [ :show ]
+  before_filter :authenticate_user!, :check_ban, :except => [ :show ]
   before_filter :must_be_moderator!, :except => [ :show, :index ]
 
   # GET /bans
@@ -19,7 +20,7 @@ class BansController < ApplicationController
     @ban = Ban.find(params[:id])
 
     respond_to do |format|
-      format.html # show.html.erb
+      format.html { render :show, :status => :forbidden } # show.html.erb
       format.json { render json: @ban }
     end
   end
@@ -47,8 +48,8 @@ class BansController < ApplicationController
 
     respond_to do |format|
       if @ban.save
-        format.html { redirect_to @ban, notice: 'Ban was successfully created.' }
-        format.json { render json: @ban, status: :created, location: @ban }
+        format.html { redirect_to root_path, notice: 'Ban was successfully created.' }
+        format.json { head :no_content }
       else
         format.html { render action: "new" }
         format.json { render json: @ban.errors, status: :unprocessable_entity }
@@ -63,7 +64,7 @@ class BansController < ApplicationController
 
     respond_to do |format|
       if @ban.update_attributes(params[:ban])
-        format.html { redirect_to @ban, notice: 'Ban was successfully updated.' }
+        format.html { redirect_to root_path, notice: 'Ban was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -85,7 +86,7 @@ class BansController < ApplicationController
   end
 
   private
-  def must_be_moderator
+  def must_be_moderator!
     unless user_signed_in? && current_user.moderator?
       redirect_to root_path, :flash => { :error => "You must be a moderator to operate the ban subsystem." },
           :status => :forbidden 

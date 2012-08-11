@@ -1,6 +1,8 @@
-<h1>Editing ban</h1>
+<% title("Editing ban") %>
+<h1><%= yield :title %></h1>
+
+<%= link_to 'Never Mind', bans_path, :class => 'btn btn-success' %>
 
 <%= render 'form' %>
 
-<%= link_to 'Show', @ban %> |
-<%= link_to 'Back', bans_path %>
+<%= link_to 'Never Mind', bans_path, :class => 'btn btn-success' %>

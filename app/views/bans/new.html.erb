@@ -1,5 +1,16 @@
-<h1>New ban</h1>
+<% title("New ban") %>
+<h1><%= yield :title %></h1>
+<p class="lead">Are you <b>sure</b> about this? Are <emph>we</emph>
+  sure about this? Has this been discussed? You're just about to 
+  <span style="font-size: 200%; font-weight: bolder">
+    KICK SOMEONE OUT OF THE PPC!!!!!</span> 
+  Why are resorting to this? What's happened? Even if the ban is
+  temporary, is whatever has happened <emph>really</emph> that bad? Be
+  careful with this feature. It's powerful.
+</p>
+
+<%= link_to 'Never Mind', bans_path, :class => 'btn btn-success' %>
 
 <%= render 'form' %>
 
-<%= link_to 'Back', bans_path %>
+<%= link_to 'Never Mind', bans_path, :class => 'btn btn-success' %>

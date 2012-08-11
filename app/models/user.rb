@@ -15,10 +15,16 @@ class User < ActiveRecord::Base
   has_many :posts
   has_one :ban
 
+  validate :check_email_ban
   private
   def de_guest
     self.guest_user = false
     true
   end
-
+  
+  def check_email_ban
+    if Ban.find_ban(:email => self.email)
+      error[:email] << "is banned."
+    end
+  end
 end
