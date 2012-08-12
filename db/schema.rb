@@ -50,6 +50,11 @@ ActiveRecord::Schema.define(:version => 20120812220416) do
     t.integer "post_id"
   end
 
+  create_table "posts_users", :id => false, :force => true do |t|
+    t.integer "post_id"
+    t.integer "user_id"
+  end
+
   create_table "tags", :force => true do |t|
     t.string "name"
   end
@@ -74,10 +79,5 @@ ActiveRecord::Schema.define(:version => 20120812220416) do
 
   add_index "users", ["name"], :name => "index_users_on_name", :unique => true
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
-
-  create_table "watched_posts_watchers", :id => false, :force => true do |t|
-    t.integer "watched_post_id"
-    t.integer "watcher_id"
-  end
 
 end

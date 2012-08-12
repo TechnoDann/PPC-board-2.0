@@ -13,6 +13,8 @@ PPCBoard20::Application.routes.draw do
   end
   
   match 'posts/tagged/:tag_id' => 'posts#search', :as => :tagged
+  match 'posts/:post_id/watch' => 'watches#create', :via => :post
+  match 'posts/:post_id/watch' => 'watches#destroy', :via => :delete
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

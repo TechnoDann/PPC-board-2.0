@@ -6,6 +6,13 @@
     <% if allowed_to_edit? @post, current_user %>
       <%= link_to 'Edit', edit_post_path(@post), :class => 'btn' %> 
     <% end %>
+    <% if user_signed_in? %>
+      <% if current_user.watched_posts.exists?(@post.id) %>
+        <%= link_to 'Unwatch this thread', "/posts/#{@post.id}/watch", :method => :delete, :class => 'btn' %>
+      <% else %>
+        <%= link_to 'Watch this thread', "/posts/#{@post.id}/watch", :method => :post, :class => 'btn' %>
+      <% end %>
+    <% end %>
   <% end %>
 </div>
 <div class="rest-of-thread"> <br />

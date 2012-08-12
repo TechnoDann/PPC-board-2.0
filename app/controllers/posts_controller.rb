@@ -89,6 +89,11 @@ class PostsController < ApplicationController
     @post.user = current_user
     respond_to do |format|
       if @post.save
+        unless @post.ancestors.all.any? do |post|
+            post.watchers.exists?(current_user.id)
+          end
+          @post.watchers = [current_user]
+        end
         format.html { flash[:success] = ['Post was successfully created.']
           redirect_to @post }
         format.json { render json: @post, status: :created, location: @post }
