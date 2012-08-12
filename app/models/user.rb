@@ -31,7 +31,7 @@ class User < ActiveRecord::Base
   
   def check_email_ban
     if Ban.find_ban(:email => self.email)
-      error[:email] << "is banned."
+      errors[:email] << "is banned."
     end
   end
 end

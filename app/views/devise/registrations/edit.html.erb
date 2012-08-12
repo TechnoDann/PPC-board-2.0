@@ -5,9 +5,9 @@
   <%= f.error_notification %>
 
   <div class="form-inputs">
-    <%= f.input :name, :required => true %>    
-    <%= f.input :email, :required => true, :autofocus => true %>
-    <%= f.input :password, :autocomplete => "off", :hint => "Leave these fields blank if you don't want to change your password.", :required => false', :label => "New password" %>
+    <%= f.input :name, :required => true, :autofocus => true %>    
+    <%= f.input :email, :required => true %>
+    <%= f.input :password, :autocomplete => "off", :hint => "Leave these fields blank if you don't want to change your password.", :required => false, :label => "New password" %>
     <%= f.input :password_confirmation, :required => false, :label => "Confinm new password" %>
     <%= f.input :current_password, :hint => "Your current password is required to confirm your identity.", :required => true %>
   </div>
