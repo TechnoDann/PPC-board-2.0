@@ -44,7 +44,7 @@ gem 'foreigner', '~> 1.2.0'
 # Authentication
 gem 'devise', '~> 2.1.2'
 # Temporary fix until the dependency version is bumped upstream
-gem 'devise_openid_authenticatable', :git => 'git://github.com/msaffitz/devise_openid_authenticatable.git'
+# gem 'devise_openid_authenticatable', :git => 'git://github.com/msaffitz/devise_openid_authenticatable.git'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'

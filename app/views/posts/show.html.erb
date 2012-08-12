@@ -1,10 +1,13 @@
 <% title(@post.subject) %>
 <%= render @post %>
-<% unless @post.next_version %>
-  <%= link_to 'Reply', new_post_path(:parent_id => @post) %> |
-  <%= link_to 'Edit', edit_post_path(@post) %> |
-<% end %>
-<%= link_to 'Back to Messages', posts_path %>
+<div class="btn-group">
+  <% unless @post.next_version %>
+    <%= link_to 'Reply', new_post_path(:parent_id => @post), :class => 'btn' %> 
+    <% if allowed_to_edit? @post, current_user %>
+      <%= link_to 'Edit', edit_post_path(@post), :class => 'btn' %> 
+    <% end %>
+  <% end %>
+</div>
 <div class="rest-of-thread"> <br />
 <%= render :partial => 'thread', :locals => { :bodies => true, :id => @post.id },
    :object => @post.root.subtree.arrange(:order => "sort_timestamp DESC" ) %>

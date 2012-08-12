@@ -5,17 +5,33 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, 
          :authentication_keys => [ :name ]
-#         :openid_authenticatable #Don't feel like dealing with this now
+#         :openid_authenticatable #Don't feel like dealing with this
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me, 
                   :name
   before_create :de_guest
 
+  has_many :posts
+  has_one :ban
+
+  validates :name, :presence => true
+  validates :name, :uniqueness => true
+  validate :check_email_ban
+
+  def email_changed?
+    false
+  end
+
   private
   def de_guest
     self.guest_user = false
     true
   end
-
+  
+  def check_email_ban
+    if Ban.find_ban(:email => self.email)
+      errors[:email] << "is banned."
+    end
+  end
 end

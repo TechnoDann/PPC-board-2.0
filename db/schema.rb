@@ -11,7 +11,20 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120810161317) do
+ActiveRecord::Schema.define(:version => 20120811230633) do
+
+  create_table "bans", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "ip"
+    t.string   "email"
+    t.integer  "length",                    :default => 60, :null => false
+    t.string   "reason",     :limit => 500,                 :null => false
+    t.datetime "created_at",                                :null => false
+    t.datetime "updated_at",                                :null => false
+  end
+
+  add_index "bans", ["email"], :name => "index_bans_on_email"
+  add_index "bans", ["ip"], :name => "index_bans_on_ip"
 
   create_table "posts", :force => true do |t|
     t.boolean  "locked"
@@ -49,7 +62,6 @@ ActiveRecord::Schema.define(:version => 20120810161317) do
     t.datetime "updated_at",                                :null => false
     t.boolean  "guest_user",             :default => true
     t.string   "encrypted_password",     :default => "",    :null => false
-    t.string   "identity_url",           :default => "",    :null => false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
@@ -60,8 +72,6 @@ ActiveRecord::Schema.define(:version => 20120810161317) do
     t.string   "last_sign_in_ip"
   end
 
-  add_index "users", ["email"], :name => "index_users_on_email", :unique => true
-  add_index "users", ["identity_url"], :name => "index_users_on_identity_url", :unique => true
   add_index "users", ["name"], :name => "index_users_on_name", :unique => true
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
 

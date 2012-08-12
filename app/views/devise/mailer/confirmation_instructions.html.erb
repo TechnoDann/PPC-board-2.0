@@ -1,0 +1,10 @@
+<p>
+Welcome to the PPC, <%= @resource.name %>! 
+If you haven't read 
+<a href="https://docs.google.com/document/pub?id=18hztHpDehxcfrjaXoFUew1vb0BdZPDAusHxMHzHiCzM"> the Constitution</a>
+yet, please do so. It's important.
+</p>
+
+<p>You <b>must</b> confirm your account through the link below:</p>
+
+<p><%= link_to 'Confirm my account', confirmation_url(@resource, :confirmation_token => @resource.confirmation_token) %></p>

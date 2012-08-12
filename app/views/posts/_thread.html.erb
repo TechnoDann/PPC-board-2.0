@@ -14,11 +14,15 @@
       </span>
       <% if bodies && !(!subthread && post.id == id) %>
         <% unless post.next_version %>
-          <%= link_to 'Reply', new_post_path(:parent_id => @post) %> |
-          <%= link_to 'Edit', edit_post_path(@post) %>
+          <%= link_to 'Reply', new_post_path(:parent_id => post) %>
+          <% if allowed_to_edit? post, current_user %>
+             | <%= link_to 'Edit', edit_post_path(post) %>
+          <% end %>
         <% end %>
-      <br />
-      <%= raw(markdown(post.body)) %>
+        <br />
+        <%= raw(markdown(post.body)) %>
+      <% elsif bodies && !subthread && post.id == id  %>
+        <br /><br />
       <% end %>
     </div>
     <div class="subthread">

@@ -1,4 +1,5 @@
-<h2>Forgot your password?</h2>
+<% title("Forgot your password?") %>
+<h2><%= yield :title %></h2>
 
 <%= simple_form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post, :class => 'form-horizontal'  }) do |f| %>
   <%= f.error_notification %>
@@ -9,7 +10,7 @@
   </div>
 
   <div class="form-actions">
-    <%= f.button :submit, "Send me reset password instructions" %>
+    <%= f.button :submit, "Send password reset instructions", :class => 'btn btn-primary' %>
   </div>
 <% end %>
 

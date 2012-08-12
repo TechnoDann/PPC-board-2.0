@@ -1,7 +1,18 @@
-<% title("Editing #{@post.subject}") %>
-<h1>Editing post</h1>
+<% title("Editing \"#{@post.subject}\"") %>
+<h1><%= yield :title %></h1>
 
 <%= render 'form' %>
-
-<%= link_to 'Show', @post %> |
-<%= link_to 'Back to Messages', posts_path %>
+<div class="accordion" id="current-post">
+  <div class="accordion-group">
+    <div class="accordion-heading">
+      <a class="accordion-toggle" data-toggle="collapse" data-parent="#current-post" href="#current-post-content">
+        Post being edited
+      </a>
+    </div>
+    <div id="current-post-content" class="accordion-body collapse is">
+      <div class="accordion-inner">
+        <%= render :partial => 'post', :object => @post, :locals => { :hide_status_info => true } %>
+      </div>
+    </div>
+  </div>
+</div>

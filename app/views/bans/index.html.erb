@@ -1,0 +1,53 @@
+<% title("List of bans") %>
+<h1><%= yield :title %></h1>
+
+<table class="table-striped">
+  <thead>
+    <tr>
+      <th>User</th>
+      <th>Ip</th>
+      <th>Email</th>
+      <th>Length (seconds)</th>
+      <th>Until</th>
+      <th>Time remaining</th>
+      <th>Reason</th>
+      <% if current_user.moderator? %>
+      <th></th>
+      <th></th>
+      <% end %>
+    </tr>
+  </thead>
+  <tbody>
+    <% @bans.each do |ban| %>
+    <tr>
+      <td><%= ban.user && ban.user.name %></td>
+      <td><%= ban.ip %></td>
+      <td><%= ban.email %></td>
+      <td><%= ban.length %></td>
+      <td>
+        <% if ban.length == 0 %>
+          Eternity
+        <% else %>
+          <%= ban.created_at + ban.length.seconds %>,
+        <% end %>
+      </td>
+      <td>
+        <% if ban.length == 0 %>
+          All time
+        <% else %>
+          <%= distance_of_time_in_words(Time.now, ban.created_at + ban.length.seconds) %>.
+        <% end %>
+      <td><%= ban.reason %></td>
+      <% if current_user.moderator? %>
+        <td><%= link_to 'Edit', edit_ban_path(ban) %></td>
+        <td><%= link_to 'Revert', ban, method: :delete %></td>
+      <% end %>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br />
+<% if current_user.moderator? %>
+<%= link_to 'New Ban', new_ban_path, :class => 'btn btn-danger' %>
+<% end %>
