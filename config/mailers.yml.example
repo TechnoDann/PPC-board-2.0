@@ -1,7 +1,7 @@
 development:
   address:              smtp.gmail.com
   port:                 587
-  domain:               ppc-board.invalid
+  domain:               gmail.com
   user_name:            something@gmail.com
   password:             PASSWORD
   authentication:       plain
