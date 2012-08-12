@@ -8,6 +8,7 @@ gem 'rails', '3.2.8'
 gem 'pg'
 gem 'ancestry'
 gem 'redcarpet'
+gem 'markerb'
 gem 'will_paginate', '~> 3.0.3'
 gem 'bootstrap-will_paginate'
 
