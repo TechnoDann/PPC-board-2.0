@@ -11,6 +11,7 @@ class User < ActiveRecord::Base
   attr_accessible :email, :password, :password_confirmation, :remember_me, 
                   :name
   before_create :de_guest
+  after_create :welcome_mail
 
   has_many :posts
   has_one :ban
@@ -28,7 +29,11 @@ class User < ActiveRecord::Base
     self.guest_user = false
     true
   end
-  
+
+  def welcome_mail
+    BoardMailer.welcome_email(self).deliver
+  end
+
   def check_email_ban
     if Ban.find_ban(:email => self.email)
       errors[:email] << "is banned."

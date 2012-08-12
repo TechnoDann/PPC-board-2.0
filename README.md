@@ -34,7 +34,8 @@ In addition to the gems listed in the Gemfile, the
 is required to enable full-text search.
 
 Please copy `config/database.yml.example` to `config/database.yml` and
-customize it to fit your local database setup.
+customize it to fit your local database setup. Please do the same for
+`config/mailers.yml.example`.
 
 Licensing
 ---------
