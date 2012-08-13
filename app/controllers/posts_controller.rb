@@ -9,9 +9,10 @@ class PostsController < ApplicationController
     @query = params[:query] || false 
     @tag_id = params[:tag_id] || false
     if @tag_id 
-      @posts = Post.search :conditions => { :tags => Tag.find_by_id(@tag_id).name }
+      @posts = Post.search :conditions => { :tags => Tag.find_by_id(@tag_id).name },
+        :page => params[:page]
     else
-      @posts = Post.search @query, :match_mode => :extended
+      @posts = Post.search @query, :match_mode => :extended, :page => params[:page]
     end
     respond_to do |format|
       format.html
