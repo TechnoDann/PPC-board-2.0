@@ -1,7 +1,13 @@
+$serifFontFamily: Georgia, "Times New Roman", Times, serif;
+$headingsFontFamily: $serifFontFamily;
 $textColor: black;
 @import "bootstrap";
 @import "bootstrap-responsive";
 
 textarea {
     width: 75%;
+}
+
+.brand {
+    @include font-family-serif();
 }

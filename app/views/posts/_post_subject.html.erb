@@ -1,7 +1,9 @@
 <% post = post_subject %>
-<% post.tags.each do |tag| %>
-<span class="label"><%= tag.name %></span>
-<% end %>
+<%= raw '<span class="label label-success">New</span>' if post.new_reply? %>
+<%= raw '<span class="label label-warning">Locked</span>' if post.locked %>
+<%= raw '<span class="label label-important">Poofed</span>' if post.poofed %>
+<%= raw '<span class="label label-info">Edited</span>' if post.previous_version %>
+<%= raw '<span class="label label-important">Previous Version</span>' if post.next_version %>
 <%= link_to post.subject, post %> by 
 <% if post.author == post.user.name %>
   <%= post.author %>
@@ -9,8 +11,6 @@
   <%= post.author %> (posted by <%= post.user.name %>)
 <% end %>
 <span style="font-size: 70%">at <%= post.created_at %></span> 
-<%= raw '<span class="label label-success">New</span>' if post.new_reply? %>
-<%= raw '<span class="label label-warning">Locked</span>' if post.locked %>
-<%= raw '<span class="label label-important">Poofed</span>' if post.poofed %>
-<%= raw '<span class="label label-info">Edited</span>' if post.previous_version %>
-<%= raw '<span class="label label-important">Previous Version</span>' if post.next_version %>
+<% post.tags.each do |tag| %>
+<span class="label"><%= tag.name %></span>
+<% end %>

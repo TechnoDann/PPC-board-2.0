@@ -1,5 +1,6 @@
-<h1>PPC Posting Board</h1>
-<p class="lead">
+<h1>The PPC Posting Board</h1>
+<div class="top-matter">
+<p>
 Welcome, fans of the Protectors of the Plot Continuum and supporters of the Canon Protection Initiative!  If you've got a story to plug, an opinion to share, or a discussion you want to join in, this is the place!
 </p><p>
 Before you start, have some <b>important</b> links. Read them first!<ul>
@@ -7,8 +8,10 @@ Before you start, have some <b>important</b> links. Read them first!<ul>
 <li><a href="http://ppc.wikia.com/wiki/PPC_Wiki">Our shiny Wiki</a> will answer many of your questions. <b>Check before asking</b>, as the first thing anyone will do is direct you here.</li>
 <li><a href="http://wbe02.mibbit.com/?settings=64a4814b06949473906b9c3d88f0c741&server=irc.sorcery.net&channel=%23PPC">The PPC IRC</a> is the place for idle conversation. If it's just a few people talking, it's best to take it to the IRC.</li>
 </ul>
-<%= will_paginate @posts %>
-<ul class="nav nav-pills">
+</div>
+<ul class="nav nav-tabs">
+  <%= link_to 'New Post', new_post_path, :class => "btn btn-success", 
+    :style => "float:left; margin-right: 20px" %>
   <li class="<%= 'active' if !(cookies[:posts_by_tag] == true) %>">
     <%= link_to 'Sort by date', posts_path(:sort_by_tag => 0) %> </li>
   <li class="<%= 'active' if cookies[:posts_by_tag] == true %>">
@@ -23,7 +26,6 @@ Before you start, have some <b>important</b> links. Read them first!<ul>
     </ul>
   </li>
 </ul>
-<%= link_to 'New Post', new_post_path, :class => "btn btn-success" %>
 <% @tagged_posts.each do |tag, posts| %>
   <% unless tag == false %>
     <h3>Posts tagged: <%= tag %></h3>

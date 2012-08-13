@@ -32,3 +32,25 @@
         padding-bottom: 30px;
     }
 }
+
+.top-matter {
+    @include font-family-serif();
+    font-size: $baseFontSize + 2px;
+    border-top: 3px solid $gray;
+    border-bottom: 3px solid $gray;
+    margin-top: $baseFontSize;
+    padding-top: $baseFontSize;
+    @media (max-width: 767px) { 
+        margin-bottom: 15px;
+        padding-bottom: 15px;
+    }
+    @media (min-width: 767px) { 
+        margin-bottom: 30px;
+        padding-bottom: 30px;
+    }
+}
+
+#top-nav-bar {
+    margin-left: 15%;
+    margin-right: 15%;
+}
