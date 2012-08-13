@@ -89,6 +89,7 @@ class PostsController < ApplicationController
     @post.user = current_user
     respond_to do |format|
       if @post.save
+        notify_watchers(@post)
         unless @post.ancestors.all.any? do |post|
             post.watchers.exists?(current_user.id)
           end
@@ -134,6 +135,20 @@ class PostsController < ApplicationController
       status = allowed_to_edit? post.previous_version, user
     end
     status
+  end
+
+  def notify_watchers(post)
+    users_to_notify = Hash.new
+    post.ancestors.each do |parent|
+      parent.watchers.each do |user|
+        unless user == post.user
+          users_to_notify[user] = parent
+        end
+      end
+    end
+    users_to_notify.each do |user, parent|
+      BoardMailer.notify_watchers(post, parent, user).deliver
+    end
   end
 
   private

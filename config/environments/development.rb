@@ -36,5 +36,9 @@ PPCBoard20::Application.configure do
   config.assets.debug = true
 
   # Mailer host
-  config.action_mailer.default_url_options = { :host => '71.252.172.135:3000' }
+  config.action_mailer.default_url_options = { 
+    :host => '71.252.172.135',
+    :port => '3000',
+    :only_path => false
+  }
 end

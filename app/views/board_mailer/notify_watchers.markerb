@@ -1,0 +1,27 @@
+Hello <%= @user.name %>,
+
+[A reply][1] has been posted to
+[a thread you have watched][2] on the PPC Board.
+The reply is located [here][1] and reproduced
+below. If you don't want to keep receiving emails about replies to
+"<%= @parent.subject %>", please go to [the post you watched][2] and
+click "Unwatch this thread".
+
+The reply:
+
+**Subject:** <%= @post.subject %>
+
+**Author:**
+<% if @post.author == @post.user.name %>
+  <%= @post.author %>
+<% else %>
+  <%= @post.author %> (posted by <%= @post.user.name %>)
+<% end %>
+
+**Posted at:** <%= @post.created_at %>
+
+<%= @post.body %>
+
+
+[1]: <%= post_url(@post, :only_path => false)  %>
+[2]: <%= post_url(@parent, :only_path => false) %>
