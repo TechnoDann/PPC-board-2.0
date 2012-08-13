@@ -12,7 +12,6 @@ module S#cript (that archives)
       :timestamp => Time.parse(page.search("span.date_header").first.content + " -0500").utc,
       :body => page.search("div.message_text").first.inner_html
     }
-    info[:body] = "````\n#{info[:body]}\n````\n"
     @@agent.back
     info
   end

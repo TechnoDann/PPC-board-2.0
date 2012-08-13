@@ -9,6 +9,7 @@ gem 'pg'
 gem 'ancestry'
 gem 'redcarpet'
 gem 'markerb'
+gem 'sanitize'
 gem 'will_paginate', '~> 3.0.3'
 gem 'bootstrap-will_paginate'
 

@@ -4,7 +4,7 @@ module ApplicationHelper
   end
 
   class MarkdownHolder
-    @@markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML.new(:filter_html => true), {
+    @@markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML.new, {
                                            :autolink => true, :strikethrough => true,
                                            :lax_html_blocks => true, :superscript => true})
     def self.renderer
@@ -13,6 +13,6 @@ module ApplicationHelper
   end
 
   def markdown(text)
-    MarkdownHolder.renderer.render(text || "")
+    MarkdownHolder.renderer.render(Sanitize.clean(text, Sanitize::Config::RELAXED) || "")
   end
 end
