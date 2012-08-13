@@ -13,6 +13,6 @@ module ApplicationHelper
   end
 
   def markdown(text)
-    MarkdownHolder.renderer.render(text)
+    MarkdownHolder.renderer.render(text || "")
   end
 end
