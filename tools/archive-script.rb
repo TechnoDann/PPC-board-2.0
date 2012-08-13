@@ -7,10 +7,10 @@ module S#cript (that archives)
   def S.scrape_body(link)
     page = @@agent.click(@@page.link_with( :href => link))
     info = 
-    { :author => page.search(".author_header").first.content,
-      :subject => page.search("span.subject_header").first.content,
+    { :author => page.search(".author_header").first.content.encode("UTF-8", "ISO-8859-1"),
+      :subject => page.search("span.subject_header").first.content.encode("UTF-8", "ISO-8859-1"),
       :timestamp => Time.parse(page.search("span.date_header").first.content + " -0500").utc,
-      :body => page.search("div.message_text").first.inner_html
+      :body => page.search("div.message_text").first.inner_html.encode("UTF-8", "ISO-8859-1")
     }
     @@agent.back
     info
@@ -42,10 +42,23 @@ module S#cript (that archives)
     ret
   end
   
-  def S.scrape_threads(url)
-    @@page = @@agent.get(url)
-    @@page.search("div#threads div.thread").map { |t| S.serialize_thread t }
+  def S.scrape_threads()
+    threads = []
+    while @@page
+      @@page.search("div#threads div.thread").each { |t| threads << S.serialize_thread(t) }
+      forms = @@page.forms.find_all { |f| f.button_with :name => 'nextpage' }
+      if forms != []
+        @@page = forms.first.submit
+      else
+        @@page = nil
+      end
+    end
+    threads
   end
 
+  def S.scrape_board(url)
+    @@page = @@agent.get(url)
+    S.scrape_threads
+  end
 end
-pp S.scrape_threads("http://disc.yourwebapps.com/Indices/241484.html")
+Marshal.dump(S.scrape_board("http://disc.yourwebapps.com/Indices/241484.html"), $stdout)
