@@ -7,10 +7,10 @@ module S#cript (that archives)
   def S.scrape_body(link)
     page = @@agent.click(@@page.link_with( :href => link))
     info = 
-    { :author => page.search(".author_header").first.content.encode("UTF-8", "ISO-8859-1"),
-      :subject => page.search("span.subject_header").first.content.encode("UTF-8", "ISO-8859-1"),
+    { :author => page.search(".author_header").first.content.encode("UTF-8", "Windows-1251"),
+      :subject => page.search("span.subject_header").first.content.encode("UTF-8", "Windows-1251"),
       :timestamp => Time.parse(page.search("span.date_header").first.content + " -0500").utc,
-      :body => page.search("div.message_text").first.inner_html.encode("UTF-8", "ISO-8859-1")
+      :body => page.search("div.message_text").first.inner_html.encode("UTF-8", "Windows-1251")
     }
     @@agent.back
     info
