@@ -27,7 +27,7 @@ class PostsController < ApplicationController
       cookies[:posts_by_tag] = { :value => (params[:sort_by_tag] == "1"),
         :expires => 20.years.from_now }
     end
-    @posts = Post.includes(:user, :tags).where(:ancestry => nil, :next_version_id => nil)
+    @posts = Post.where(:ancestry => nil, :next_version_id => nil)
       .paginate(:page => params[:page]).order("sort_timestamp DESC")
     
     @tagged_posts = Hash.new do |hash, key|
@@ -58,7 +58,7 @@ class PostsController < ApplicationController
   # GET /posts/1.json
   def show
     @post = Post.find(params[:id])
-
+    Post.includes([:user, :tags]).where("ancestry LIKE #{params[:id]}/%")
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @post }

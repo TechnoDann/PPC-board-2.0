@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120812220416) do
+ActiveRecord::Schema.define(:version => 20120814011643) do
 
   create_table "bans", :force => true do |t|
     t.integer  "user_id"
@@ -79,5 +79,17 @@ ActiveRecord::Schema.define(:version => 20120812220416) do
 
   add_index "users", ["name"], :name => "index_users_on_name", :unique => true
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
+
+  add_foreign_key "bans", "users", :name => "bans_user_id_fk"
+
+  add_foreign_key "posts", "posts", :name => "posts_next_version_id_fk", :column => "next_version_id"
+  add_foreign_key "posts", "posts", :name => "posts_previous_version_id_fk", :column => "previous_version_id"
+  add_foreign_key "posts", "users", :name => "posts_user_id_fk"
+
+  add_foreign_key "posts_tags", "posts", :name => "posts_tags_post_id_fk"
+  add_foreign_key "posts_tags", "tags", :name => "posts_tags_tag_id_fk"
+
+  add_foreign_key "posts_users", "posts", :name => "posts_users_post_id_fk"
+  add_foreign_key "posts_users", "users", :name => "posts_users_user_id_fk"
 
 end
