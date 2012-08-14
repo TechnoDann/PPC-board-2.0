@@ -48,7 +48,7 @@ class Post < ActiveRecord::Base
   end
 
   def new_reply?
-    (Time.now - self.created_at < 48.hours) && (Time.now - self.root.created_at > 24.hours) && !self.is_root?
+    (Time.now - self.created_at < 24.hours) && (Time.now - self.root.created_at > 24.hours) && !self.is_root?
   end
 
   def reSorted?
