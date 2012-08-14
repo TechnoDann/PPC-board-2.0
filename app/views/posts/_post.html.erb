@@ -44,7 +44,7 @@
     <%= post.author %> (posted by <%= link_to post.user.name, post.user %>)
   <% end %>
   <br />
-  <b>Posted at:</b> <%= post.created_at %><br />
+  <b>Posted on:</b> <%= post.created_at %><br />
   <br />
   <div class="post-body">
     <%= raw(markdown(post.body)) %>

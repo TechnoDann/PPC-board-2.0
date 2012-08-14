@@ -10,7 +10,7 @@
 <% else %>
   <%= post.author %> (posted by <%= post.user.name %>)
 <% end %>
-<span style="font-size: 70%">at <%= post.created_at %></span> 
+<span style="font-size: 70%">on <%= post.created_at %></span> 
 <% post.tags.each do |tag| %>
 <span class="label"><%= tag.name %></span>
 <% end %>
