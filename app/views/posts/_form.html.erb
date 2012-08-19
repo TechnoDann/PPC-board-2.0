@@ -1,5 +1,18 @@
 <div class="row-fluid">
-    <%= simple_form_for @post, :html => { :class => 'form-horizontal' } do |f| %>
+  <div class="accordion" id="preview-accordion">
+    <div class="accordion-group">
+      <div class="accordion-heading">
+        <a class="accordion-toggle" data-toggle="collapse" data-parent="#preview-accordion" href="#preview-wrapper">
+          Preview
+        </a>
+      </div>
+      <div id="preview-wrapper" class="accordion-body collapse in">
+        <div class="accordion-inner" id="preview">
+        </div>
+      </div>
+    </div>
+  </div>
+  <%= simple_form_for @post, :html => { :class => 'form-horizontal', :id => 'post-change-form' } do |f| %>
     <%= f.error_notification %>
     <% if @post.errors[:base].length > 0 %>
     <div class="alert alert-error">
@@ -16,6 +29,7 @@
     <%= f.input :poofed, :label => 'Poofed thread?' %>
     <%= f.input :sort_timestamp %>
     <% end %>
+    <a href="#" onclick="preview()" class="btn btn-success">Preview</a>
     <%= f.button :submit, :class => 'btn btn-primary' %>
-    <% end %>
+  <% end %>
 </div>

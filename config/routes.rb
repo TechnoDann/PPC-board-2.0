@@ -9,6 +9,8 @@ PPCBoard20::Application.routes.draw do
   resources :posts, :except => [:delete, :destroy] do
     collection do
       get 'search'
+      post 'preview'
+      put 'preview'
     end
   end
   

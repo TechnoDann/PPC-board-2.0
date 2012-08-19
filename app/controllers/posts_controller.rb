@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
   before_filter :clear_return_url
-  before_filter :authenticate_user_board!, :only => [:new, :create, :update, :edit]  
+  before_filter :authenticate_user_board!, :only => [:new, :create, :update, :edit, :preview]  
   before_filter :check_ban
   helper_method :allowed_to_edit?
   # GET /posts/search
@@ -64,6 +64,17 @@ class PostsController < ApplicationController
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @post }
+    end
+  end
+
+  # POST /posts/preview
+  # PUT /posts/preview
+  def preview
+    @post = Post.new(params[:post], :as => (current_user.moderator? ? :moderator : :default))
+    @post.user = current_user
+    
+    respond_to do |format|
+      format.html { render :partial => 'post', :object => @post, :locals => { :hide_status_info => true } }
     end
   end
 
