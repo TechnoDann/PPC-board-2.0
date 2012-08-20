@@ -30,7 +30,7 @@ class PostsController < ApplicationController
     @posts = Post.where(:ancestry => nil, :next_version_id => nil)
       .paginate(:page => params[:page]).order("sort_timestamp DESC")
 
-    @posts.each { |post| Post.where(:ancestry => "LIKE '#{post.id}/%'").includes(:tags, :user).all }
+    @posts.each { |post| Post.where("ancestry LIKE '#{post.id}/%'").includes(:tags, :user).all }
 
     @tagged_posts = Hash.new do |hash, key|
       hash[key] = []
@@ -60,7 +60,7 @@ class PostsController < ApplicationController
   # GET /posts/1.json
   def show
     @post = Post.find(params[:id])
-    Post.where(:ancestry => "LIKE '#{@post.id}/%'").includes(:tags, :user).all
+    Post.where("ancestry LIKE '#{@post.id}/%'").includes(:tags, :user).all
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @post }
