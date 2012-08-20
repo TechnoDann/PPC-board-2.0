@@ -19,6 +19,7 @@ class PostsController < ApplicationController
   # GET /posts.json
   def index
     if params["sort_mode"]
+      cookies.delete :sort_mode
       cookies[:sort_mode] = { :value => params[:sort_mode], :expires => 20.years.from_now }
     end
     @posts = Post.where(:ancestry => nil, :next_version_id => nil)
