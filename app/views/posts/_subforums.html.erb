@@ -13,7 +13,7 @@
       <% end %>
     <% end %>
     <tr>
-      <td><%= link_to 'Untagged', tagged_path(:tag_id => 'nothing') %></td>
+      <td><%= link_to 'None of the Above', tagged_path(:tag_id => 'nothing') %></td>
       <td><%= render :partial => 'post_subject', :object => subforums[false][0] %></td>
     </tr>
   </tbody>

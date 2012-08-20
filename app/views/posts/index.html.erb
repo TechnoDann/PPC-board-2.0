@@ -9,6 +9,7 @@ Before you start, have some <b>important</b> links. Read them first!<ul>
 <li><a href="http://wbe02.mibbit.com/?settings=64a4814b06949473906b9c3d88f0c741&server=irc.sorcery.net&channel=%23PPC">The PPC IRC</a> is the place for idle conversation. If it's just a few people talking, it's best to take it to the IRC.</li>
 </ul>
 </div>
+
 <ul class="nav nav-tabs">
   <%= link_to 'New Post', new_post_path, :class => "btn btn-success", 
     :style => "float:left; margin-right: 20px" %>
@@ -25,9 +26,11 @@ Before you start, have some <b>important</b> links. Read them first!<ul>
       <% Tag.all.each do |tag| %>
         <%= link_to tag.name.pluralize, tagged_path(:tag_id => tag.id) %>
       <% end %>
+      <%= link_to "None of the Above", tagged_path(:tag_id => "nothing") %>
     </ul>
   </li>
 </ul>
+
 <% if cookies[:sort_mode] == "subforum" %>
   <%= render :partial => 'subforums', :object => @tagged_posts %>
 <% else %>

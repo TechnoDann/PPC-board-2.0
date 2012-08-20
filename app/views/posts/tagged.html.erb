@@ -1,4 +1,4 @@
-<% title @tag.name.pluralize %>
+<% title (@tag && @tag.name.pluralize) || "None of the Above" %>
 <h1><%= yield :title %></h1>
 <ul class="nav nav-tabs">
   <%= link_to 'New Post', new_post_path, :class => "btn btn-success", 
@@ -11,6 +11,7 @@
       <% Tag.all.each do |tag| %>
         <%= link_to tag.name.pluralize, tagged_path(:tag_id => tag.id), :style => ('font-weight: bold' if tag == @tag) %>
       <% end %>
+      <%= link_to "None of the Above", tagged_path(:tag_id => "nothing"), :style => ('font-weight: bold' if @tag == false) %>
     </ul>
   </li>
 </ul>

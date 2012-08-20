@@ -61,11 +61,21 @@ class PostsController < ApplicationController
   # GET /posts/tagged/1
   # GET /posts/tagged/1.json
   def tagged
-    @tag = Tag.find(params[:tag_id])
-    @raw_posts = @tag.posts.paginate(:page => params[:page]).order("sort_timestamp DESC")
-    @posts = @raw_posts.map(&:root)
-    @posts.uniq!
-    
+    if params[:tag_id] == "nothing"
+      @tag = false
+      @raw_posts = Post.joins("LEFT JOIN posts_tags pt ON pt.post_id = posts.id")
+        .where("pt.tag_id" => nil, "posts.next_version_id" => nil, "posts.ancestry" => nil)
+        .paginate(:page => params[:page]).order("posts.sort_timestamp DESC")
+      @posts = @raw_posts.map(&:root)
+      @posts.uniq!
+    else
+      @tag = Tag.find(params[:tag_id])
+      @raw_posts = @tag.posts.where(:next_version_id => nil)
+        .paginate(:page => params[:page]).order("sort_timestamp DESC")
+      @posts = @raw_posts.map(&:root)
+      @posts.uniq!
+    end
+
     respond_to do |format|
       format.html # tagged.html.erb
       format.json { render json: @posts }
