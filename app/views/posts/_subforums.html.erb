@@ -1,0 +1,20 @@
+<table class="table table-striped">
+  <thead>
+    <th>Subforum</th>
+    <th>Newest thread</th>
+  </thead>
+  <tbody>
+    <% subforums.each do |tag, posts| %>
+      <% unless tag == false %>
+        <tr>
+          <td><%= link_to tag.name.pluralize, tagged_path(:tag_id => tag.id) %></td>
+          <td><%= render :partial => 'post_subject', :object => posts[0] unless posts.empty? %></td>
+        </tr>
+      <% end %>
+    <% end %>
+    <tr>
+      <td><%= link_to 'Untagged', tagged_path(:tag_id => 'nothing') %></td>
+      <td><%= render :partial => 'post_subject', :object => subforums[false][0] %></td>
+    </tr>
+  </tbody>
+</table>

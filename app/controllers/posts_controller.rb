@@ -3,17 +3,12 @@ class PostsController < ApplicationController
   before_filter :authenticate_user_board!, :only => [:new, :create, :update, :edit, :preview]  
   before_filter :check_ban
   helper_method :allowed_to_edit?
+
   # GET /posts/search
   # GET /posts/search.json
   def search
     @query = params[:query] || false 
-    @tag_id = params[:tag_id] || false
-    if @tag_id 
-      @posts = Post.search :conditions => { :tags => Tag.find_by_id(@tag_id).name },
-        :page => params[:page]
-    else
-      @posts = Post.search @query, :match_mode => :extended, :page => params[:page]
-    end
+    @posts = Post.search @query, :match_mode => :extended, :page => params[:page]
     respond_to do |format|
       format.html
       format.json { render json: @posts }
@@ -34,13 +29,13 @@ class PostsController < ApplicationController
     @tagged_posts = Hash.new do |hash, key|
       hash[key] = []
     end
-    if cookies[:sort_mode] == "tag"
+    if cookies[:sort_mode] == "tag" || cookies[:sort_mode] == "subforum"
       @posts.each do |thread|
         tags = {}
         thread.subtree.each do |post|
           if post.tags.count > 0 
             post.tags.each do |tag|
-              tags[tag.name] = true
+              tags[tag] = true
             end
           end
         end
@@ -63,6 +58,20 @@ class PostsController < ApplicationController
     end
   end
 
+  # GET /posts/tagged/1
+  # GET /posts/tagged/1.json
+  def tagged
+    @tag = Tag.find(params[:tag_id])
+    @raw_posts = @tag.posts.paginate(:page => params[:page]).order("sort_timestamp DESC")
+    @posts = @raw_posts.map(&:root)
+    @posts.uniq!
+    
+    respond_to do |format|
+      format.html # tagged.html.erb
+      format.json { render json: @posts }
+    end
+  end
+
   # GET /posts/1
   # GET /posts/1.json
   def show
@@ -70,7 +79,7 @@ class PostsController < ApplicationController
     Post.where("ancestry LIKE '#{@post.id}/%'").includes(:tags, :user).all
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @post }
+      format.json { render json: @post.subtree }
     end
   end
 

@@ -1,0 +1,24 @@
+<% title @tag.name.pluralize %>
+<h1><%= yield :title %></h1>
+<ul class="nav nav-tabs">
+  <%= link_to 'New Post', new_post_path, :class => "btn btn-success", 
+    :style => "float:left; margin-right: 20px" %>
+  <li><%= link_to 'All subforums', posts_path(:sort_mode => "subforum") %></li>
+  <li class="dropdown">
+    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+      Jump to subforum <b class="caret"></b></a>
+    <ul class="dropdown-menu">
+      <% Tag.all.each do |tag| %>
+        <%= link_to tag.name, tagged_path(:tag_id => tag.id) %>
+      <% end %>
+    </ul>
+  </li>
+</ul>
+<% @posts.each do |post| %>
+  <div class="search-result post thread">
+    <%= render :partial => 'post_subject', :object => post %>
+  </div>
+<% end %>
+<br />
+<%= link_to 'New Post', new_post_path, :class => "btn btn-success" %>
+<%= will_paginate @raw_posts %>
