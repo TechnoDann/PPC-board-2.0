@@ -23,7 +23,7 @@ Before you start, have some <b>important</b> links. Read them first!<ul>
       Jump to subforum <b class="caret"></b></a>
     <ul class="dropdown-menu">
       <% Tag.all.each do |tag| %>
-        <%= link_to tag.name, tagged_path(:tag_id => tag.id) %>
+        <%= link_to tag.name.pluralize, tagged_path(:tag_id => tag.id) %>
       <% end %>
     </ul>
   </li>

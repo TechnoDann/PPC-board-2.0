@@ -9,13 +9,13 @@
       Jump to subforum <b class="caret"></b></a>
     <ul class="dropdown-menu">
       <% Tag.all.each do |tag| %>
-        <%= link_to tag.name, tagged_path(:tag_id => tag.id) %>
+        <%= link_to tag.name.pluralize, tagged_path(:tag_id => tag.id), :style => ('font-weight: bold' if tag == @tag) %>
       <% end %>
     </ul>
   </li>
 </ul>
 <% @posts.each do |post| %>
-  <div class="search-result post thread">
+  <div class="post thread">
     <%= render :partial => 'post_subject', :object => post %>
   </div>
 <% end %>
