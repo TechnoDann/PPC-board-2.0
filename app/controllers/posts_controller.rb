@@ -31,6 +31,9 @@ class PostsController < ApplicationController
     end
     if cookies[:sort_mode] == "tag" || cookies[:sort_mode] == "subforum"
       @posts.each do |thread|
+        if thread.tags.count == 0
+          @tagged_posts[false] << thread #This takes care of "no tags at all"
+        end
         tags = {}
         thread.subtree.each do |post|
           if post.tags.count > 0 
@@ -43,8 +46,6 @@ class PostsController < ApplicationController
           tags.each do |tag, truth|
             @tagged_posts[tag] << thread
           end
-        else
-          @tagged_posts[false] << thread
         end
       end
     else
