@@ -1,7 +1,7 @@
 <% title (@tag && @tag.name.pluralize) || "None of the Above" %>
 <h1><%= yield :title %></h1>
 <ul class="nav nav-tabs">
-  <%= link_to 'New Post', new_post_path, :class => "btn btn-success", 
+  <%= link_to 'New Post', new_post_path(:tag_id => @tag && @tag.id), :class => "btn btn-success", 
     :style => "float:left; margin-right: 20px" %>
   <li><%= link_to 'All subforums', posts_path(:sort_mode => "subforum") %></li>
   <li class="dropdown">
@@ -21,5 +21,5 @@
   </div>
 <% end %>
 <br />
-<%= link_to 'New Post', new_post_path, :class => "btn btn-success" %>
+<%= link_to 'New Post', new_post_path(:tag_id => @tag && @tag.id), :class => "btn btn-success" %>
 <%= will_paginate @raw_posts %>
