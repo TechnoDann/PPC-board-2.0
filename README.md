@@ -25,8 +25,8 @@ What not to expect:
  * Incredibly mind-blowing code
 
 Developers:
+ * Tomash ( krzysdrewniak@gmail.com )
  * Techno-Dann (AKA Captain Vim, Techno.Dann@gmail.com)
- * Tomash ( krzysdrewniak <AT> gmail.com )
 Development setup
 -----------------
 In addition to the gems listed in the Gemfile, the
