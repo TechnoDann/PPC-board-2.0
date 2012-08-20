@@ -23,9 +23,8 @@ class PostsController < ApplicationController
   # GET /posts
   # GET /posts.json
   def index
-    if params["sort_by_tag"]
-      cookies[:posts_by_tag] = { :value => (params[:sort_by_tag] == "1"),
-        :expires => 20.years.from_now }
+    if params["sort_mode"]
+      cookies[:sort_mode] = { :value => params[:sort_mode], :expires => 20.years.from_now }
     end
     @posts = Post.where(:ancestry => nil, :next_version_id => nil)
       .paginate(:page => params[:page]).order("sort_timestamp DESC")
@@ -35,14 +34,22 @@ class PostsController < ApplicationController
     @tagged_posts = Hash.new do |hash, key|
       hash[key] = []
     end
-    if cookies[:posts_by_tag] == true 
-      @posts.each do |post|
-        if post.tags.count > 0 
-          post.tags.each do |tag|
-            @tagged_posts[tag.name] << post
+    if cookies[:sort_mode] == "tag"
+      @posts.each do |thread|
+        tags = {}
+        thread.subtree.each do |post|
+          if post.tags.count > 0 
+            post.tags.each do |tag|
+              tags[tag.name] = true
+            end
+          end
+        end
+        if tags.length > 0
+          tags.each do |tag, truth|
+            @tagged_posts[tag] << thread
           end
         else
-          @tagged_posts[false] << post
+          @tagged_posts[false] << thread
         end
       end
     else

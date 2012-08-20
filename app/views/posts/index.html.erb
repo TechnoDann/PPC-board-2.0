@@ -12,10 +12,10 @@ Before you start, have some <b>important</b> links. Read them first!<ul>
 <ul class="nav nav-tabs">
   <%= link_to 'New Post', new_post_path, :class => "btn btn-success", 
     :style => "float:left; margin-right: 20px" %>
-  <li class="<%= 'active' if !(cookies[:posts_by_tag] == true) %>">
-    <%= link_to 'Sort by date', posts_path(:sort_by_tag => 0) %> </li>
-  <li class="<%= 'active' if cookies[:posts_by_tag] == true %>">
-    <%= link_to 'Sort by tags', posts_path(:sort_by_tag => 1) %> </li>
+  <li class="<%= 'active' if !(cookies[:sort_mode] == "tag") %>">
+    <%= link_to 'Sort by date', posts_path(:sort_mode => "date") %> </li>
+  <li class="<%= 'active' if cookies[:sort_mode] == "tag" %>">
+    <%= link_to 'Sort by tags', posts_path(:sort_mode => "tag") %> </li>
   <li class="dropdown">
     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
       All posts tagged ... (Subforum) <b class="caret"></b></a>
@@ -29,12 +29,20 @@ Before you start, have some <b>important</b> links. Read them first!<ul>
 <% @tagged_posts.each do |tag, posts| %>
   <% unless tag == false %>
     <h3>Posts tagged: <%= tag %></h3>
-  <% end %>
-  <% posts.each do |post| %>
-    <%= render :partial => 'thread', :locals => { :bodies => false, :id => false },
-      :object => post.subtree.arrange(:order => "sort_timestamp DESC" ) %>
+    <% posts.each do |post| %>
+      <%= render :partial => 'thread', :locals => { :bodies => false, :id => false },
+        :object => post.subtree.arrange(:order => "sort_timestamp DESC" ) %>
+    <% end %>
   <% end %>
 <% end %>
+<% if cookies[:sort_mode] == "tag" %>
+  <h3>Untagged Posts</h3>
+<% end %>
+<% @tagged_posts[false].each do |post| %>
+  <%= render :partial => 'thread', :locals => { :bodies => false, :id => false },
+    :object => post.subtree.arrange(:order => "sort_timestamp DESC" ) %>
+<% end %>
+
 <br />
 <%= link_to 'New Post', new_post_path, :class => "btn btn-success" %>
 <%= will_paginate @posts %>
