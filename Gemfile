@@ -38,6 +38,7 @@ group :development, :test do
 end 
 
 gem 'jquery-rails'
+gem 'jquery-rails-cdn'
 gem 'simple_form'
 
 # Add foreign key support
