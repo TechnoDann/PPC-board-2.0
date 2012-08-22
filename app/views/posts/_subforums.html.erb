@@ -14,7 +14,7 @@
     <% end %>
     <tr>
       <td><%= link_to 'None of the Above', tagged_path(:tag_id => 'nothing') %></td>
-      <td><%= render :partial => 'post_subject', :object => subforums[false][0] %></td>
+      <td><%= render :partial => 'post_subject', :object => subforums[false][0] unless posts[false].empty?%></td>
     </tr>
   </tbody>
 </table>
