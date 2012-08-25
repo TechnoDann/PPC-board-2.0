@@ -1,11 +1,11 @@
 Hello <%= @user.name %>,
 
-[A reply][1] has been posted to
-[a thread you have watched][2] on the PPC Board.
-The reply is located [here][1] and reproduced
-below. If you don't want to keep receiving emails about replies to
-"<%= @parent.subject %>", please go to [the post you watched][2] and
-click "Unwatch this thread".
+[A reply][mail-post-aaaaa] has been posted to [a thread you have
+watched][mail-parent-aaaaa] on the PPC Board. The reply is located
+[here][mail-post-aaaaa] and reproduced below. If you don't want to
+keep receiving emails about replies to "<%= @parent.subject %>",
+please go to [the post you watched][mail-parent-aaaaa] and click
+"Unwatch this thread".
 
 The reply:
 
@@ -20,8 +20,8 @@ The reply:
 
 **Posted at:** <%= @post.created_at %>
 
-<%= @post.body %>
+<%= Sanitize.clean(@post.body, Sanitize::Config::RELAXED) || "" %>
 
 
-[1]: <%= post_url(@post, :only_path => false)  %>
-[2]: <%= post_url(@parent, :only_path => false) %>
+[mail-post-aaaaa]: <%= post_url(@post, :only_path => false)  %>
+[mail-parent-aaaaa]: <%= post_url(@parent, :only_path => false) %>
