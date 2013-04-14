@@ -18,6 +18,6 @@
 <div class="rest-of-thread"> <br />
 <%= render :partial => 'thread', :locals => { :bodies => true, :id => @post.id },
    :object => Post.arrange_nodes(@post.root.subtree.all(
-      :include => [:tags, :user]
+      :include => [:tags, :user],
       :order => "(case when ancestry is null then 0 else 1 end), ancestry, sort_timestamp DESC" )) %>
 </div> 
