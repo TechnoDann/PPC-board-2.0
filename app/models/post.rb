@@ -1,8 +1,10 @@
 class Post < ActiveRecord::Base
   has_ancestry
+  lazy_load :body
+
   attr_accessible :body, :subject, :author, :parent_id, :tag_ids
   attr_accessible :author, :body, :subject, :locked, :poofed, :sort_timestamp, :parent_id, :tag_ids, :as => :moderator
-  attr_readonly :parent_id 
+  attr_readonly :parent_id
   before_create :set_sort_timestamp
 
   belongs_to :previous_version, :class_name => 'Post', :foreign_key => 'previous_version_id'

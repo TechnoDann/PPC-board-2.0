@@ -44,6 +44,7 @@ gem 'simple_form'
 
 # Add foreign key support
 gem 'foreigner', '~> 1.2.0'
+gem 'lazy_columns'
 
 # Authentication
 gem 'devise', '~> 2.1.2'

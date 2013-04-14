@@ -85,6 +85,8 @@ GEM
       jquery-rails
     json (1.7.7)
     kgio (2.8.0)
+    lazy_columns (0.5.5)
+      rails (~> 3.2.10)
     libv8 (3.11.8.17)
     mail (2.5.3)
       i18n (>= 0.4.0)
@@ -203,6 +205,7 @@ DEPENDENCIES
   immigrant (~> 0.1.2)
   jquery-rails
   jquery-rails-cdn
+  lazy_columns
   markerb
   pg
   rails (~> 3.2.13)
