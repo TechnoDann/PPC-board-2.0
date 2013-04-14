@@ -12,6 +12,7 @@
       </div>
     </div>
   </div>
+  <% @post.body %>
   <%= simple_form_for @post, :html => { :class => 'form-horizontal', :id => 'post-change-form' } do |f| %>
     <%= f.error_notification %>
     <% if @post.errors[:base].length > 0 %>
