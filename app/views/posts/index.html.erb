@@ -30,7 +30,10 @@
       <h3>Posts tagged: <%= tag.name %></h3>
       <% posts.each do |post| %>
         <%= render :partial => 'thread', :locals => { :bodies => false, :id => false },
-          :object => post.subtree.arrange(:order => "sort_timestamp DESC" ) %>
+          :object =>
+             Post.arrange_nodes(post.subtree.all(
+                :include => [:tags, :user], 
+                :order => "(case when ancestry is null then 0 else 1 end), ancestry, sort_timestamp DESC")) %>
       <% end %>
     <% end %>
   <% end %>
@@ -39,7 +42,10 @@
   <% end %>
   <% @tagged_posts[false].each do |post| %>
     <%= render :partial => 'thread', :locals => { :bodies => false, :id => false },
-      :object => post.subtree.arrange(:order => "sort_timestamp DESC" ) %>
+      :object => 
+         Post.arrange_nodes(post.subtree.all(
+            :include => [:tags, :user],
+            :order => "(case when ancestry is null then 0 else 1 end), ancestry, sort_timestamp DESC" )) %>
   <% end %>
 <% end %>
 <br />
