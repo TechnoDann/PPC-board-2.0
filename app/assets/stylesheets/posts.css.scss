@@ -22,6 +22,7 @@
 }
 
 .thread {
+    @include threadishLinks();
     border-bottom: 1px solid $grayLight;
     margin-top: 30px;
     padding-bottom: 30px;
@@ -33,9 +34,10 @@
 
 .top-matter {
     @include font-family-serif();
+    @include threadishLinks();
     font-size: $baseFontSize + 2px;
-    border-top: 3px solid $gray;
-    border-bottom: 3px solid $gray;
+    border-top: $baseFontSize solid $visitedRed;
+    border-bottom: $baseFontSize solid $visitedRed;
     margin-top: $baseFontSize;
     padding-top: $baseFontSize;
     @media (max-width: 767px) { 

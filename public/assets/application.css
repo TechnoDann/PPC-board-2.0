@@ -257,13 +257,13 @@ body {
 
 /* line 22, ../../../../.rvm/gems/ruby-1.9.3-p194@ppc-board/gems/bootstrap-sass-2.2.2.0/vendor/assets/stylesheets/bootstrap/_scaffolding.scss */
 a {
-  color: #0088cc;
+  color: red;
   text-decoration: none;
 }
 
 /* line 26, ../../../../.rvm/gems/ruby-1.9.3-p194@ppc-board/gems/bootstrap-sass-2.2.2.0/vendor/assets/stylesheets/bootstrap/_scaffolding.scss */
 a:hover {
-  color: #005580;
+  color: #b30000;
   text-decoration: underline;
 }
 
@@ -3252,14 +3252,14 @@ table th[class*="span"],
 .dropdown-submenu:hover > a {
   text-decoration: none;
   color: white;
-  background-color: #0081c2;
-  background-image: -moz-linear-gradient(top, #0088cc, #0077b3);
-  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#0088cc), to(#0077b3));
-  background-image: -webkit-linear-gradient(top, #0088cc, #0077b3);
-  background-image: -o-linear-gradient(top, #0088cc, #0077b3);
-  background-image: linear-gradient(to bottom, #0088cc, #0077b3);
+  background-color: #f50000;
+  background-image: -moz-linear-gradient(top, red, #e60000);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(red), to(#e60000));
+  background-image: -webkit-linear-gradient(top, red, #e60000);
+  background-image: -o-linear-gradient(top, red, #e60000);
+  background-image: linear-gradient(to bottom, red, #e60000);
   background-repeat: repeat-x;
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FF0088CC', endColorstr='#FF0077B3', GradientType=0);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FFFF0000', endColorstr='#FFE60000', GradientType=0);
 }
 
 /* line 99, ../../../../.rvm/gems/ruby-1.9.3-p194@ppc-board/gems/bootstrap-sass-2.2.2.0/vendor/assets/stylesheets/bootstrap/_dropdowns.scss */
@@ -3268,14 +3268,14 @@ table th[class*="span"],
   color: #333333;
   text-decoration: none;
   outline: 0;
-  background-color: #0081c2;
-  background-image: -moz-linear-gradient(top, #0088cc, #0077b3);
-  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#0088cc), to(#0077b3));
-  background-image: -webkit-linear-gradient(top, #0088cc, #0077b3);
-  background-image: -o-linear-gradient(top, #0088cc, #0077b3);
-  background-image: linear-gradient(to bottom, #0088cc, #0077b3);
+  background-color: #f50000;
+  background-image: -moz-linear-gradient(top, red, #e60000);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(red), to(#e60000));
+  background-image: -webkit-linear-gradient(top, red, #e60000);
+  background-image: -o-linear-gradient(top, red, #e60000);
+  background-image: linear-gradient(to bottom, red, #e60000);
   background-repeat: repeat-x;
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FF0088CC', endColorstr='#FF0077B3', GradientType=0);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FFFF0000', endColorstr='#FFE60000', GradientType=0);
 }
 
 /* line 110, ../../../../.rvm/gems/ruby-1.9.3-p194@ppc-board/gems/bootstrap-sass-2.2.2.0/vendor/assets/stylesheets/bootstrap/_dropdowns.scss */
@@ -3888,7 +3888,7 @@ input[type="submit"].btn.btn-mini {
 .btn-link {
   border-color: transparent;
   cursor: pointer;
-  color: #0088cc;
+  color: red;
   -webkit-border-radius: 0;
   -moz-border-radius: 0;
   border-radius: 0;
@@ -3896,7 +3896,7 @@ input[type="submit"].btn.btn-mini {
 
 /* line 222, ../../../../.rvm/gems/ruby-1.9.3-p194@ppc-board/gems/bootstrap-sass-2.2.2.0/vendor/assets/stylesheets/bootstrap/_buttons.scss */
 .btn-link:hover {
-  color: #005580;
+  color: #b30000;
   text-decoration: underline;
   background-color: transparent;
 }
@@ -4348,7 +4348,7 @@ input[type="submit"].btn.btn-mini {
 .nav-list > .active > a:hover {
   color: white;
   text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.2);
-  background-color: #0088cc;
+  background-color: red;
 }
 
 /* line 77, ../../../../.rvm/gems/ruby-1.9.3-p194@ppc-board/gems/bootstrap-sass-2.2.2.0/vendor/assets/stylesheets/bootstrap/_navs.scss */
@@ -4452,7 +4452,7 @@ input[type="submit"].btn.btn-mini {
 .nav-pills > .active > a,
 .nav-pills > .active > a:hover {
   color: white;
-  background-color: #0088cc;
+  background-color: red;
 }
 
 /* line 165, ../../../../.rvm/gems/ruby-1.9.3-p194@ppc-board/gems/bootstrap-sass-2.2.2.0/vendor/assets/stylesheets/bootstrap/_navs.scss */
@@ -4530,15 +4530,15 @@ input[type="submit"].btn.btn-mini {
 
 /* line 214, ../../../../.rvm/gems/ruby-1.9.3-p194@ppc-board/gems/bootstrap-sass-2.2.2.0/vendor/assets/stylesheets/bootstrap/_navs.scss */
 .nav .dropdown-toggle .caret {
-  border-top-color: #0088cc;
-  border-bottom-color: #0088cc;
+  border-top-color: red;
+  border-bottom-color: red;
   margin-top: 6px;
 }
 
 /* line 219, ../../../../.rvm/gems/ruby-1.9.3-p194@ppc-board/gems/bootstrap-sass-2.2.2.0/vendor/assets/stylesheets/bootstrap/_navs.scss */
 .nav .dropdown-toggle:hover .caret {
-  border-top-color: #005580;
-  border-bottom-color: #005580;
+  border-top-color: #b30000;
+  border-bottom-color: #b30000;
 }
 
 /* move down carets for tabs */
@@ -5997,7 +5997,7 @@ input[type="submit"].btn.btn-mini {
 
 /* line 37, ../../../../.rvm/gems/ruby-1.9.3-p194@ppc-board/gems/bootstrap-sass-2.2.2.0/vendor/assets/stylesheets/bootstrap/_thumbnails.scss */
 a.thumbnail:hover {
-  border-color: #0088cc;
+  border-color: red;
   -webkit-box-shadow: 0 1px 4px rgba(0, 105, 214, 0.25);
   -moz-box-shadow: 0 1px 4px rgba(0, 105, 214, 0.25);
   box-shadow: 0 1px 4px rgba(0, 105, 214, 0.25);
@@ -8174,12 +8174,12 @@ a.label:hover, a.badge:hover {
     overflow: visible !important;
   }
 }
-/* line 7, ../../app/assets/stylesheets/custom.css.scss */
+/* line 17, ../../app/assets/stylesheets/custom.css.scss */
 textarea {
   width: 75%;
 }
 
-/* line 11, ../../app/assets/stylesheets/custom.css.scss */
+/* line 21, ../../app/assets/stylesheets/custom.css.scss */
 .brand {
   font-family: Georgia, "Times New Roman", Times, serif;
 }
@@ -8215,6 +8215,19 @@ textarea {
   margin-top: 30px;
   padding-bottom: 30px;
 }
+/* line 12, ../../app/assets/stylesheets/custom.css.scss */
+.thread a:link {
+  text-decoration: underline;
+}
+/* line 13, ../../app/assets/stylesheets/custom.css.scss */
+.thread a:visited {
+  color: #990000;
+  text-decoration: underline;
+}
+/* line 14, ../../app/assets/stylesheets/custom.css.scss */
+.thread a:hover {
+  text-decoration: underline;
+}
 @media (max-width: 767px) {
   /* line 24, ../../app/assets/stylesheets/posts.css.scss */
   .thread {
@@ -8223,31 +8236,44 @@ textarea {
   }
 }
 
-/* line 34, ../../app/assets/stylesheets/posts.css.scss */
+/* line 35, ../../app/assets/stylesheets/posts.css.scss */
 .top-matter {
   font-family: Georgia, "Times New Roman", Times, serif;
   font-size: 16px;
-  border-top: 3px solid #555555;
-  border-bottom: 3px solid #555555;
+  border-top: 14px solid #990000;
+  border-bottom: 14px solid #990000;
   margin-top: 14px;
   padding-top: 14px;
 }
+/* line 12, ../../app/assets/stylesheets/custom.css.scss */
+.top-matter a:link {
+  text-decoration: underline;
+}
+/* line 13, ../../app/assets/stylesheets/custom.css.scss */
+.top-matter a:visited {
+  color: #990000;
+  text-decoration: underline;
+}
+/* line 14, ../../app/assets/stylesheets/custom.css.scss */
+.top-matter a:hover {
+  text-decoration: underline;
+}
 @media (max-width: 767px) {
-  /* line 34, ../../app/assets/stylesheets/posts.css.scss */
+  /* line 35, ../../app/assets/stylesheets/posts.css.scss */
   .top-matter {
     margin-bottom: 15px;
     padding-bottom: 15px;
   }
 }
 @media (min-width: 767px) {
-  /* line 34, ../../app/assets/stylesheets/posts.css.scss */
+  /* line 35, ../../app/assets/stylesheets/posts.css.scss */
   .top-matter {
     margin-bottom: 30px;
     padding-bottom: 30px;
   }
 }
 
-/* line 51, ../../app/assets/stylesheets/posts.css.scss */
+/* line 53, ../../app/assets/stylesheets/posts.css.scss */
 #top-nav-bar {
   margin-left: 10%;
   margin-right: 10%;
