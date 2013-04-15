@@ -104,6 +104,7 @@ class PostsController < ApplicationController
   def preview
     @post = Post.new(params[:post], :as => (current_user.moderator? ? :moderator : :default))
     @post.user = current_user
+    add_nm(@post)
     
     respond_to do |format|
       format.html { render :partial => 'post', :object => @post, :locals => { :hide_status_info => true } }
@@ -140,6 +141,8 @@ class PostsController < ApplicationController
   def create
     @post = Post.new(params[:post], :as => (current_user.moderator? ? :moderator : :default))
     @post.user = current_user
+    add_nm(@post)
+
     respond_to do |format|
       if @post.save
         notify_watchers(@post)
@@ -212,5 +215,11 @@ class PostsController < ApplicationController
   def authenticate_user_board!
     session[:user_return_to] = request.fullpath
     authenticate_user!
+  end
+
+  def add_nm(post)    
+    if @post.body == ""
+      @post.subject += " (nm)"
+    end
   end
 end
