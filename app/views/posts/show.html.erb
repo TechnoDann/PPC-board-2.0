@@ -13,6 +13,11 @@
         <%= link_to 'Watch this thread', "/posts/#{@post.id}/watch", :method => :post, :class => 'btn' %>
       <% end %>
     <% end %>
+    <% if cookies[:last_subforum] %>
+      <%= link_to 'Return to messages', "/posts/tagged/#{cookies[:last_subforum]}", :class => 'btn' %>
+    <% else %>
+      <%= link_to 'Return to messages', posts_path, :class => 'btn' %>
+    <% end %>
   <% end %>
 </div>
 <div class="rest-of-thread"> <br />

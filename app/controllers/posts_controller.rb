@@ -22,6 +22,8 @@ class PostsController < ApplicationController
       cookies.delete :sort_mode
       cookies[:sort_mode] = { :value => params[:sort_mode], :expires => 20.years.from_now }
     end
+    cookies.delete :last_subforum
+
     @posts = Post.where(:ancestry => nil, :next_version_id => nil)
       .paginate(:page => params[:page]).order("sort_timestamp DESC")
 
@@ -63,6 +65,8 @@ class PostsController < ApplicationController
   # GET /posts/tagged/1
   # GET /posts/tagged/1.json
   def tagged
+    cookies[:last_subforum] = { :value => params[:tag_id], :expires => 3.months.from_now }
+
     if params[:tag_id] == "nothing"
       @tag = false
       @raw_posts = Post.joins("LEFT JOIN posts_tags pt ON pt.post_id = posts.id")
