@@ -8186,30 +8186,31 @@ textarea {
 
 /* line 4, ../../app/assets/stylesheets/posts.css.scss */
 .subthread {
-  margin-left: 3%;
+  padding-left: 3%;
+  border-left: 2px solid #999999;
 }
 
-/* line 8, ../../app/assets/stylesheets/posts.css.scss */
+/* line 9, ../../app/assets/stylesheets/posts.css.scss */
 .current-post {
   font-weight: bold;
 }
 
-/* line 12, ../../app/assets/stylesheets/posts.css.scss */
+/* line 13, ../../app/assets/stylesheets/posts.css.scss */
 .post h1 {
   font-size: 18px;
 }
 
-/* line 16, ../../app/assets/stylesheets/posts.css.scss */
+/* line 17, ../../app/assets/stylesheets/posts.css.scss */
 .post h2, h3 {
   font-size: 16px;
 }
 
-/* line 20, ../../app/assets/stylesheets/posts.css.scss */
+/* line 21, ../../app/assets/stylesheets/posts.css.scss */
 .modal-backdrop {
   opacity: 1.0;
 }
 
-/* line 24, ../../app/assets/stylesheets/posts.css.scss */
+/* line 25, ../../app/assets/stylesheets/posts.css.scss */
 .thread {
   border-bottom: 1px solid #999999;
   margin-top: 30px;
@@ -8229,14 +8230,14 @@ textarea {
   text-decoration: underline;
 }
 @media (max-width: 767px) {
-  /* line 24, ../../app/assets/stylesheets/posts.css.scss */
+  /* line 25, ../../app/assets/stylesheets/posts.css.scss */
   .thread {
     margin-top: 15px;
     padding-bottom: 15px;
   }
 }
 
-/* line 35, ../../app/assets/stylesheets/posts.css.scss */
+/* line 36, ../../app/assets/stylesheets/posts.css.scss */
 .top-matter {
   font-family: Georgia, "Times New Roman", Times, serif;
   font-size: 16px;
@@ -8259,21 +8260,21 @@ textarea {
   text-decoration: underline;
 }
 @media (max-width: 767px) {
-  /* line 35, ../../app/assets/stylesheets/posts.css.scss */
+  /* line 36, ../../app/assets/stylesheets/posts.css.scss */
   .top-matter {
     margin-bottom: 15px;
     padding-bottom: 15px;
   }
 }
 @media (min-width: 767px) {
-  /* line 35, ../../app/assets/stylesheets/posts.css.scss */
+  /* line 36, ../../app/assets/stylesheets/posts.css.scss */
   .top-matter {
     margin-bottom: 30px;
     padding-bottom: 30px;
   }
 }
 
-/* line 53, ../../app/assets/stylesheets/posts.css.scss */
+/* line 54, ../../app/assets/stylesheets/posts.css.scss */
 #top-nav-bar {
   margin-left: 10%;
   margin-right: 10%;
