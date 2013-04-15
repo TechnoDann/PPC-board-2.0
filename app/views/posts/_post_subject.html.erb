@@ -4,7 +4,7 @@
 <%= raw '<span class="label label-important">Poofed</span>' if post.poofed %>
 <%= raw '<span class="label label-info">Edited</span>' if post.previous_version %>
 <%= raw '<span class="label label-important">Previous Version</span>' if post.next_version %>
-<%= link_to post.subject, post %> by 
+<%= link_to raw(htmlic_title(post.subject)), post %> by 
 <% if post.author == post.user.name %>
   <%= post.author %>
 <% else %>

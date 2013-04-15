@@ -36,7 +36,7 @@
   </script>
   <% end %>
   <% end %>
-  <b>Subject:</b> <%= post.subject %> <br />
+  <b>Subject:</b> <%= raw(htmlic_title(post.subject)) %> <br />
   <b>Author:</b> 
   <% if post.author == post.user.name %>
     <%= link_to post.author, post.user %>
