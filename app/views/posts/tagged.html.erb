@@ -11,14 +11,23 @@
       Jump to subforum <b class="caret"></b></a>
     <ul class="dropdown-menu">
       <% Tag.all.each do |tag| %>
-        <%= link_to tag.name.pluralize, tagged_path(:tag_id => tag.id), :style => ('font-weight: bold' if tag == @tag) %>
+      <li><%= link_to tag.name.pluralize, tagged_path(:tag_id => tag.id), :style => ('font-weight: bold' if tag == @tag) %></li>
       <% end %>
-      <%= link_to "None of the Above", tagged_path(:tag_id => "nothing"), :style => ('font-weight: bold' if @tag == false) %>
+      <li><%= link_to "None of the Above", tagged_path(:tag_id => "nothing"), :style => ('font-weight: bold' if @tag == false) %></li>
     </ul>
   </li>
 </ul>
 <% @posts.each do |post| %>
   <div class="post thread">
+    <% if Time.now - post.created_at < 48.hours %>
+      <span class="label label-success">New thread</span>
+    <% end %>
+    <% new_post_count = post.children.select(&:new_reply?).length %>
+    <% if new_post_count > 0 %>
+      <span class="label label-success">
+        <%= new_post_count.to_s + " new post".pluralize(new_post_count) %>
+      </span>
+    <% end %>
     <%= render :partial => 'post_subject', :object => post %>
   </div>
 <% end %>
