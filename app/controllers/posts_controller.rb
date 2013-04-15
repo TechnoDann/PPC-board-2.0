@@ -115,9 +115,14 @@ class PostsController < ApplicationController
   def new
     @post = Post.new(:parent_id => params[:parent_id], :author => current_user.name,
                      :tag_ids => [params[:tag_id]])
-
+    locked_post_reply = false
+    if params[:parent_id]
+      parent_post = Post.find(params[:parent_id])
+      locked_post_reply = (parent_post.locked) || (parent_post.ancestors.where(:locked => true).count > 0)
+    end
+    
     respond_to do |format|
-      format.html # new.html.erb
+      format.html { flash[:warning] = "You're trying to reply to a locked post, which is not allowed" if locked_post_reply } # new.html.erb
       format.json { render json: @post }
     end
   end
