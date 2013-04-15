@@ -3,7 +3,7 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 .subthread {
     padding-left: 3%;
-    border-left: 2px solid $grayLight;
+    border-left: 1px solid lighten($grayLight, 10%);
 }
 
 .current-post {

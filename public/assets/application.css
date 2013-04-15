@@ -8187,7 +8187,7 @@ textarea {
 /* line 4, ../../app/assets/stylesheets/posts.css.scss */
 .subthread {
   padding-left: 3%;
-  border-left: 2px solid #999999;
+  border-left: 1px solid #b3b3b3;
 }
 
 /* line 9, ../../app/assets/stylesheets/posts.css.scss */
