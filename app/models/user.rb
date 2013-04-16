@@ -19,6 +19,7 @@ class User < ActiveRecord::Base
 
   validates :name, :presence => true
   validates :name, :uniqueness => true
+  validates_length_of :name, :maximum => 80
   validate :check_email_ban
 
   def email_changed?
