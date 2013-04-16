@@ -2,8 +2,7 @@
 <%= render 'header' %>
 
 <ul class="nav nav-tabs">
-  <%= link_to 'New Post', new_post_path, :class => "btn btn-success", 
-    :style => "float:left; margin-right: 20px" %>
+  <%= render :partial => 'new_post_button'%>
   <li class="<%= 'active' if (!(cookies[:sort_mode]) || cookies[:sort_mode] == "date") %>">
     <%= link_to 'Sort by date', posts_path(:sort_mode => "date") %> </li>
   <li class="<%= 'active' if cookies[:sort_mode] == "tag" %>">
@@ -49,7 +48,7 @@
   <% end %>
 <% end %>
 <br />
-<%= link_to 'New Post', new_post_path, :class => "btn btn-success" %>
+<%= render :partial => 'new_post_button', :locals => { :style => " "} %>
 <% unless cookies[:sort_mode] == "subforum" %>
   <%= will_paginate @posts %>
 <% end %>
