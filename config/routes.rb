@@ -3,6 +3,7 @@ PPCBoard20::Application.routes.draw do
 
   root :to => 'posts#index'
   match 'users' => 'posts#index', :via => :delete
+  match 'formatting_help' => 'pages#formatting_help'
   devise_for :users
   resources :users, :only => [:show]
 

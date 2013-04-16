@@ -23,7 +23,7 @@
     <%= f.input :parent_id, :as => :hidden %>
     <%= f.input :subject, input_html: { maxlength: 100 } %>
     <%= f.input :author, input_html: { maxlength: 80 } %>
-    <%= f.input :body, :hint => "Posts can either be written in Markdown or a subset of HTML. For formatting help, please see #{link_to 'this page', 'http://daringfireball.net/projects/markdown/basics/'}.", :rows => 10, :cols => 50 %>
+    <%= f.input :body, :hint => "Posts can either be written in Markdown or a subset of HTML. For formatting help, please see #{link_to 'the formatting guide', '/formatting_help'}.", :rows => 10, :cols => 50 %>
     <%= f.association :tags, :as => :check_boxes %>
     <% if current_user.moderator? %>
     <%= f.input :locked, :label => 'Locked thread?' %>
