@@ -20,7 +20,7 @@
     <% unless subthread %>
       <div class="thread row-fluid">
     <% end %>
-    <div class="post" id="post-<%= post.id %>">
+    <div class="post post-in-thread" id="post-<%= post.id %>">
       <span class="<%= 'current-post' if post.id == id %>">
         <%= render :partial => 'post_subject', :object => post %>
       </span>
@@ -31,8 +31,8 @@
              | <%= link_to 'Edit', edit_post_path(post) %>
           <% end %>
         <% end %>
-        <br />
-        <%= raw(markdown(post.body)) %>
+        <div class="post-body"><%= raw(markdown(post.body)) %></div>
+        <span class="show-more-link"></span><br>
       <% elsif bodies && !subthread && post.id == id  %>
         <br /><br />
       <% end %>
