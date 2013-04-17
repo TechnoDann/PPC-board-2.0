@@ -21,7 +21,7 @@
     <% if Time.now - post.created_at < 48.hours %>
       <span class="label label-success">New thread</span>
     <% end %>
-    <% new_post_count = post.children.select(&:new_reply?).length %>
+    <% new_post_count = post.descendants.select(&:new_reply?).length %>
     <% if new_post_count > 0 %>
       <span class="label label-success">
         <%= new_post_count.to_s + " new post".pluralize(new_post_count) %>
