@@ -20,6 +20,13 @@
     <% end %>
   <% end %>
 </div>
+
+<% if @post.id != @post.root.id %>
+  <div id="thread-position-restoration-link">
+    <a href="#post-<%= @post.id %>">Jump to this post's position in the thread ↴</a>
+  </div>
+<% end %>
+
 <div class="rest-of-thread"> <br />
 <%= render :partial => 'thread', :locals => { :bodies => true, :id => @post.id },
    :object => Post.arrange_nodes(@post.root.subtree.all(
