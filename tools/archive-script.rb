@@ -1,3 +1,5 @@
+#!/usr/bin/env ruby
+#Usage: ./archive-script [url]
 require 'rubygems'
 require 'mechanize'
 
@@ -5,6 +7,7 @@ module S#cript (that archives)
   @@agent = Mechanize.new
 
   def S.scrape_body(link)
+    $stderr.puts(link)
     page = @@agent.click(@@page.link_with( :href => link))
     info = 
     { :author => page.search(".author_header").first.content.encode("UTF-8", "Windows-1251"),
@@ -27,7 +30,7 @@ module S#cript (that archives)
       elsif node['class'] = "nested_list"
         ret << S.find_subthreads(node.children.first)
       else
-        puts "Can't happen"
+        $stderr.puts "Can't happen"
       end
     end
     ret
@@ -61,4 +64,4 @@ module S#cript (that archives)
     S.scrape_threads
   end
 end
-Marshal.dump(S.scrape_board("http://disc.yourwebapps.com/Indices/241484.html"), $stdout)
+Marshal.dump(S.scrape_board(ARGV[0]), $stdout)

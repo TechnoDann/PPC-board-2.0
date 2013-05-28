@@ -31,6 +31,7 @@ end
 group :development do
   gem 'immigrant', '~> 0.1.2'
   gem 'debugger'
+  gem 'newrelic_rpm'
 end
 
 group :development, :test do
