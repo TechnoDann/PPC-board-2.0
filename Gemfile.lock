@@ -32,7 +32,7 @@ GEM
       activerecord (>= 3.0.0)
     arel (3.0.2)
     bcrypt-ruby (3.0.1)
-    bootstrap-sass (2.2.2.0)
+    bootstrap-sass (2.3.1.3)
       sass (~> 3.2)
     bootstrap-will_paginate (0.0.9)
       will_paginate
@@ -60,7 +60,7 @@ GEM
       debugger-ruby_core_source (~> 1.2.1)
     debugger-linecache (1.2.0)
     debugger-ruby_core_source (1.2.2)
-    devise (2.1.3)
+    devise (2.2.4)
       bcrypt-ruby (~> 3.0)
       orm_adapter (~> 0.1)
       railties (~> 3.1)
@@ -77,6 +77,7 @@ GEM
     immigrant (0.1.4)
       activerecord (>= 3.0)
       foreigner (>= 1.2.1)
+    innertube (1.0.2)
     journey (1.0.4)
     jquery-rails (3.0.0)
       railties (>= 3.0, < 5.0)
@@ -93,8 +94,10 @@ GEM
       treetop (~> 1.4.8)
     markerb (1.0.1)
       redcarpet (>= 2.0)
+    middleware (0.1.0)
     mime-types (1.23)
-    multi_json (1.7.5)
+    multi_json (1.7.6)
+    mysql2 (0.3.12b6)
     newrelic_rpm (3.6.3.104)
     nokogiri (1.5.9)
     orm_adapter (0.4.0)
@@ -166,13 +169,15 @@ GEM
     therubyracer (0.11.4)
       libv8 (~> 3.11.8.12)
       ref
-    thinking-sphinx (2.0.14)
-      activerecord (>= 3.0.3)
+    thinking-sphinx (3.0.3)
+      activerecord (>= 3.1.0)
       builder (>= 2.1.2)
-      riddle (>= 1.5.3)
+      innertube (>= 1.0.2)
+      middleware (>= 0.1.0)
+      riddle (>= 1.5.6)
     thor (0.18.1)
     tilt (1.4.1)
-    treetop (1.4.12)
+    treetop (1.4.14)
       polyglot
       polyglot (>= 0.3.1)
     tzinfo (0.3.37)
@@ -195,28 +200,29 @@ PLATFORMS
 
 DEPENDENCIES
   ancestry
-  bootstrap-sass (~> 2.2.2.0)
+  bootstrap-sass (~> 2.3.1.0)
   bootstrap-will_paginate
   capybara (~> 1.1.2)
-  coffee-rails (~> 3.2.1)
+  coffee-rails (~> 3.2.2)
   debugger
-  devise (~> 2.1.2)
+  devise (~> 2.2.4)
   foreigner (~> 1.2.0)
   immigrant (~> 0.1.2)
   jquery-rails
   jquery-rails-cdn
   lazy_columns
   markerb
+  mysql2 (~> 0.3.12b4)
   newrelic_rpm
   pg
   rails (~> 3.2.13)
   redcarpet
   rspec-rails (~> 2.11.0)
   sanitize
-  sass-rails (~> 3.2.3)
+  sass-rails (~> 3.2.6)
   simple_form
   therubyracer
-  thinking-sphinx (~> 2.0.13)
+  thinking-sphinx (~> 3.0.3)
   uglifier (>= 1.0.3)
   unicorn
   will_paginate (~> 3.0.3)

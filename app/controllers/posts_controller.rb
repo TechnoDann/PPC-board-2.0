@@ -9,6 +9,7 @@ class PostsController < ApplicationController
   def search
     @query = params[:query] || false 
     @posts = Post.search @query, :match_mode => :extended, :page => params[:page]
+    @posts.context[:panes] << ThinkingSphinx::Panes::ExcerptsPane
     respond_to do |format|
       format.html
       format.json { render json: @posts }

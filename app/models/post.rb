@@ -21,15 +21,6 @@ class Post < ActiveRecord::Base
 
   self.per_page = 30
 
-  define_index do
-    indexes body
-    indexes author
-    indexes user.name, :as => :real_author
-    indexes subject
-    indexes tags.name, :as => :tags
-    has sort_timestamp
-  end
-
   def clone_before_edit
     clone = Post.new
     attrs = self.attributes
