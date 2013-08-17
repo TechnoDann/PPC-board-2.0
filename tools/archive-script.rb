@@ -13,7 +13,7 @@ module S#cript (that archives)
     { :author => page.search(".author_header").first.content.encode("UTF-8", "Windows-1251"),
       :subject => page.search("span.subject_header").first.content.encode("UTF-8", "Windows-1251"),
       :timestamp => Time.parse(page.search("span.date_header").first.content + " -0500").utc,
-      :body => page.search("div.message_text").first.inner_html.encode("UTF-8", "Windows-1251")
+      :body => page.search("div.message_text").first.inner_html.encode("UTF-8", "Windows-1251").gsub("\*","\\\*")
     }
     @@agent.back
     info
