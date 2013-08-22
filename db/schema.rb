@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120814011643) do
+ActiveRecord::Schema.define(:version => 20130822190500) do
 
   create_table "bans", :force => true do |t|
     t.integer  "user_id"
@@ -36,7 +36,7 @@ ActiveRecord::Schema.define(:version => 20120814011643) do
     t.text     "body"
     t.datetime "created_at",                             :null => false
     t.datetime "updated_at",                             :null => false
-    t.string   "ancestry"
+    t.text     "ancestry"
     t.integer  "previous_version_id"
     t.integer  "next_version_id"
     t.boolean  "being_cloned",        :default => false
