@@ -6,14 +6,22 @@ require 'mechanize'
 module S#cript (that archives)
   @@agent = Mechanize.new
 
+  def S.try_encode(str)
+    begin
+      str.encode("UTF-8", "Windows-1251")
+    rescue
+      str
+    end
+  end
+
   def S.scrape_body(link)
     $stderr.puts(link)
     page = @@agent.click(@@page.link_with( :href => link))
     info = 
-    { :author => page.search(".author_header").first.content.encode("UTF-8", "Windows-1251"),
-      :subject => page.search("span.subject_header").first.content.encode("UTF-8", "Windows-1251"),
+    { :author => S.try_encode(page.search(".author_header").first.content),
+      :subject => S.try_encode(page.search("span.subject_header").first.content),
       :timestamp => Time.parse(page.search("span.date_header").first.content + " -0500").utc,
-      :body => page.search("div.message_text").first.inner_html.encode("UTF-8", "Windows-1251").gsub("\*","\\\*")
+      :body => S.try_encode(page.search("div.message_text").first.inner_html).gsub("\*","\\\*")
     }
     @@agent.back
     info
