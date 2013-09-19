@@ -1,9 +1,15 @@
 // Place all the styles related to the posts controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+@mixin unstyledLists {
+    list-style: none;
+    margin-left: 0;
+}
+
 .subthread {
     padding-left: 3%;
     border-left: 1px solid lighten($grayLight, 10%);
+    @include unstyledLists();
 }
 
 .current-post {
@@ -31,6 +37,7 @@
         margin-top: 15px;
         padding-bottom: 15px;
     }
+    @include unstyledLists();
 }
 
 .top-matter {
@@ -54,4 +61,8 @@
 #top-nav-bar {
     margin-left: 10%;
     margin-right: 10%;
+}
+
+li.post {
+    @include unstyledLists();
 }

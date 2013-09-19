@@ -18,9 +18,9 @@
 
   <% unless post.next_version %>
     <% unless subthread %>
-      <div class="thread row-fluid">
+      <ul class="thread row-fluid">
     <% end %>
-    <div class="post post-in-thread" id="post-<%= post.id %>">
+    <li class="post post-in-thread" id="post-<%= post.id %>">
       <span class="<%= 'current-post' if post.id == id %>">
         <%= render :partial => 'post_subject', :object => post %>
       </span>
@@ -32,19 +32,19 @@
           <% end %>
         <% end %>
         <div class="post-body"><%= raw(markdown(post.body)) %></div>
-        <span class="show-more-link"></span><br>
+        <span class="show-more-link"></span>
       <% elsif bodies && !subthread && post.id == id  %>
         <br /><br />
       <% end %>
-    </div>
-    <div class="subthread">
+    </li>
+    <ul class="subthread">
       <%= render :partial => 'thread',
             :locals => { :bodies => bodies, :id => id, :subthread => true }, 
             :object => subthreads %>
-    </div> 
+    </ul> 
 
     <% unless subthread %>
-      </div>
+      </ul>
     <% end %>
     <% if bodies && post.poofed %></div> <% end %>
   <% end %>

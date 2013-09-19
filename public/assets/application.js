@@ -10,23 +10,22 @@
  *
  */
 
-  // Cut down on the number if issues from people inadvertently including jquery_ujs twice
+  // Cut down on the number of issues from people inadvertently including jquery_ujs twice
   // by detecting and raising an error when it happens.
-  var alreadyInitialized = function() {
-    var events = $._data(document, 'events');
-    return events && events.click && $.grep(events.click, function(e) { return e.namespace === 'rails'; }).length;
-  }
-
-  if ( alreadyInitialized() ) {
+  if ( $.rails !== undefined ) {
     $.error('jquery-ujs has already been loaded!');
   }
 
   // Shorthand to make it a little easier to call public rails functions from within rails.js
   var rails;
+  var $document = $(document);
 
   $.rails = rails = {
     // Link elements bound by jquery-ujs
     linkClickSelector: 'a[data-confirm], a[data-method], a[data-remote], a[data-disable-with]',
+
+    // Button elements boud jquery-ujs
+    buttonClickSelector: 'button[data-remote]',
 
     // Select elements bound by jquery-ujs
     inputChangeSelector: 'select[data-remote], input[data-remote], textarea[data-remote]',
@@ -102,6 +101,11 @@
           }
         } else if (element.is(rails.inputChangeSelector)) {
           method = element.data('method');
+          url = element.data('url');
+          data = element.serialize();
+          if (element.data('params')) data = data + "&" + element.data('params');
+        } else if (element.is(rails.buttonClickSelector)) {
+          method = element.data('method') || 'get';
           url = element.data('url');
           data = element.serialize();
           if (element.data('params')) data = data + "&" + element.data('params');
@@ -255,18 +259,6 @@
       return false;
     },
 
-    // find all the submit events directly bound to the form and
-    // manually invoke them. If anyone returns false then stop the loop
-    callFormSubmitBindings: function(form, event) {
-      var events = form.data('events'), continuePropagation = true;
-      if (events !== undefined && events['submit'] !== undefined) {
-        $.each(events['submit'], function(i, obj){
-          if (typeof obj.handler === 'function') return continuePropagation = obj.handler(event);
-        });
-      }
-      return continuePropagation;
-    },
-
     //  replace element's html with the 'data-disable-with' after storing original html
     //  and prevent clicking on it
     disableElement: function(element) {
@@ -281,24 +273,22 @@
     enableElement: function(element) {
       if (element.data('ujs:enable-with') !== undefined) {
         element.html(element.data('ujs:enable-with')); // set to old enabled state
-        // this should be element.removeData('ujs:enable-with')
-        // but, there is currently a bug in jquery which makes hyphenated data attributes not get removed
-        element.data('ujs:enable-with', false); // clean up cache
+        element.removeData('ujs:enable-with'); // clean up cache
       }
       element.unbind('click.railsDisable'); // enable element
     }
 
   };
 
-  if (rails.fire($(document), 'rails:attachBindings')) {
+  if (rails.fire($document, 'rails:attachBindings')) {
 
     $.ajaxPrefilter(function(options, originalOptions, xhr){ if ( !options.crossDomain ) { rails.CSRFProtection(xhr); }});
 
-    $(document).delegate(rails.linkDisableSelector, 'ajax:complete', function() {
+    $document.delegate(rails.linkDisableSelector, 'ajax:complete', function() {
         rails.enableElement($(this));
     });
 
-    $(document).delegate(rails.linkClickSelector, 'click.rails', function(e) {
+    $document.delegate(rails.linkClickSelector, 'click.rails', function(e) {
       var link = $(this), method = link.data('method'), data = link.data('params');
       if (!rails.allowAction(link)) return rails.stopEverything(e);
 
@@ -322,7 +312,15 @@
       }
     });
 
-    $(document).delegate(rails.inputChangeSelector, 'change.rails', function(e) {
+    $document.delegate(rails.buttonClickSelector, 'click.rails', function(e) {
+      var button = $(this);
+      if (!rails.allowAction(button)) return rails.stopEverything(e);
+
+      rails.handleRemote(button);
+      return false;
+    });
+
+    $document.delegate(rails.inputChangeSelector, 'change.rails', function(e) {
       var link = $(this);
       if (!rails.allowAction(link)) return rails.stopEverything(e);
 
@@ -330,7 +328,7 @@
       return false;
     });
 
-    $(document).delegate(rails.formSubmitSelector, 'submit.rails', function(e) {
+    $document.delegate(rails.formSubmitSelector, 'submit.rails', function(e) {
       var form = $(this),
         remote = form.data('remote') !== undefined,
         blankRequiredInputs = rails.blankInputs(form, rails.requiredInputSelector),
@@ -356,10 +354,6 @@
           return aborted;
         }
 
-        // If browser does not support submit bubbling, then this live-binding will be called before direct
-        // bindings. Therefore, we should directly call any direct bindings before remotely submitting form.
-        if (!$.support.submitBubbles && $().jquery < '1.7' && rails.callFormSubmitBindings(form, e) === false) return rails.stopEverything(e);
-
         rails.handleRemote(form);
         return false;
 
@@ -369,7 +363,7 @@
       }
     });
 
-    $(document).delegate(rails.formInputClickSelector, 'click.rails', function(event) {
+    $document.delegate(rails.formInputClickSelector, 'click.rails', function(event) {
       var button = $(this);
 
       if (!rails.allowAction(button)) return rails.stopEverything(event);
@@ -381,11 +375,11 @@
       button.closest('form').data('ujs:submit-button', data);
     });
 
-    $(document).delegate(rails.formSubmitSelector, 'ajax:beforeSend.rails', function(event) {
+    $document.delegate(rails.formSubmitSelector, 'ajax:beforeSend.rails', function(event) {
       if (this == event.target) rails.disableFormElements($(this));
     });
 
-    $(document).delegate(rails.formSubmitSelector, 'ajax:complete.rails', function(event) {
+    $document.delegate(rails.formSubmitSelector, 'ajax:complete.rails', function(event) {
       if (this == event.target) rails.enableFormElements($(this));
     });
 
@@ -399,7 +393,7 @@
 
 })( jQuery );
 /* =============================================================
- * bootstrap-collapse.js v2.2.2
+ * bootstrap-collapse.js v2.3.1
  * http://twitter.github.com/bootstrap/javascript.html#collapse
  * =============================================================
  * Copyright 2012 Twitter, Inc.
@@ -453,7 +447,7 @@
         , actives
         , hasData
 
-      if (this.transitioning) return
+      if (this.transitioning || this.$element.hasClass('in')) return
 
       dimension = this.dimension()
       scroll = $.camelCase(['scroll', dimension].join('-'))
@@ -473,7 +467,7 @@
 
   , hide: function () {
       var dimension
-      if (this.transitioning) return
+      if (this.transitioning || !this.$element.hasClass('in')) return
       dimension = this.dimension()
       this.reset(this.$element[dimension]())
       this.transition('removeClass', $.Event('hide'), 'hidden')
@@ -530,7 +524,7 @@
     return this.each(function () {
       var $this = $(this)
         , data = $this.data('collapse')
-        , options = typeof option == 'object' && option
+        , options = $.extend({}, $.fn.collapse.defaults, $this.data(), typeof option == 'object' && option)
       if (!data) $this.data('collapse', (data = new Collapse(this, options)))
       if (typeof option == 'string') data[option]()
     })
@@ -567,7 +561,7 @@
 
 }(window.jQuery);
 /* ============================================================
- * bootstrap-dropdown.js v2.2.2
+ * bootstrap-dropdown.js v2.3.1
  * http://twitter.github.com/bootstrap/javascript.html#dropdowns
  * ============================================================
  * Copyright 2012 Twitter, Inc.
@@ -650,7 +644,10 @@
 
       isActive = $parent.hasClass('open')
 
-      if (!isActive || (isActive && e.keyCode == 27)) return $this.click()
+      if (!isActive || (isActive && e.keyCode == 27)) {
+        if (e.which == 27) $parent.find(toggle).focus()
+        return $this.click()
+      }
 
       $items = $('[role=menu] li:not(.divider):visible a', $parent)
 
@@ -684,8 +681,9 @@
       selector = selector && /#/.test(selector) && selector.replace(/.*(?=#[^\s]*$)/, '') //strip for ie7
     }
 
-    $parent = $(selector)
-    $parent.length || ($parent = $this.parent())
+    $parent = selector && $(selector)
+
+    if (!$parent || !$parent.length) $parent = $this.parent()
 
     return $parent
   }
@@ -721,15 +719,15 @@
    * =================================== */
 
   $(document)
-    .on('click.dropdown.data-api touchstart.dropdown.data-api', clearMenus)
-    .on('click.dropdown touchstart.dropdown.data-api', '.dropdown form', function (e) { e.stopPropagation() })
-    .on('touchstart.dropdown.data-api', '.dropdown-menu', function (e) { e.stopPropagation() })
-    .on('click.dropdown.data-api touchstart.dropdown.data-api'  , toggle, Dropdown.prototype.toggle)
-    .on('keydown.dropdown.data-api touchstart.dropdown.data-api', toggle + ', [role=menu]' , Dropdown.prototype.keydown)
+    .on('click.dropdown.data-api', clearMenus)
+    .on('click.dropdown.data-api', '.dropdown form', function (e) { e.stopPropagation() })
+    .on('click.dropdown-menu', function (e) { e.stopPropagation() })
+    .on('click.dropdown.data-api'  , toggle, Dropdown.prototype.toggle)
+    .on('keydown.dropdown.data-api', toggle + ', [role=menu]' , Dropdown.prototype.keydown)
 
 }(window.jQuery);
 /* =========================================================
- * bootstrap-modal.js v2.2.2
+ * bootstrap-modal.js v2.3.1
  * http://twitter.github.com/bootstrap/javascript.html#modals
  * =========================================================
  * Copyright 2012 Twitter, Inc.
@@ -791,8 +789,7 @@
             that.$element.appendTo(document.body) //don't move modals dom position
           }
 
-          that.$element
-            .show()
+          that.$element.show()
 
           if (transition) {
             that.$element[0].offsetWidth // force reflow
@@ -870,16 +867,17 @@
         })
       }
 
-    , hideModal: function (that) {
-        this.$element
-          .hide()
-          .trigger('hidden')
-
-        this.backdrop()
+    , hideModal: function () {
+        var that = this
+        this.$element.hide()
+        this.backdrop(function () {
+          that.removeBackdrop()
+          that.$element.trigger('hidden')
+        })
       }
 
     , removeBackdrop: function () {
-        this.$backdrop.remove()
+        this.$backdrop && this.$backdrop.remove()
         this.$backdrop = null
       }
 
@@ -903,6 +901,8 @@
 
           this.$backdrop.addClass('in')
 
+          if (!callback) return
+
           doAnimate ?
             this.$backdrop.one($.support.transition.end, callback) :
             callback()
@@ -911,8 +911,8 @@
           this.$backdrop.removeClass('in')
 
           $.support.transition && this.$element.hasClass('fade')?
-            this.$backdrop.one($.support.transition.end, $.proxy(this.removeBackdrop, this)) :
-            this.removeBackdrop()
+            this.$backdrop.one($.support.transition.end, callback) :
+            callback()
 
         } else if (callback) {
           callback()
@@ -997,7 +997,6 @@
   window.add_show_more_links = function() {
     return $('.show-more-link').each(function() {
       var div, link_span;
-
       link_span = $(this);
       div = link_span.parent().children(".post-body");
       if (div.height() > (14 * 10)) {
