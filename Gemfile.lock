@@ -119,6 +119,11 @@ GEM
       activesupport (= 3.2.15)
       bundler (~> 1.0)
       railties (= 3.2.15)
+    rails_12factor (0.0.2)
+      rails_serve_static_assets
+      rails_stdout_logging
+    rails_serve_static_assets (0.0.1)
+    rails_stdout_logging (0.0.3)
     railties (3.2.15)
       actionpack (= 3.2.15)
       activesupport (= 3.2.15)
@@ -217,6 +222,7 @@ DEPENDENCIES
   newrelic_rpm
   pg
   rails (~> 3.2.13)
+  rails_12factor
   redcarpet
   rspec-rails (~> 2.11.0)
   sanitize
