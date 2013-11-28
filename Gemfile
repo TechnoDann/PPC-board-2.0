@@ -1,4 +1,5 @@
 source 'https://rubygems.org'
+ruby '1.9.3'
 
 gem 'rails', '~> 3.2.13'
 
@@ -39,6 +40,10 @@ group :development, :test do
   gem 'rspec-rails', '~> 2.11.0'
 end 
 
+group :production do
+  gem 'rails_12factor'
+end
+
 gem 'jquery-rails'
 gem 'jquery-rails-cdn'
 gem 'simple_form'
@@ -49,8 +54,6 @@ gem 'lazy_columns'
 
 # Authentication
 gem 'devise', '~> 2.2.4'
-# Temporary fix until the dependency version is bumped upstream
-# gem 'devise_openid_authenticatable', :git => 'git://github.com/msaffitz/devise_openid_authenticatable.git'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
