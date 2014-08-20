@@ -34,8 +34,8 @@ namespace :db do
             puts "Blank author"
           end
           potential_dups = Post.where(:created_at => entity[:timestamp],
-                                      :subject => entity[:subject],
-                                      :author => entity[:author],
+                                      :subject => safe_hash[:subject],
+                                      :author => safe_hash[:author],
                                       :body => entity[:body],
                                       :user_id => user.id)
           if potential_dups.length == 0
