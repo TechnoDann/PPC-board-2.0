@@ -23,13 +23,37 @@ namespace :db do
       archive.each do |entity|
         if entity.is_a?(Hash)
           safe_hash = entity.remove(:timestamp).merge!({:parent_id => parent})
-          post = Post.new(safe_hash)
-          post.user = user
-          post.save
-          parent_id = post.id
-          post.created_at = entity[:timestamp]
-          post.sort_timestamp = post.created_at
-          post.save
+          if entity[:subject] == "" or entity[:subject] == " "
+            safe_hash[:subject] = "[[[UNPARSABLE SUBJECT LINE]]]"
+            puts entity
+            puts "Blank subject"
+          end
+          if entity[:author] == ""
+            safe_hash[:subject] = "[[[UNPARSABLE AUTHOR NAME]]]"
+            puts entity
+            puts "Blank author"
+          end
+          potential_dups = Post.where(:created_at => entity[:timestamp],
+                                      :subject => entity[:subject],
+                                      :author => entity[:author],
+                                      :body => entity[:body],
+                                      :user_id => user.id)
+          if potential_dups.length == 0
+            post = Post.new(safe_hash)
+            post.user = user
+            post.save
+            parent_id = post.id
+            post.created_at = entity[:timestamp]
+            post.sort_timestamp = post.created_at
+            post.save
+          else
+            if potential_dups.length > 1
+              puts entity
+              puts potential_dups.length
+            end
+            post = potential_dups[0]
+            parent_id = post.id
+          end
         elsif entity.is_a?(Array)
           unless entity == []
             # Subthread of the post we last posted

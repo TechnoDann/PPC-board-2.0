@@ -17,7 +17,7 @@ module S#cript (that archives)
   def S.scrape_body(link)
     $stderr.puts(link)
     page = @@agent.click(@@page.link_with( :href => link))
-    info = 
+    info =
     { :author => S.try_encode(page.search(".author_header").first.content),
       :subject => S.try_encode(page.search("span.subject_header").first.content),
       :timestamp => Time.parse(page.search("span.date_header").first.content + " -0500").utc,
@@ -26,14 +26,14 @@ module S#cript (that archives)
     @@agent.back
     info
   end
-  
+
   def S.find_subthreads(ul)
     ret = []
     if ul == nil
       return ret
     end
     ul.children.filter("li").each do |node|
-      if node['class'] == "message_entry "
+      if node['class'] == "message_entry " or node['class'] == "message_entry new_message"
         ret << S.scrape_body(node.search("a").first['href'])
       elsif node['class'] = "nested_list"
         ret << S.find_subthreads(node.children.first)
@@ -43,16 +43,16 @@ module S#cript (that archives)
     end
     ret
   end
-  
+
   def S.serialize_thread(thread_div)
     ret = [S.scrape_body(thread_div.search("div.first_message_div a").first['href'])]
-    ul = thread_div.search("div.responses").children
+    ul = thread_div.search("div.responses li.nested_list").children
     if ul
       ret << find_subthreads(ul.first) # Is gauranteed to be a <ul>
     end
     ret
   end
-  
+
   def S.scrape_threads()
     threads = []
     while @@page
