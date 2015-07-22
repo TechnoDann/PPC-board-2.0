@@ -31,7 +31,7 @@
 <%= render :partial => 'thread', :locals => { :bodies => true, :id => @post.id },
    :object => Post.arrange_nodes(@post.root.subtree.all(
       :include => [:tags, :user],
-      :order => "(case when ancestry is null then 0 else 1 end), ancestry, sort_timestamp DESC" )) %>
+      :order => "ancestry NULLS FIRST, sort_timestamp DESC" )) %>
 </div> 
 <script type="text/javascript">
   add_show_more_links();

@@ -32,7 +32,7 @@
           :object =>
              Post.arrange_nodes(post.subtree.all(
                 :include => [:tags, :user], 
-                :order => "(case when ancestry is null then 0 else 1 end), ancestry, sort_timestamp DESC")) %>
+                :order => "ancestry NULLS FIRST, sort_timestamp DESC")) %>
       <% end %>
     <% end %>
   <% end %>
@@ -44,7 +44,7 @@
       :object => 
          Post.arrange_nodes(post.subtree.all(
             :include => [:tags, :user],
-            :order => "(case when ancestry is null then 0 else 1 end), ancestry, sort_timestamp DESC" )) %>
+            :order => "ancestry NULLS FIRST, sort_timestamp DESC" )) %>
   <% end %>
 <% end %>
 <br />
