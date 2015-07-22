@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby '1.9.3'
+ruby '2.2.1'
 
 gem 'rails', '~> 3.2.13'
 
@@ -7,15 +7,17 @@ gem 'rails', '~> 3.2.13'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 gem 'pg'
-gem 'ancestry'
+gem 'ancestry', '~> 2.1.0'
 gem 'redcarpet'
 gem 'markerb'
 gem 'sanitize'
-gem 'will_paginate', '~> 3.0.3'
+gem 'will_paginate', '~> 3.0.7'
 gem 'bootstrap-will_paginate'
 
-gem 'thinking-sphinx', '~> 3.0.3'
-gem 'mysql2', '~> 0.3.12b4' #for Sphinx
+# For thinking sphinx
+gem 'mysql2',          '~> 0.3.18', :platform => :ruby
+gem 'jdbc-mysql',      '~> 5.1.35', :platform => :jruby
+gem 'thinking-sphinx', '~> 3.1.4'
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
@@ -30,14 +32,12 @@ group :assets do
 end
 
 group :development do
-  gem 'immigrant', '~> 0.1.2'
-  gem 'debugger'
-  gem 'newrelic_rpm'
+  gem 'immigrant', '~> 0.3.4'
 end
 
 group :development, :test do
-  gem 'capybara', '~> 1.1.2'
-  gem 'rspec-rails', '~> 2.11.0'
+  gem 'capybara', '~> 2.4.4'
+  gem 'rspec-rails', '~> 3.3'
 end 
 
 group :production do
@@ -49,7 +49,7 @@ gem 'jquery-rails-cdn'
 gem 'simple_form'
 
 # Add foreign key support
-gem 'foreigner', '~> 1.2.0'
+gem 'foreigner', '~> 1.7.4'
 gem 'lazy_columns'
 
 # Authentication
@@ -67,5 +67,3 @@ gem 'unicorn'
 # Deploy with Capistrano
 # gem 'capistrano'
 
-# To use debugger
-# gem 'debugger'
