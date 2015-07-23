@@ -7,8 +7,8 @@ class PostsController < ApplicationController
   # GET /posts/search
   # GET /posts/search.json
   def search
-    @query = params[:query] || false 
-    @posts = Post.search @query, :match_mode => :extended, :page => params[:page]
+    @query = params[:query] || false
+    @posts = Post.search @query, :page => params[:page]
     @posts.context[:panes] << ThinkingSphinx::Panes::ExcerptsPane
     respond_to do |format|
       format.html
