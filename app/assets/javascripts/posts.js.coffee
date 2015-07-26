@@ -31,3 +31,5 @@ window.add_show_more_links = () ->
                 link_span.html("")
                 e.preventDefault()
                 return false
+
+$(() -> add_show_more_links())

@@ -21,7 +21,7 @@
   <% end %>
 </div>
 
-<% if @post.id != @post.root.id %>
+<% if @post.ancestry != nil %>
   <div id="thread-position-restoration-link">
     <a href="#post-<%= @post.id %>">Jump to this post's position in the thread ↴</a>
   </div>
@@ -32,7 +32,4 @@
    :object => Post.arrange_nodes(@post.root.subtree.select(:body).all(
       :include => [:tags, :user],
       :order => "ancestry NULLS FIRST, sort_timestamp DESC" )) %>
-</div> 
-<script type="text/javascript">
-  add_show_more_links();
-</script>
+</div>
