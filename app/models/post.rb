@@ -23,6 +23,7 @@ class Post < ActiveRecord::Base
 
   def clone_before_edit
     clone = Post.new
+    load_body = self.body # Skip lazy_columns
     attrs = self.attributes
     attrs.delete("id")
     clone.update_attributes(attrs, :without_protection => true)
