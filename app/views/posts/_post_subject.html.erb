@@ -1,7 +1,7 @@
 <% post = post_subject %>
 <%= raw '<span class="label label-success">New</span>' if post.new_reply? %>
 <%= raw '<span class="label label-warning">Locked</span>' if post.locked %>
-<%= raw '<span class="label label-important">Poofed</span>' if post.poofed %>
+<%= raw '<span class="label label-danger">Poofed</span>' if post.poofed %>
 <%= raw '<span class="label label-info">Edited</span>' if post.previous_version %>
 <%= raw '<span class="label label-important">Previous Version</span>' if post.next_version %>
 <%= link_to raw(htmlic_title(post.subject)), post %> by 
@@ -12,5 +12,5 @@
 <% end %>
 <span style="font-size: 70%">on <%= post.created_at %></span> 
 <% post.tags.each do |tag| %>
-<span class="label"><%= tag.name %></span>
+<span class="label label-default"><%= tag.name %></span>
 <% end %>

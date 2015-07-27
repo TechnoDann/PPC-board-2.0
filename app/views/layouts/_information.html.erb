@@ -1,17 +1,19 @@
 <div class="container">
-<div class="row-fluid">
-  <% flash ||= {} %>
-  <% flash.each do |type, msg| %>
-    <% if type == :notice 
-         type = :success
-       end
-       if type == :alert 
-         type = :error
-       end %>
-    <% msg = [msg] unless msg.kind_of?(Array) %>
-    <% msg.each do |text| %>
-      <div class="alert alert-<%= type %>"> <%=raw text %> </div>
-    <% end %>
-  <% end %>
-</div>
+  <div class="row">
+    <div class="col-md-12">
+      <% flash ||= {} %>
+      <% flash.each do |type, msg| %>
+        <% if type == :notice
+             type = :success
+           end
+          if type == :alert or type == :error
+            type = :danger
+          end %>
+        <% msg = [msg] unless msg.kind_of?(Array) %>
+        <% msg.each do |text| %>
+          <div class="alert alert-<%= type %>"> <%=raw text %> </div>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
 </div>

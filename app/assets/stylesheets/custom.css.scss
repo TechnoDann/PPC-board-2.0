@@ -1,16 +1,6 @@
-$serifFontFamily: Georgia, "Times New Roman", Times, serif;
-$headingsFontFamily: $serifFontFamily;
-$textColor: black;
-$visitedRed: #990000;
-$linkColor: #FF0000;
-$oldLinkColor: #08c;
-$btnPrimaryBackground: $oldLinkColor;
-@import "bootstrap";
-@import "bootstrap-responsive";
-
 @mixin threadishLinks {
     a:link { text-decoration: underline; }
-    a:visited { color: $visitedRed; text-decoration: underline; }
+    a:visited { color: $visited-red; text-decoration: underline; }
     a:hover { text-decoration: underline; }
 }
 
@@ -18,6 +8,6 @@ textarea {
     width: 75%;
 }
 
-.brand {
-    @include font-family-serif();
+.navbar-brand {
+    font-family: $serif-font-family;
 }
