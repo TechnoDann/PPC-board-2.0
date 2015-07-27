@@ -3,7 +3,7 @@ PPCBoard20::Application.routes.draw do
 
   root :to => 'posts#index'
   match 'users' => 'posts#index', :via => :delete
-  match 'formatting_help' => 'pages#formatting_help'
+  get 'formatting_help' => 'pages#formatting_help'
   devise_for :users
   resources :users, :only => [:show]
 
@@ -14,8 +14,8 @@ PPCBoard20::Application.routes.draw do
       put 'preview'
     end
   end
-  
-  match 'posts/tagged/:tag_id' => 'posts#tagged', :as => :tagged
+
+  match 'posts/tagged/:tag_id' => 'posts#tagged', :via => :get, :as => :tagged
   match 'posts/:post_id/watch' => 'watches#create', :via => :post
   match 'posts/:post_id/watch' => 'watches#destroy', :via => :delete
   # The priority is based upon order of creation:
