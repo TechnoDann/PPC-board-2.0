@@ -1,8 +1,8 @@
 source 'https://rubygems.org'
 ruby '2.2.1'
 
-gem 'rails', '~> 3.2.13'
-gem 'strong_parameters'
+gem 'rails', '~> 4.0.0 '
+
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -21,16 +21,14 @@ gem 'jdbc-mysql',      '~> 5.1.35', :platform => :jruby
 gem 'thinking-sphinx', '~> 3.1.4'
 # Gems used only for assets and not required
 # in production environments by default.
-group :assets do
-  gem 'sass-rails',   '~> 3.2.6'
-  gem 'coffee-rails', '~> 3.2.2'
-  gem 'bootstrap-sass', '~> 2.3.1.0'
+gem 'sass-rails',   '~> 5.0.3'
+gem 'coffee-rails', '~> 4.1.0'
+gem 'bootstrap-sass', '~> 2.3.1.0'
 
-  # See https://github.com/sstephenson/execjs#readme for more supported runtimes
-  #gem 'therubyracer', :platforms => :ruby
+# See https://github.com/sstephenson/execjs#readme for more supported runtimes
+#gem 'therubyracer', :platforms => :ruby
 
-  gem 'uglifier', '>= 1.0.3'
-end
+gem 'uglifier', '>= 1.0.3'
 
 group :development do
   gem 'immigrant', '~> 0.3.4'

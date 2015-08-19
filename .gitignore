@@ -17,3 +17,4 @@ config/database.yml
 config/mailers.yml
 config/*.sphinx.conf
 db/sphinx
+bin/
