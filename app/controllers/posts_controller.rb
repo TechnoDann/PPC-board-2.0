@@ -147,11 +147,12 @@ class PostsController < ApplicationController
     respond_to do |format|
       if @post.save
         notify_watchers(@post)
-        unless @post.ancestors.all.any? do |post|
-            post.watchers.exists?(current_user.id)
-          end
-          @post.watchers = [current_user]
-        end
+        # Restore to auto-subscribe people to things they post
+        # unless @post.ancestors.all.any? do |post|
+        #     post.watchers.exists?(current_user.id)
+        #   end
+        #   @post.watchers = [current_user]
+        # end
         format.html { flash[:success] = ['Post was successfully created.']
           redirect_to @post }
         format.json { render json: @post, status: :created, location: @post }
