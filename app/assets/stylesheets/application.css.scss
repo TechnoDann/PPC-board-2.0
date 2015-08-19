@@ -9,8 +9,20 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  * require_self
- * require_tree .
  */
+$serif-font-family: Georgia, "Times New Roman", Times, serif;
+$headings-font-family: $serif-font-family;
+$text-color: black;
+$visited-red: #990000;
+$link-color: #FF0000;
+$old-link-color: #428bca;
+$btn-primary-bg: $old-link-color;
+$pagination-active-bg: $link-color;
+$paginattion-active-border: $link-color;
+
+// @import "bootstrap-sprockets";
+@import "bootstrap";
+
 @import "custom";
 @import "posts";
 @import "search";

@@ -2,21 +2,21 @@
 <%= render @post %>
 <div class="btn-group">
   <% unless @post.next_version %>
-    <%= link_to 'Reply', new_post_path(:parent_id => @post), :class => 'btn' %> 
+    <%= link_to 'Reply', new_post_path(:parent_id => @post), :class => 'btn btn-default' %>
     <% if allowed_to_edit? @post, current_user %>
-      <%= link_to 'Edit', edit_post_path(@post), :class => 'btn' %> 
+      <%= link_to 'Edit', edit_post_path(@post), :class => 'btn btn-default' %>
     <% end %>
     <% if user_signed_in? %>
       <% if current_user.watched_posts.exists?(@post.id) %>
-        <%= link_to 'Unwatch this thread', "/posts/#{@post.id}/watch", :method => :delete, :class => 'btn' %>
+        <%= link_to 'Unwatch this thread', "/posts/#{@post.id}/watch", :method => :delete, :class => 'btn btn-default' %>
       <% else %>
-        <%= link_to 'Watch this thread', "/posts/#{@post.id}/watch", :method => :post, :class => 'btn' %>
+        <%= link_to 'Watch this thread', "/posts/#{@post.id}/watch", :method => :post, :class => 'btn btn-default' %>
       <% end %>
     <% end %>
     <% if cookies[:last_subforum] %>
-      <%= link_to 'Return to messages', "/posts/tagged/#{cookies[:last_subforum]}", :class => 'btn' %>
+      <%= link_to 'Return to messages', "/posts/tagged/#{cookies[:last_subforum]}", :class => 'btn btn-default' %>
     <% else %>
-      <%= link_to 'Return to messages', posts_path, :class => 'btn' %>
+      <%= link_to 'Return to messages', posts_path, :class => 'btn btn-default' %>
     <% end %>
   <% end %>
 </div>

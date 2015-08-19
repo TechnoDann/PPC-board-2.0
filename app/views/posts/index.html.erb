@@ -41,14 +41,18 @@
   <% end %>
   <% @tagged_posts[false].each do |post| %>
     <%= render :partial => 'thread', :locals => { :bodies => false, :id => false },
-      :object => 
+      :object =>
          Post.arrange_nodes(post.subtree.all(
             :include => [:tags, :user],
             :order => "ancestry NULLS FIRST, sort_timestamp DESC" )) %>
   <% end %>
 <% end %>
 <br />
-<%= render :partial => 'new_post_button', :locals => { :style => " "} %>
+<div class="row">
+  <div class="col-md-2">
+    <%= render :partial => 'new_post_button', :locals => { :style => " "} %>
+  </div>
+</div>
 <% unless cookies[:sort_mode] == "subforum" %>
-  <%= will_paginate @posts %>
+  <%= will_paginate @posts, renderer: BootstrapPagination::Rails%>
 <% end %>

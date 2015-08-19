@@ -13,7 +13,7 @@ gem 'redcarpet'
 gem 'markerb'
 gem 'sanitize'
 gem 'will_paginate', '~> 3.0.7'
-gem 'bootstrap-will_paginate'
+gem 'will_paginate-bootstrap'
 
 # For thinking sphinx
 gem 'mysql2',          '~> 0.3.18', :platform => :ruby
@@ -23,7 +23,7 @@ gem 'thinking-sphinx', '~> 3.1.4'
 # in production environments by default.
 gem 'sass-rails',   '~> 5.0.3'
 gem 'coffee-rails', '~> 4.1.0'
-gem 'bootstrap-sass', '~> 2.3.1.0'
+gem 'bootstrap-sass', '~> 3.3.5'
 
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 #gem 'therubyracer', :platforms => :ruby

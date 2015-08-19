@@ -18,7 +18,8 @@
 
   <% unless post.next_version %>
     <% unless subthread %>
-      <ul class="thread row-fluid">
+      <ul class="thread row list-unstyled">
+        <div class="col-md-12">
     <% end %>
     <li class="post post-in-thread" id="post-<%= post.id %>">
       <span class="<%= 'current-post' if post.id == id %>">
@@ -37,13 +38,14 @@
         <br /><br />
       <% end %>
     </li>
-    <ul class="subthread">
+    <ul class="subthread list-unstyled">
       <%= render :partial => 'thread',
             :locals => { :bodies => bodies, :id => id, :subthread => true }, 
             :object => subthreads %>
     </ul> 
 
     <% unless subthread %>
+        </div>
       </ul>
     <% end %>
     <% if bodies && post.poofed && !post.next_version%></div> <% end %>

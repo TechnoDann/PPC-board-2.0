@@ -3,15 +3,15 @@
 
 <%= render 'form' %>
 <% if @post.parent %>
-<div class="accordion" id="parent-post">
-  <div class="accordion-group">
-    <div class="accordion-heading">
-      <a class="accordion-toggle" data-toggle="collapse" data-parent="#parent-post" href="#parent-post-content">
+<div class="panel-group" id="parent-post">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <a class="panel-toggle" data-toggle="collapse" data-parent="#parent-post" href="#parent-post-content">
         Post being replied to <b class="caret"></b>
       </a>
     </div>
-    <div id="parent-post-content" class="accordion-body collapse" >
-      <div class="accordion-inner">
+    <div id="parent-post-content" class="panel-collapse collapse" >
+      <div class="panel-inner">
         <%= render :partial => 'post', :object => @post.parent, :locals => { :hide_status_info => true } %>
       </div>
     </div>
