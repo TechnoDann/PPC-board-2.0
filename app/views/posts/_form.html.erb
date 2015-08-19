@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="col-md-12">
+  <div class="col-sm-12">
     <div class="panel-group" id="preview-accordion">
       <div class="panel panel-default">
         <div class="panel-heading">
@@ -15,24 +15,36 @@
     </div>
   </div>
   <% @post.body %>
-  <%= simple_form_for @post, :html => { :class => 'form-horizontal', :id => 'post-change-form' } do |f| %>
+  <%= simple_form_for @post, wrapper: :horizontal_form, html: { class: 'form-horizontal', id: 'post-change-form' } do |f| %>
     <%= f.error_notification %>
     <% if @post.errors[:base].length > 0 %>
     <div class="alert alert-error">
       <%= f.error :base %>
     </div>
-    <% end %>
+  <% end %>
+  <div class="form-inputs">
     <%= f.input :parent_id, :as => :hidden %>
     <%= f.input :subject, input_html: { maxlength: 100 } %>
     <%= f.input :author, input_html: { maxlength: 80 } %>
-    <%= f.input :body, :hint => "Posts can either be written in Markdown or a subset of HTML. For formatting help, please see #{link_to 'the formatting guide', '/formatting_help'}.", :rows => 10, :cols => 50 %>
-    <%= f.association :tags, :as => :check_boxes %>
-    <% if current_user.moderator? %>
-    <%= f.input :locked, :label => 'Locked thread?' %>
-    <%= f.input :poofed, :label => 'Poofed thread?' %>
-    <%= f.input :sort_timestamp %>
+    <%= f.input :body, :hint => "Posts can either be written in Markdown or a subset of HTML. For formatting help, please see #{link_to 'the formatting guide', '/formatting_help'}.", :rows => 15, :cols => 50 %>
+      <div class="row">
+        <div class="col-sm-8 col-sm-offset-2">
+          <%= f.association :tags, :as => :check_boxes %>
+        </div>
+      </div>
+      <% if current_user.moderator? %>
+        <div class="row">
+          <div class="col-sm-offset-2 col-sm-8">
+            <%= f.input :locked, :label => 'Locked thread?'%>
+            <%= f.input :poofed, :label => 'Poofed thread?', wrapper_html: {class: "col-sm-offset-2"} %>
+          </div>
+       </div>
+      <%= f.input :sort_timestamp %>
     <% end %>
+  </div>
+  <div class="form-actions">
     <a href="#" onclick="preview()" class="btn btn-success">Preview</a>
-    <%= f.button :submit, :class => 'btn btn-primary' %>
+    <%= f.button :submit %>
+  </div>
   <% end %>
 </div>

@@ -38,7 +38,7 @@
         <li><%= link_to 'Current bans', bans_path %></li>
       </ul>
       <%= form_tag(search_posts_path, :method => "get", :class => "navbar-form navbar-right") do %>
-        <%= text_field_tag(:query, @query, :class => "search-query form-control col-md-2", :placeholder => "Search ...") %>
+        <%= text_field_tag(:query, @query, :class => "search-query form-control col-sm-2", :placeholder => "Search ...") %>
       <% end %>
       <ul class="nav navbar-nav navbar-right">
         <% if user_signed_in? %>
@@ -63,7 +63,7 @@
 <div id="main" role="main">
   <%= yield %>
   <div class="row">
-    <footer class="col-md-6 col-md-offset-3">
+    <footer class="col-sm-6 col-md-offset-3">
       <p>
         This software is licensed under the
         <%= link_to "GNU Affero GPL version 3 or later", "http://www.gnu.org/licenses/agpl-3.0.html" =%>. 
