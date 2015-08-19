@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
+  before_filter :devise_permitted_parameters, if: :devise_controller?
   @query = ""
   helper_method :flash_message
   before_filter :ip_ban
@@ -20,7 +21,7 @@ class ApplicationController < ActionController::Base
         ban = nil
       end
     end
-    if ban != nil 
+    if ban != nil
       cookies[:ip_banned] = { :value => request.remote_ip, :expires => 30.minutes.from_now }
       redirect_to(ban)
     end
@@ -34,5 +35,12 @@ class ApplicationController < ActionController::Base
         redirect_to ban_path(ban)
       end
     end
+  end
+
+  protected
+
+  def devise_permitted_parameters
+    devise_parameter_sanitizer.for(:sign_up) << :email
+    devise_parameter_sanitizer.for(:account_update) << :email
   end
 end

@@ -44,7 +44,7 @@ class BansController < ApplicationController
   # POST /bans
   # POST /bans.json
   def create
-    @ban = Ban.new(params[:ban])
+    @ban = Ban.new(ban_params)
 
     respond_to do |format|
       if @ban.save
@@ -63,7 +63,7 @@ class BansController < ApplicationController
     @ban = Ban.find(params[:id])
 
     respond_to do |format|
-      if @ban.update_attributes(params[:ban])
+      if @ban.update_attributes(ban_params)
         format.html { redirect_to root_path, notice: 'Ban was successfully updated.' }
         format.json { head :no_content }
       else
@@ -89,7 +89,11 @@ class BansController < ApplicationController
   def must_be_moderator!
     unless user_signed_in? && current_user.moderator?
       redirect_to root_path, :flash => { :error => "You must be a moderator to operate the ban subsystem." },
-          :status => :forbidden 
+          :status => :forbidden
     end
+  end
+
+  def ban_params
+    params.require(:ban).permit(:email, :ip, :user_id, :length, :reason)
   end
 end

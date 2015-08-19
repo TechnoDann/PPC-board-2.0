@@ -103,10 +103,10 @@ class PostsController < ApplicationController
   # POST /posts/preview
   # PUT /posts/preview
   def preview
-    @post = Post.new(params[:post], :as => (current_user.moderator? ? :moderator : :default))
+    @post = Post.new(post_params)
     @post.user = current_user
     add_nm(@post)
-    
+
     respond_to do |format|
       format.html { render :partial => 'post', :object => @post, :locals => { :hide_status_info => true } }
     end
@@ -122,7 +122,7 @@ class PostsController < ApplicationController
       parent_post = Post.find(params[:parent_id])
       locked_post_reply = (parent_post.locked) || (parent_post.ancestors.where(:locked => true).count > 0)
     end
-    
+
     respond_to do |format|
       format.html { flash[:warning] = "You're trying to reply to a locked post, which is not allowed" if locked_post_reply } # new.html.erb
       format.json { render json: @post }
@@ -140,7 +140,7 @@ class PostsController < ApplicationController
   # POST /posts
   # POST /posts.json
   def create
-    @post = Post.new(params[:post], :as => (current_user.moderator? ? :moderator : :default))
+    @post = Post.new(post_params)
     @post.user = current_user
     add_nm(@post)
 
@@ -173,7 +173,7 @@ class PostsController < ApplicationController
     @clone = @post.clone_before_edit
     @post.user = current_user
     respond_to do |format|
-      if @post.update_attributes(params[:post], :as => (current_user.moderator? ? :moderator : :default))
+      if @post.update_attributes(post_params)
         @post.close_edit_cycle @clone
         format.html { flash[:success] = ['Post was successfully updated.']
           redirect_to @post }
@@ -218,9 +218,17 @@ class PostsController < ApplicationController
     authenticate_user!
   end
 
-  def add_nm(post)    
+  def add_nm(post)
     if @post.body == ""
       @post.subject += " (nm)"
+    end
+  end
+
+  def post_params
+    if current_user.moderator?
+      params.require(:post).permit(:locked, :poofed, :sort_timestamp, :body, :subject, :author, :parent_id, :tag_ids => [])
+    else
+      params.require(:post).permit(:body, :subject, :author, :parent_id, :tag_ids => [])
     end
   end
 end

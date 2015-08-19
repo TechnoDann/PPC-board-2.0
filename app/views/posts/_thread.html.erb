@@ -4,7 +4,7 @@
     only.  %>
 <% subthread ||= false %>
 <% for post, subthreads in thread do %>
-  <% if bodies && post.poofed %>
+  <% if bodies && post.poofed && !post.next_version %>
     <div class="poof-hider">
       <a href="#" style="font-weight: bold;" data-toggle="collapse" data-target="#thread-from-<%= post.id %>">
         This subthread is poofed. Click to show it.
@@ -12,7 +12,7 @@
     </div>
   <% end %>
 
-  <% if bodies && post.poofed %>
+  <% if bodies && post.poofed && !post.next_version %>
     <div id="thread-from-<%= post.id %>" class="collapse">
   <% end %>
 
@@ -46,6 +46,6 @@
     <% unless subthread %>
       </ul>
     <% end %>
-    <% if bodies && post.poofed %></div> <% end %>
+    <% if bodies && post.poofed && !post.next_version%></div> <% end %>
   <% end %>
 <% end %>

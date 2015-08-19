@@ -2,8 +2,6 @@ class Post < ActiveRecord::Base
   has_ancestry
   lazy_load :body
 
-  attr_accessible :body, :subject, :author, :parent_id, :tag_ids
-  attr_accessible :author, :body, :subject, :locked, :poofed, :sort_timestamp, :parent_id, :tag_ids, :as => :moderator
   attr_readonly :parent_id
   before_create :set_sort_timestamp
 

@@ -3,18 +3,15 @@ class User < ActiveRecord::Base
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable, 
+         :recoverable, :rememberable, :trackable, :validatable,
          :authentication_keys => [ :name ]
 #         :openid_authenticatable #Don't feel like dealing with this
 
-  # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me, 
-                  :name
   before_create :de_guest
   after_create :welcome_mail
 
-  has_many :posts
-  has_one :ban
+  has_many :posts, dependent: :nullify
+  has_one :ban, dependent: :nullify
   has_and_belongs_to_many :watched_posts, :class_name => 'Post', :uniq => true
 
   validates :name, :presence => true

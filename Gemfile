@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 ruby '2.2.1'
 
 gem 'rails', '~> 3.2.13'
+gem 'strong_parameters'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -54,7 +55,7 @@ gem 'foreigner', '~> 1.7.4'
 gem 'lazy_columns'
 
 # Authentication
-gem 'devise', '~> 2.2.4'
+gem 'devise', '~> 3.5.0'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'

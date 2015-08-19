@@ -1,6 +1,4 @@
 class Ban < ActiveRecord::Base
-  attr_accessible :email, :ip, :user_id, :length, :reason
-
   belongs_to :user
 
   validates :length, :reason, :presence => true
