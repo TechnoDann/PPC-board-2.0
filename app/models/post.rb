@@ -1,5 +1,5 @@
 class Post < ActiveRecord::Base
-  has_ancestry
+  has_ancestry orphan_strategy: :adopt
   lazy_load :body
 
   attr_readonly :parent_id
