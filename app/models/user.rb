@@ -12,7 +12,7 @@ class User < ActiveRecord::Base
 
   has_many :posts, dependent: :nullify
   has_one :ban, dependent: :nullify
-  has_and_belongs_to_many :watched_posts, :class_name => 'Post', :uniq => true
+  has_and_belongs_to_many :watched_posts, -> { uniq }, :class_name => 'Post'
 
   validates :name, :presence => true
   validates :name, :uniqueness => true

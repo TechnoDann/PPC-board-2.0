@@ -12,8 +12,12 @@ gem 'ancestry', '~> 2.1.0'
 gem 'redcarpet'
 gem 'markerb'
 gem 'sanitize'
+
 gem 'will_paginate', '~> 3.0.7'
 gem 'will_paginate-bootstrap'
+
+gem 'turbolinks'
+gem 'jquery-turbolinks'
 
 # For thinking sphinx
 gem 'mysql2',          '~> 0.3.18', :platform => :ruby

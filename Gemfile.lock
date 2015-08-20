@@ -73,6 +73,9 @@ GEM
       thor (>= 0.14, < 2.0)
     jquery-rails-cdn (1.0.3)
       jquery-rails
+    jquery-turbolinks (2.1.0)
+      railties (>= 3.1.0)
+      turbolinks
     json (1.8.3)
     kgio (2.9.3)
     lazy_columns (0.5.9)
@@ -151,7 +154,7 @@ GEM
     simple_form (3.1.0)
       actionpack (~> 4.0)
       activemodel (~> 4.0)
-    sprockets (3.3.1)
+    sprockets (3.3.2)
       rack (~> 1.0)
     sprockets-rails (2.3.2)
       actionpack (>= 3.0)
@@ -169,6 +172,8 @@ GEM
     thor (0.19.1)
     thread_safe (0.3.5)
     tilt (1.4.1)
+    turbolinks (2.5.3)
+      coffee-rails
     tzinfo (0.3.44)
     uglifier (2.7.1)
       execjs (>= 0.3.0)
@@ -199,6 +204,7 @@ DEPENDENCIES
   jdbc-mysql (~> 5.1.35)
   jquery-rails
   jquery-rails-cdn
+  jquery-turbolinks
   lazy_columns
   markerb
   mysql2 (~> 0.3.18)
@@ -212,6 +218,7 @@ DEPENDENCIES
   simple_form
   test-unit (~> 3.0)
   thinking-sphinx (~> 3.1.4)
+  turbolinks
   uglifier (>= 1.0.3)
   unicorn
   will_paginate (~> 3.0.7)

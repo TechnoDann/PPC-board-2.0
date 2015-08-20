@@ -1,4 +1,5 @@
 <% post = post_subject %>
+<% cache post do %>
 <%= raw '<span class="label label-success">New</span>' if post.new_reply? %>
 <%= raw '<span class="label label-warning">Locked</span>' if post.locked %>
 <%= raw '<span class="label label-danger">Poofed</span>' if post.poofed %>
@@ -13,4 +14,5 @@
 <span style="font-size: 70%">on <%= post.created_at %></span> 
 <% post.tags.each do |tag| %>
 <span class="label label-default"><%= tag.name %></span>
+<% end %>
 <% end %>

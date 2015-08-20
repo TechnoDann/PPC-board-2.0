@@ -6,10 +6,10 @@ class Post < ActiveRecord::Base
   before_create :set_sort_timestamp
 
   belongs_to :previous_version, :class_name => 'Post', :foreign_key => 'previous_version_id'
-  belongs_to :next_version, :class_name => 'Post', :foreign_key => 'next_version_id' 
+  belongs_to :next_version, :class_name => 'Post', :foreign_key => 'next_version_id'
   has_and_belongs_to_many :tags
   belongs_to :user
-  has_and_belongs_to_many :watchers, :class_name => 'User', :uniq => true
+  has_and_belongs_to_many :watchers, -> { uniq }, :class_name => 'User'
 
   validate :no_memory_hole
   validate :no_locked_reply, :on => :create

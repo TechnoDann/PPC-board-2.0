@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title><%= content_for(:title) != "" ? yield(:title) : "Index" %>
+  <title><%= content_for(:title) ? yield(:title) : "Index" %>
          - PPC Posting Board</title>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
