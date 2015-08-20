@@ -1,7 +1,6 @@
 class PostsController < ApplicationController
   before_filter :clear_return_url
-  before_filter :authenticate_user_board!, :only => [:new, :create, :update, :edit, :preview]  
-  before_filter :check_ban
+  before_filter :authenticate_user_board!, :check_ban, :only => [:new, :create, :update, :edit, :preview]
   helper_method :allowed_to_edit?
 
   # GET /posts/search
