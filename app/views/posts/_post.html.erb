@@ -15,7 +15,7 @@
      <% end %>
 
      <% if post.poofed || post.ancestors.where(:poofed => true).count > 0 %>
-       <div class="modal hide" id="poofModal" role="dialog">
+       <div class="modal" id="poofModal" role="dialog">
          <div class="modal-dialog" role="document">
            <div class="modal-content">
              <div class="modal-header">

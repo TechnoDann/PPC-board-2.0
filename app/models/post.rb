@@ -24,7 +24,7 @@ class Post < ActiveRecord::Base
     load_body = self.body # Skip lazy_columns
     attrs = self.attributes
     attrs.delete("id")
-    clone.update_attributes(attrs, :without_protection => true)
+    clone.update(attrs)
     clone.being_cloned = true
     # Note, all pasts of a post have a next_version of the most recent version.
     # This is now a feature.
