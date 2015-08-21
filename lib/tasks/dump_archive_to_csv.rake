@@ -15,7 +15,7 @@ namespace :db do
         end
       end
       roots.each do |root|
-        posts = root.subtree.arrange(:order => "sort_timestamp DESC")
+        posts = root.subtree.select(:body).arrange(:order => "sort_timestamp DESC")
         recurse(posts,csv)
       end
     end
