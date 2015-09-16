@@ -6,11 +6,7 @@
 <%= raw '<span class="label label-info">Edited</span>' if post.previous_version %>
 <%= raw '<span class="label label-important">Previous Version</span>' if post.next_version %>
 <%= link_to raw(htmlic_title(post.subject)), post %> by 
-<% if post.author == post.user.name %>
-  <%= post.author %>
-<% else %>
-  <%= post.author %> (posted by <%= post.user.name %>)
-<% end %>
+<%= post.author %>
 <span style="font-size: 70%">on <%= post.created_at %></span> 
 <% post.tags.each do |tag| %>
 <span class="label label-default"><%= tag.name %></span>

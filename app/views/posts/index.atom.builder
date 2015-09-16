@@ -11,7 +11,7 @@ atom_feed do |feed|
         entry.content("No body provided.", :type => 'text')
       end
       entry.author do |author|
-        author.name((post.author == post.user.name) ? post.author  : "#{post.author} (posted by #{post.user.name})")
+        author.name(post.author)
         author.url(user_url(post.user, :only_path => false))
       end
     end

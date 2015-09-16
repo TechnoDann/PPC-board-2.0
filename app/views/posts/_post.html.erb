@@ -14,7 +14,7 @@
        <% flash_message(:info, "This post has been superseded by an edit, which is located #{link_to 'here.', post.next_version}") %>
      <% end %>
 
-     <% if post.poofed || post.ancestors.where(:poofed => true).count > 0 %>
+     <% if post.poofed || post.ancestors.where(:poofed => true).any? %>
        <div class="modal" id="poofModal" role="dialog">
          <div class="modal-dialog" role="document">
            <div class="modal-content">
@@ -42,11 +42,7 @@
   <% end %>
   <b>Subject:</b> <%= raw(htmlic_title(post.subject)) %> <br />
   <b>Author:</b> 
-  <% if post.author == post.user.name %>
-    <%= link_to post.author, post.user %>
-  <% else %>
-    <%= post.author %> (posted by <%= link_to post.user.name, post.user %>)
-  <% end %>
+  <%= link_to post.author, post.user %>
   <br />
   <b>Posted on:</b> <%= post.created_at %><br />
   <br />

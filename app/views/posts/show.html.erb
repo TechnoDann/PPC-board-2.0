@@ -30,7 +30,7 @@
 <div class="rest-of-thread"> <br />
 <%= render :partial => 'thread', :locals => { :bodies => true, :id => @post.id },
    :object => Post.arrange_nodes(@post.root.subtree.select(:body)
-                                  .includes([:tags, :user])
+                                  .includes([:tags])
                                   .order("ancestry NULLS FIRST, sort_timestamp DESC").load)
 %>
 </div>

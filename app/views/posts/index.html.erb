@@ -31,7 +31,7 @@
         <%= render :partial => 'thread', :locals => { :bodies => false, :id => false },
                    :object =>
                    Post.arrange_nodes(post.subtree
-                                       .includes([:tags, :user])
+                                       .includes([:tags])
                                        .order("ancestry NULLS FIRST, sort_timestamp DESC").load)
         %>
       <% end %>
@@ -44,7 +44,7 @@
     <%= render :partial => 'thread', :locals => { :bodies => false, :id => false },
       :object =>
       Post.arrange_nodes(post.subtree
-                          .includes([:tags, :user])
+                          .includes([:tags])
                           .order("ancestry NULLS FIRST, sort_timestamp DESC").load)
     %>
   <% end %>
