@@ -58,7 +58,7 @@ class Post < ActiveRecord::Base
   end
 
   def no_locked_reply
-    if self.locked || self.ancestors.where(:locked => true).count > 0
+    if self.locked || self.ancestors.where(:locked => true).any?
       errors[:base] << "You aren't allowed to reply to locked threads."
     end
   end

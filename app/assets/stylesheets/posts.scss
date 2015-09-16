@@ -65,3 +65,35 @@
 #post_body {
     height: 20em;
 }
+
+span.short-post-time {
+    font-size: 70%;
+}
+
+// Spailer tags
+a[href="#s"] {
+    display: inline-block;
+    background: $gray-light;
+    color: white;
+    text-derocation: none;
+    cursor: text;
+}
+a[href="#s"]:hover {
+    text-decoration: none;
+}
+a[href="#s"]:visited {
+    color: white;
+    text-decoration: none;
+}
+a[href="#s"]::after {
+    content: attr(title);
+    background: $text-color;
+    color: $text-color;
+    visibility: visible;
+    border-radius: 3px;
+    padding: 0 3px;
+    margin-left: 5px;
+}
+a[href="#s"]:hover::after, a[href="#s"]:active::after {
+    color: white;
+}
