@@ -1,8 +1,7 @@
 source 'https://rubygems.org'
 ruby '2.2.1'
 
-gem 'rails', '~> 4.1.0 '
-
+gem 'rails', '~> 4.2.0'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -36,6 +35,7 @@ gem 'uglifier', '>= 1.0.3'
 
 group :development do
   gem 'immigrant', '~> 0.3.4'
+  gem 'web-console', '~> 2.0'
 end
 
 group :development, :test do
@@ -52,8 +52,6 @@ gem 'jquery-rails'
 gem 'jquery-rails-cdn'
 gem 'simple_form'
 
-# Add foreign key support
-gem 'foreigner', '~> 1.7.4'
 gem 'lazy_columns'
 
 # Authentication

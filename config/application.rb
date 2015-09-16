@@ -22,6 +22,9 @@ module PPCBoard20
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
 
+    # Do not swallow errors in after_commit/after_rollback callbacks.
+    config.active_record.raise_in_transactional_callbacks = true
+
     config.action_mailer.delivery_method = :smtp
     # Special sauce for a heroku-based gmail-using mailer
     if ENV['HEROKU_GMAIL'] && ENV['GMAIL_USER'] && ENV['GMAIL_PASS']
@@ -33,7 +36,7 @@ module PPCBoard20
         :host => 'ppc-posting-board-2-proto.herokuapp.com',
         :only_path => false }
     else
-      config.action_mailer.smtp_settings = 
+      config.action_mailer.smtp_settings =
         YAML.load_file(Rails.root.join('config', 'mailers.yml'))[Rails.env].to_options
     end
   end

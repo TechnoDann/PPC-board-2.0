@@ -30,7 +30,7 @@ class User < ActiveRecord::Base
   end
 
   def welcome_mail
-    BoardMailer.welcome_email(self).deliver
+    BoardMailer.welcome_email(self).deliver_now
   end
 
   def check_email_ban

@@ -11,7 +11,7 @@ module ApplicationHelper
     
     :attributes => {
       :all         => ['dir', 'lang', 'title'],
-      'a'          => ['href'],
+      'a'          => ['href', 'title'],
       'blockquote' => ['cite'],
       'col'        => ['span', 'width'],
       'colgroup'   => ['span', 'width'],

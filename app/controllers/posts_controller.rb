@@ -204,7 +204,7 @@ class PostsController < ApplicationController
       end
     end
     users_to_notify.each do |user, parent|
-      BoardMailer.notify_watchers(post, parent, user).deliver
+      BoardMailer.notify_watchers(post, parent, user).deliver_now
     end
   end
 

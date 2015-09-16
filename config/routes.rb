@@ -1,4 +1,4 @@
-PPCBoard20::Application.routes.draw do
+Rails.application.routes.draw do
   resources :bans
 
   root :to => 'posts#index'
