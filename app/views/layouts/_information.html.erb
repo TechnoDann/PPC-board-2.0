@@ -3,11 +3,11 @@
     <div class="col-sm-12">
       <% flash ||= {} %>
       <% flash.each do |type, msg| %>
-        <% if type == :notice
-             type = :success
+        <% if type == "notice"
+             type = "success"
            end
-          if type == :alert or type == :error
-            type = :danger
+          if type == "alert" or type == "error"
+            type = "danger"
           end %>
         <% msg = [msg] unless msg.kind_of?(Array) %>
         <% msg.each do |text| %>
