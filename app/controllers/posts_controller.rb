@@ -34,12 +34,12 @@ class PostsController < ApplicationController
     end
     if cookies[:sort_mode] == "tag" || cookies[:sort_mode] == "subforum"
       @posts.each do |thread|
-        if thread.tags.count == 0
+        if not (thread.tags.any?)
           @tagged_posts[false] << thread #This takes care of "no tags at all"
         end
         tags = {}
         thread.subtree.each do |post|
-          if post.tags.count > 0 
+          if post.tags.any?
             post.tags.each do |tag|
               tags[tag] = true
             end
@@ -119,7 +119,7 @@ class PostsController < ApplicationController
     locked_post_reply = false
     if params[:parent_id]
       parent_post = Post.find(params[:parent_id])
-      locked_post_reply = (parent_post.locked) || (parent_post.ancestors.where(:locked => true).count > 0)
+      locked_post_reply = (parent_post.locked) || (parent_post.ancestors.where(:locked => true).any?)
     end
 
     respond_to do |format|
