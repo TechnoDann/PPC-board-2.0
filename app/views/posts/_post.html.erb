@@ -14,23 +14,23 @@
        <% flash_message(:info, "This post has been superseded by an edit, which is located #{link_to 'here.', post.next_version}") %>
      <% end %>
 
-     <% if post.poofed || post.ancestors.where(:poofed => true).any? %>
+     <% if post.poofed  %>
        <div class="modal" id="poofModal" role="dialog">
          <div class="modal-dialog" role="document">
            <div class="modal-content">
              <div class="modal-header">
                <button type="button" class="close" data-dismiss="modal">×</button>
-               <h3>This thread is poofed!</h3>
+               <h3>This post is poofed!</h3>
              </div>
              <div class="modal-body">
-               <p> This post belongs to a thread that has been poofed by a
-                 moderator. Poofed threads contain content that is strongly
+               <p> This post has been poofed by a
+                 moderator. Poofed posts contain content that is strongly
                  objected to by the community. If you <i>really</i> want to see
-                 the thread, click the red button. </p>
+                 the post, click the red button. </p>
              </div>
              <div class="modal-footer">
                <a href="#" class="btn btn-primary" onclick="history.back()" >Go back</a>
-               <a href="#" class="btn btn-danger" data-dismiss="modal">See the thread!</a>
+               <a href="#" class="btn btn-danger" data-dismiss="modal">See the post!</a>
              </div>
            </div>
          </div>
