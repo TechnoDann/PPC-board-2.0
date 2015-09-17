@@ -1,3 +1,6 @@
 <% title(@user.name) %>
 <h1><%= @user.name %></h1>
-<a href="mailto:<%= @user.email %>">Email <%= @user.name %></a>
+<% if @user.moderator %>
+<p><%= @user.name %> is a moderator of the PPC Board</p>
+<% end %>
+<p><a href="mailto:<%= @user.email %>">Email <%= @user.name %></a></p>
