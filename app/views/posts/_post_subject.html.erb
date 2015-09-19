@@ -1,5 +1,5 @@
 <% post = post_subject %>
-<% cache(post, namespace: 'post_subject', expires_in: 24.hours, race_condition_ttl: 30.seconds) do %>
+<% cache(post, namespace: 'post_subject', expires_in: 6.hours, race_condition_ttl: 30.seconds) do %>
 <%= raw '<span class="label label-success">New</span>' if post.new_reply? %>
 <%= raw '<span class="label label-warning">Locked</span>' if post.locked %>
 <%= raw '<span class="label label-danger">Poofed</span>' if post.poofed %>
