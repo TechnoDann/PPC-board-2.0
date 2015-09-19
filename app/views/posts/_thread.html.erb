@@ -32,7 +32,11 @@
              | <%= link_to 'Edit', edit_post_path(post) %>
           <% end %>
         <% end %>
-        <div class="post-body"><%= raw(markdown(post.body)) %></div>
+        <div class="post-body">
+          <% cache(post, namespace: "post_bodies") do %>
+            <%= raw(markdown(post.body)) %>
+          <% end %>
+        </div>
         <span class="show-more-link"></span>
       <% elsif bodies && !subthread && post.id == id  %>
         <br /><br />
