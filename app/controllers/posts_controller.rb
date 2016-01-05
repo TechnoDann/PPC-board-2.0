@@ -101,6 +101,7 @@ class PostsController < ApplicationController
 
   # POST /posts/preview
   # PUT /posts/preview
+  # PATCH /posts/preview
   def preview
     @post = Post.new(post_params)
     @post.user = current_user

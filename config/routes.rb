@@ -12,6 +12,7 @@ Rails.application.routes.draw do
       get 'search'
       post 'preview'
       put 'preview'
+      patch 'preview'
     end
   end
 
