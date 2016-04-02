@@ -27,15 +27,11 @@ module PPCBoard20
 
     config.action_mailer.delivery_method = :smtp
     # Special sauce for a heroku-based gmail-using mailer
-    if ENV['MAILGUN_SMTP_SERVER']
+    if ENV['HEROKU_GMAIL'] && ENV['GMAIL_USER'] && ENV['GMAIL_PASS']
       config.action_mailer.smtp_settings = {
-          :port           => ENV['MAILGUN_SMTP_PORT'],
-          :address        => ENV['MAILGUN_SMTP_SERVER'],
-          :user_name      => ENV['MAILGUN_SMTP_LOGIN'],
-          :password       => ENV['MAILGUN_SMTP_PASSWORD'],
-          :domain         => 'ppc-posting-board-2-proto.heroku.com',
-          :authentication => :plain,
-      }
+        :address => 'smtp.gmail.com', :port => 587, :domain => 'gmail.com',
+        :user_name => ENV['GMAIL_USER'], :password => ENV['GMAIL_PASS'],
+        :authentication => :plain, :enable_starttls_auto => true }
       config.action_mailer.default_url_options = {
         :host => 'ppc-posting-board-2-proto.herokuapp.com',
         :only_path => false }
