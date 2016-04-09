@@ -1,5 +1,5 @@
 class BoardMailer < ActionMailer::Base
-  default from: "system@ppc-board.invalid"
+  default from: "system@ppc-posting-board-2-proto.herokuapp.com"
   
   def welcome_email(user)
     @user = user
