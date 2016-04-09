@@ -27,11 +27,16 @@ module PPCBoard20
 
     config.action_mailer.delivery_method = :smtp
     # Special sauce for a heroku-based gmail-using mailer
-    if ENV['HEROKU_GMAIL'] && ENV['GMAIL_USER'] && ENV['GMAIL_PASS']
+    if ENV['SENDGRID_USERNAME'] && ENV['SENDGRID_PASSWORD']
       config.action_mailer.smtp_settings = {
-        :address => 'smtp.gmail.com', :port => 587, :domain => 'gmail.com',
-        :user_name => ENV['GMAIL_USER'], :password => ENV['GMAIL_PASS'],
-        :authentication => :plain, :enable_starttls_auto => true }
+        :address        => 'smtp.sendgrid.net',
+        :port           => '587',
+        :authentication => :plain,
+        :user_name      => ENV['SENDGRID_USERNAME'],
+        :password       => ENV['SENDGRID_PASSWORD'],
+        :domain         => 'heroku.com',
+        :enable_starttls_auto => true
+      }
       config.action_mailer.default_url_options = {
         :host => 'ppc-posting-board-2-proto.herokuapp.com',
         :only_path => false }
