@@ -32,4 +32,4 @@ window.add_show_more_links = () ->
                 e.preventDefault()
                 return false
 
-$(() -> add_show_more_links())
+$(document).on("turbolinks:load", () -> add_show_more_links())

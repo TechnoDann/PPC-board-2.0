@@ -6,7 +6,7 @@ module ApplicationHelper
         del dfn dl dt em figcaption font figure h1 h2 h3 h4 h5 h6
         hgroup hr i img ins kbd li mark ol p pre q rp rt ruby s samp
         small strike strong sub sup table tbody td tfoot th thead time
-        tr u ul var wbr
+        tr tt u ul var wbr
       ],
     
     :attributes => {
