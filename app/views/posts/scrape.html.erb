@@ -1,0 +1,12 @@
+<% if @posts.empty? %>
+<span class="no-posts-to-scrape">There are no posts to scrape for this month</span>
+<% end %>
+
+<% @posts.each do |post| %>
+  <%= render :partial => 'thread', :locals => { :bodies => true, :id => false },
+             :object =>
+             Post.arrange_nodes(post.subtree
+                                 .includes([:tags])
+                                 .order("ancestry NULLS FIRST, sort_timestamp DESC").load)
+  %>
+<% end %>

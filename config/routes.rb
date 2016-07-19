@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   end
 
   match 'posts/tagged/:tag_id' => 'posts#tagged', :via => :get, :as => :tagged
+  match 'posts/scrape/:year/:month' => 'posts#scrape', :via => :get, :as => :scrape
   match 'posts/:post_id/watch' => 'watches#create', :via => :post
   match 'posts/:post_id/watch' => 'watches#destroy', :via => :delete
   # The priority is based upon order of creation:

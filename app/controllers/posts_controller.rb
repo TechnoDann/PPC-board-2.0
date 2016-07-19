@@ -1,6 +1,7 @@
 class PostsController < ApplicationController
   before_filter :clear_return_url
-  before_filter :authenticate_user_board!, :check_ban, :only => [:new, :create, :update, :edit, :preview]
+  before_filter :authenticate_user_board!, :check_ban,
+                :only => [:new, :create, :update, :edit, :preview, :scrape]
   helper_method :allowed_to_edit?
 
   # GET /posts/search
@@ -14,7 +15,7 @@ class PostsController < ApplicationController
       format.json { render json: @posts }
       end
   end
-  
+
   # GET /posts
   # GET /posts.json
   def index
@@ -85,6 +86,26 @@ class PostsController < ApplicationController
     respond_to do |format|
       format.html # tagged.html.erb
       format.json { render json: @posts }
+    end
+  end
+
+  # GET /posts/scrape/2016/01
+  # GET /posts/scrape/2016/01.json
+  # GET /posts/scrape/2016/01?user_id=1
+  # ...
+  def scrape
+    date = DateTime.new(params[:year].to_i(10), params[:month].to_i(10))
+    conditions = {:ancestry => nil, :next_version_id => nil,
+                  :sort_timestamp => date.beginning_of_month .. date.end_of_month}
+    if params[:user_id]
+      conditions[:user_id] = params[:user_id].to_i(10)
+    end
+    @posts = Post.where(conditions).order("sort_timestamp DESC")
+
+    status = if @posts.empty? then :not_found else :ok end
+    respond_to do |format|
+      format.html { render status: status }# scrape.html.erb
+      format.json { render json: @posts, status: status }
     end
   end
 
