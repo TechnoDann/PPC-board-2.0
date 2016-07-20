@@ -26,8 +26,8 @@ for my $i (0 .. $#in_files) {
     open(my $out, '>', $out_files[$i]) or die "can't open output file $out_files[$i]: $!";
     while (<$in>) {
       s{\.\./\.\./\.\./}{\.\./\.\./};
-      s{<a href="http://localhost:3000/posts/(\d+)">}{<a href="#$1">};
-      s{<a href="http://localhost:3000/posts/new\?parent_id=(\d+)">Reply</a>}{<a href="#$1">Link to this</a>};
+      s{<a href="http://localhost:3000/posts/(\d+)">}{<a href="#post-$1">};
+      s{<a href="http://localhost:3000/posts/new\?parent_id=(\d+)">Reply</a>}{<a href="#post-$1">Link to this</a>};
       print {$out}  $_;
     }
     close $in;
