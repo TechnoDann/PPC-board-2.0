@@ -6,3 +6,4 @@
 User-agent: *
 Disallow: /posts/new
 Disallow: /users
+Disallow: /posts/scrape
