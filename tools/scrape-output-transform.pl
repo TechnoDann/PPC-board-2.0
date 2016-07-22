@@ -26,7 +26,7 @@ for my $i (0 .. $#in_files) {
     make_path(dirname($out_files[$i]));
     open(my $out, '>', $out_files[$i]) or die "can't open output file $out_files[$i]: $!";
     while (<$in>) {
-        next if /<script.*src=".*turbolinks.*\.js">/;
+        next if /<script.*src=".*turbolinks.*\.js.*">/;
         s{\.\./\.\./\.\./}{\.\./\.\./};
         s{<a href="http://localhost:3000/posts/(\d+)">}{<a href="#post-$1">};
         s{<a href="http://localhost:3000/posts/new\?parent_id=(\d+)">Reply</a>}{<a href="#post-$1">Link to this</a>};
