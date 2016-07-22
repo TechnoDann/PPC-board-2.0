@@ -35,7 +35,7 @@
     });
   };
 
-  $(document).on("turbolinks:load", function() {
+  $(function() {
     return add_show_more_links();
   });
 
