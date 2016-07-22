@@ -1,6 +1,7 @@
 #!/usr/bin/env perl
-# First, scrape with wget -E -k -p -i urls
+# First, scrape with wget -E -k -p --header "Cookie: foo=bar" ""-i urls
 # Then, point where `posts/scrape` ended up
+# If copying assets, remove 'turbolinks:load'
 use strict;
 use warnings;
 use 5.022;
@@ -25,10 +26,11 @@ for my $i (0 .. $#in_files) {
     make_path(dirname($out_files[$i]));
     open(my $out, '>', $out_files[$i]) or die "can't open output file $out_files[$i]: $!";
     while (<$in>) {
-      s{\.\./\.\./\.\./}{\.\./\.\./};
-      s{<a href="http://localhost:3000/posts/(\d+)">}{<a href="#post-$1">};
-      s{<a href="http://localhost:3000/posts/new\?parent_id=(\d+)">Reply</a>}{<a href="#post-$1">Link to this</a>};
-      print {$out}  $_;
+        next if /<script.*src=".*turbolinks.*\.js">/;
+        s{\.\./\.\./\.\./}{\.\./\.\./};
+        s{<a href="http://localhost:3000/posts/(\d+)">}{<a href="#post-$1">};
+        s{<a href="http://localhost:3000/posts/new\?parent_id=(\d+)">Reply</a>}{<a href="#post-$1">Link to this</a>};
+        print {$out}  $_;
     }
     close $in;
     close $out;

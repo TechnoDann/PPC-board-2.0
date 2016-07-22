@@ -1,7 +1,7 @@
 class PostsController < ApplicationController
   before_filter :clear_return_url
   before_filter :authenticate_user_board!, :check_ban,
-                :only => [:new, :create, :update, :edit, :preview, :scrape]
+                :only => [:new, :create, :update, :edit, :preview]
   helper_method :allowed_to_edit?
 
   # GET /posts/search
@@ -94,17 +94,21 @@ class PostsController < ApplicationController
   # GET /posts/scrape/2016/01?user_id=1
   # ...
   def scrape
-    month_num = params[:month][0..-2]
-    month_side = params[:month][-1]
-    date = DateTime.new(params[:year].to_i(10), month_num.to_i(10))
+    if cookies["foo"] != "bar" then
+        return head :forbidden
+    end
+    @month_num = params[:month][0..-2].to_i(10)
+    @month_side = params[:month][-1]
+    @year = params[:year].to_i(10)
+    date = DateTime.new(@year, @month_num)
     one_third = date.beginning_of_month + 10.days
     two_thirds = date.beginning_of_month + 20.days
     range =
-      if month_side == 'a' then
+      if @month_side == 'a' then
         date.beginning_of_month .. one_third
-      elsif month_side == 'b'
+      elsif @month_side == 'b'
         one_third .. two_thirds
-      elsif month_side == 'c'
+      elsif @month_side == 'c'
         two_thirds .. date.end_of_month
       else
         date.beginning_of_month .. date.end_of_month
@@ -114,7 +118,7 @@ class PostsController < ApplicationController
     if params[:user_id]
       conditions[:user_id] = params[:user_id].to_i(10)
     end
-    @posts = Post.where(conditions).order("sort_timestamp DESC")
+    @posts = Post.where(conditions).order("sort_timestamp ASC")
 
     status = if @posts.empty? then :not_found else :ok end
     respond_to do |format|

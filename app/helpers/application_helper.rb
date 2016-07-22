@@ -53,6 +53,15 @@ module ApplicationHelper
     def self.renderer
       @@markdown
     end
+    def self.renderer= (other)
+      @@markdown = other
+    end
+
+    def self.shadow_with_extensions(ext_hash)
+      old = @@markdown
+      @@markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML.new, ext_hash)
+      return old
+    end
   end
 
   def markdown(text)

@@ -1,6 +1,11 @@
+<% title("#{I18n.t('date.abbr_month_names')[@month_num]} #{@year} Archive, part #{@month_side}") %>
 <% if @posts.empty? %>
 <span class="no-posts-to-scrape">There are no posts to scrape for this month</span>
 <% end %>
+
+<% canon_markdown = ApplicationHelper::MarkdownHolder
+   .shadow_with_extensions({:autolink => true,
+    :lax_html_blocks => true, :no_intra_emph => true}) %>
 
 <% @posts.each do |post| %>
   <%= render :partial => 'thread', :locals => { :bodies => true, :id => false },
@@ -10,3 +15,5 @@
                                  .order("ancestry NULLS FIRST, sort_timestamp DESC").load)
   %>
 <% end %>
+
+<% ApplicationHelper::MarkdownHolder.renderer = canon_markdown %>
