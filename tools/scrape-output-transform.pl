@@ -30,7 +30,7 @@ for my $i (0 .. $#in_files) {
         s{\.\./\.\./\.\./}{\.\./\.\./};
         s{<a href="http://localhost:3000/posts/(\d+)">}{<a href="#post-$1">};
         s{<a href="http://localhost:3000/posts/new\?parent_id=(\d+)">Reply</a>}{<a href="#post-$1">Link to this</a>};
-        s{<a href="(\d{2}[a-c])%3Fuser_id=\d+\.html">}{<a href="$1.html">}; ## TODO: Test
+        s{<a href="(\d{2}[a-c])%3Fuser_id=\d+\.html">}{<a href="$1.html">}g; ## TODO: Test
         print {$out}  $_;
     }
     close $in;
