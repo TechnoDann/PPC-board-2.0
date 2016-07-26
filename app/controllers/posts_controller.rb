@@ -219,6 +219,7 @@ class PostsController < ApplicationController
           redirect_to @post }
         format.json { head :no_content }
       else
+        @clone.destroy
         format.html { render action: "edit" }
         format.json { render json: @post.errors, status: :unprocessable_entity }
       end
