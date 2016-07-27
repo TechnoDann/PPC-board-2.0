@@ -10,9 +10,11 @@ window.preview = () ->
         success: (html) ->
             $('#preview').html(html)
             $('#preview-accordion').collapse('hide').collapse('show')
+            document.location.hash = "#preview-accordion"
         error: (object, thing, text) ->
             $('#preview').html("<div class=\"alert alert-error\"> Preview failed.</div>")
     )
+    e.preventDefault()
 
 window.add_show_more_links = () ->
     $('.show-more-link').each () ->
@@ -29,7 +31,7 @@ window.add_show_more_links = () ->
                 div.height(div.data("oldHeight"))
                 div.css("overflow", "visible")
                 link_span.html("")
-                e.preventDefault()
+                event.preventDefault()
                 return false
 
 $(document).on("turbolinks:load", () -> add_show_more_links())
