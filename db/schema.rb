@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150723034043) do
+ActiveRecord::Schema.define(version: 20160727003452) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -45,7 +45,7 @@ ActiveRecord::Schema.define(version: 20150723034043) do
     t.boolean  "being_cloned",                    default: false
   end
 
-  add_index "posts", ["ancestry"], name: "index_posts_on_ancestry", order: {ancestry: "text_pattern_ops ASC NULLS FIRST"}
+  add_index "posts", ["ancestry"], name: "index_posts_on_ancestry", using: :btree, order: {ancestry: "text_pattern_ops ASC NULLS FIRST"}
   add_index "posts", ["user_id"], name: "index_posts_on_user_id", using: :btree
 
   create_table "posts_tags", id: false, force: :cascade do |t|

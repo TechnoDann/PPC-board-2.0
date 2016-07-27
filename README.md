@@ -26,13 +26,9 @@ What not to expect:
 
 Developers:
  * Tomash ( krzysdrewniak@gmail.com )
- * Techno-Dann (AKA Captain Vim, Techno.Dann@gmail.com)
+ * Delta Juliette (AKA Captain Vim, Techno.Dann@gmail.com)
 Development setup
 -----------------
-In addition to the gems listed in the Gemfile, the
-[Sphinx daemon](http://freelancing-god.github.com/ts/en/installing_sphinx.html)
-is required to enable full-text search.
-
 Please copy `config/database.yml.example` to `config/database.yml` and
 customize it to fit your local database setup. Please do the same for
 `config/mailers.yml.example`.
