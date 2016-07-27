@@ -12,16 +12,13 @@ gem 'redcarpet'
 gem 'markerb'
 gem 'sanitize'
 
-gem 'will_paginate', '~> 3.0.7'
+gem 'will_paginate', '~> 3.1.0'
 gem 'will_paginate-bootstrap'
 
 gem 'turbolinks'
 gem 'jquery-turbolinks'
 
-# For thinking sphinx
-gem 'mysql2',          '~> 0.3.18', :platform => :ruby
-gem 'jdbc-mysql',      '~> 5.1.35', :platform => :jruby
-gem 'thinking-sphinx', '~> 3.1.4'
+gem 'pg_search', '~> 1.0.6'
 # Gems used only for assets and not required
 # in production environments by default.
 gem 'sass-rails',   '~> 5.0.3'

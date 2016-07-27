@@ -7,9 +7,9 @@ class PostsController < ApplicationController
   # GET /posts/search
   # GET /posts/search.json
   def search
-    @query = params[:query] || false
-    @posts = Post.search @query, :page => params[:page]
-    @posts.context[:panes] << ThinkingSphinx::Panes::ExcerptsPane
+    @query = params[:query] || ""
+    @posts = Post.text_search(@query).paginate(:page => params[:page])
+             .with_pg_search_highlight.includes([:tags])
     respond_to do |format|
       format.html
       format.json { render json: @posts }

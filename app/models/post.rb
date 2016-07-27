@@ -19,6 +19,19 @@ class Post < ActiveRecord::Base
 
   self.per_page = 30
 
+  include PgSearch
+  pg_search_scope :text_search,
+                  :against => {:subject => 'A', :author => 'C', :body => 'B'},
+                  :using => {:tsearch => {:prefix => true,
+                                          :negation => true,
+                                          :dictionary => "english",
+                                          :highlight => {
+                                            :start_sel => "<b>",
+                                            :stop_sel => "</b>",
+                                            :max_fragments => 5
+                                          }
+                                         }},
+                  :order_within_rank => "sort_timestamp DESC"
   def clone_before_edit
     clone = Post.new
     load_body = self.body # Skip lazy_columns
