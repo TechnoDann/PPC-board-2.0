@@ -14,7 +14,6 @@ window.preview = () ->
         error: (object, thing, text) ->
             $('#preview').html("<div class=\"alert alert-error\"> Preview failed.</div>")
     )
-    e.preventDefault()
 
 window.add_show_more_links = () ->
     $('.show-more-link').each () ->

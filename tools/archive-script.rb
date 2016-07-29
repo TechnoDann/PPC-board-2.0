@@ -8,7 +8,7 @@ module S#cript (that archives)
 
   def S.try_encode(str)
     begin
-      str.encode("UTF-8", "Windows-1251")
+      str.encode("UTF-8", "Windows-1252")
     rescue
       str
     end
