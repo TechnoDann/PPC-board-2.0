@@ -1,5 +1,6 @@
 PPC Posting Board 2.0 
 =====================
+NOTE: **If you are importing archives generated before July 29th, 2016, and also archives imported after, see `tools/fix_encoding.rb`, which can be run with `rails runner`** (adjust dates as appropriate)
 
 Ahoy there!
 
