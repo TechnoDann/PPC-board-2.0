@@ -19,9 +19,8 @@ the_user_id = User.find_by_name("Archive Script").id
 
 subj_count = 0
 body_count = 0
-start_date = DateTime.new(2016).beginning_of_year
 Post.select(:body).find_each do |post|
-  if post.user_id = the_user_id and post.sort_timestamp >= start_date
+  if post.user_id = the_user_id
     new_subj = reencode(post.subject)
     new_body = reencode(post.body)
     if new_subj then
