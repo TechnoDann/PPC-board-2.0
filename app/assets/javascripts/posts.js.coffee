@@ -32,5 +32,7 @@ window.add_show_more_links = () ->
                 link_span.html("")
                 event.preventDefault()
                 return false
+    if location.hash
+      location.hash = location.hash
 
 $(document).on("turbolinks:load", () -> add_show_more_links())
