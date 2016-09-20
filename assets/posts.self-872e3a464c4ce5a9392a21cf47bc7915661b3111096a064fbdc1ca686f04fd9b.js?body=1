@@ -6,7 +6,8 @@
       dataType: 'html',
       success: function(html) {
         $('#preview').html(html);
-        return $('#preview-accordion').collapse('hide').collapse('show');
+        $('#preview-accordion').collapse('hide').collapse('show');
+        return document.location.hash = "#preview-accordion";
       },
       error: function(object, thing, text) {
         return $('#preview').html("<div class=\"alert alert-error\"> Preview failed.</div>");
@@ -15,7 +16,7 @@
   };
 
   window.add_show_more_links = function() {
-    return $('.show-more-link').each(function() {
+    $('.show-more-link').each(function() {
       var div, link_span;
       link_span = $(this);
       div = link_span.parent().children(".post-body");
@@ -28,11 +29,14 @@
           div.height(div.data("oldHeight"));
           div.css("overflow", "visible");
           link_span.html("");
-          e.preventDefault();
+          event.preventDefault();
           return false;
         });
       }
     });
+    if (location.hash) {
+      return location.hash = location.hash;
+    }
   };
 
   $(function() {
