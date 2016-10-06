@@ -8,9 +8,9 @@
     <% end %>
     <% if user_signed_in? %>
       <% if current_user.watched_posts.exists?(@post.id) %>
-        <%= link_to 'Unwatch this thread', "/posts/#{@post.id}/watch", :method => :delete, :class => 'btn btn-default' %>
+        <%= link_to 'Disable reply emails', "/posts/#{@post.id}/watch", :method => :delete, :class => 'btn btn-default' %>
       <% else %>
-        <%= link_to 'Watch this thread', "/posts/#{@post.id}/watch", :method => :post, :class => 'btn btn-default' %>
+        <%= link_to 'Enable reply emails', "/posts/#{@post.id}/watch", :method => :post, :class => 'btn btn-default' %>
       <% end %>
     <% end %>
     <% if cookies[:last_subforum] %>
