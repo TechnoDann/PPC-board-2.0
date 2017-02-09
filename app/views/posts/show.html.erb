@@ -23,7 +23,7 @@
 
 <% if @post.ancestry != nil %>
   <div id="thread-position-restoration-link">
-    <a href="#post-<%= @post.id %>">Jump to this post's position in the thread ↴</a>
+    <a href="#post-<%= @post.id %>" data-turbolinks="false">Jump to this post's position in the thread ↴</a>
   </div>
 <% end %>
 

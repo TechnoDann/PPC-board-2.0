@@ -2,32 +2,36 @@ module ApplicationHelper
   #HTML cleaner configs
   DefaultCleaner = {
     :elements => %w[
-        a abbr b bdo blockquote br caption cite code col colgroup dd
-        del dfn dl dt em figcaption font figure h1 h2 h3 h4 h5 h6
-        hgroup hr i img ins kbd li mark ol p pre q rp rt ruby s samp
-        small strike strong sub sup table tbody td tfoot th thead time
-        tr tt u ul var wbr
+        a abbr address article aside b bdi bdo blockquote br caption
+        cite code col colgroup dd del dfn dl dt em figcaption font
+        figure h1 h2 h3 h4 h5 h6 header hgroup hr i img ins kbd li
+        mark ol p pre q rp rt ruby s samp section small span strike
+        strong sub summary sup table tbody td tfoot th thead time tr
+        tt u ul var wbr
       ],
-    
+
     :attributes => {
       :all         => ['dir', 'lang', 'title'],
       'a'          => ['href', 'title'],
+      'abbr'       => ['title'],
       'blockquote' => ['cite'],
       'col'        => ['span', 'width'],
       'colgroup'   => ['span', 'width'],
       'del'        => ['cite', 'datetime'],
+      'dfn'        => ['cite'],
       'font'       => ['color', 'size'],
       'img'        => ['align', 'alt', 'height', 'src', 'width'],
       'ins'        => ['cite', 'datetime'],
       'ol'         => ['start', 'reversed', 'type'],
       'q'          => ['cite'],
+      'span'       => ['style'],
       'table'      => ['summary', 'width'],
       'td'         => ['abbr', 'axis', 'colspan', 'rowspan', 'width'],
       'th'         => ['abbr', 'axis', 'colspan', 'rowspan', 'scope', 'width'],
       'time'       => ['datetime', 'pubdate'],
       'ul'         => ['type']
     },
-    
+
     :protocols => {
       'a'          => {'href' => ['ftp', 'http', 'https', 'mailto', :relative]},
       'blockquote' => {'cite' => ['http', 'https', :relative]},
@@ -35,11 +39,15 @@ module ApplicationHelper
       'img'        => {'src'  => ['http', 'https', :relative]},
       'ins'        => {'cite' => ['http', 'https', :relative]},
       'q'          => {'cite' => ['http', 'https', :relative]}
+    },
+
+    :css => {
+      :properties => ['font', 'font-family', 'font-size', 'color']
     }
   }
 
   TitleCleaner = {
-    :elements => %w[b em i strong]
+    :elements => %w[b em i strong del]
   }
 
   def title(page_title)
