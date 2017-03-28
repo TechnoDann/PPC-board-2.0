@@ -2,6 +2,14 @@ def reencode(str)
   if str.ascii_only? then
     return false
   end
+  # Interpret UTF-8 (that came from windows-1252 interpreted as windows-1251)
+  # as windows-2151. This produces `back`. This gives the original source bytes
+  # if the input string was mis-reencoded.
+  # Then, take the bytes, interpret as windows-1252, and cast to utf-8
+  # If the strings are different, there was a misencoding during initial archiving
+  # If they aren't or exceptions are raised, the string was UTF-8 in the first place
+  # This is more or less safe because people don't post long stretches of Cycillic on the Board
+  # and those would have been UTF-8 anyway
   begin
     back = str.encode('windows-1251', 'utf-8')
     forward = back.encode('utf-8', 'windows-1252')
