@@ -1,5 +1,5 @@
 <% post = post_subject %>
-<% cache(post, namespace: 'post_subject', expires_in: 6.hours, race_condition_ttl: 30.seconds) do %>
+<%# cache(post, namespace: 'post_subject', expires_in: 6.hours, race_condition_ttl: 30.seconds) do %>
 <span class="short-post-subject"><%= link_to raw(htmlic_title(post.subject)), post %></span> by
 <span class="short-post-author author-tag-for-<%= post.user_id %>"><%= post.author %></span>
 <span class="short-post-time">on <%= post.created_at %></span>
@@ -10,5 +10,5 @@
 <%= raw '<span class="label label-important">Previous Version</span>' if post.next_version %>
 <% post.tags.each do |tag| %>
 <span class="label label-default short-post-tag"><%= tag.name %></span>
-<% end %>
+<%# end %>
 <% end %>
