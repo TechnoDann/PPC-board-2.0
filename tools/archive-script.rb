@@ -21,10 +21,23 @@ module S#cript (that archives)
     { :author => S.try_encode(page.search(".author_header").first.content),
       :subject => S.try_encode(page.search("span.subject_header").first.content),
       :timestamp => Time.parse(page.search("span.date_header").first.content + " -0500").utc,
-      :body => S.try_encode(page.search("div.message_text").first.inner_html).gsub("\*","\\\*")
+      # not sure why the extra set of backslashes is needed for `
+      :body => S.try_encode(page.search("div.message_text").first.inner_html).gsub("*","\\*").gsub("^", "\\^").gsub("`", "\\\\`"),
+      :source => link
     }
     @@agent.back
     info
+  end
+
+  def S.scrape_more_comments(link)
+    page = @@agent.click(@@page.link_with( :href => link))
+    old_page = @@page
+    @@page = page
+    ul = page.search("li.current_entry").first.parent
+    ret = find_subthreads(ul)
+    @@page = old_page
+    @@agent.back
+    return ret
   end
 
   def S.find_subthreads(ul)
@@ -32,8 +45,13 @@ module S#cript (that archives)
     if ul == nil
       return ret
     end
-    ul.children.filter("li").each do |node|
-      if node['class'] == "message_entry " or node['class'] == "message_entry new_message"
+    (ul > "li").each do |node|
+      if node['class'] == "" and node.children.first.name == "a" and /\d+ more comments/.match?(node.children.first.content)
+        # The merge here is because we're already scraping a "subthread" of the post with more comments
+        ret.push(*scrape_more_comments(node.children.first['href']))
+      elsif node['class'] == "current_entry"
+        nil # From "more comments" stuff, where it's easiest to just special-case the message already scraped as a noop here
+      elsif node['class'] == "message_entry " or node['class'] == "message_entry new_message"
         ret << S.scrape_body(node.search("a").first['href'])
       elsif node['class'] = "nested_list"
         ret << S.find_subthreads(node.children.first)

@@ -1,6 +1,6 @@
-PPC Posting Board 2.0 
+PPC Posting Board 2.0
 =====================
-NOTE: **If you are importing archives generated before July 29th, 2016, and also archives imported after, see `tools/fix_encoding.rb`, which can be run with `rails runner`** (adjust dates as appropriate)
+NOTE: ** Archives generated before 2017 should to be run through `tools/fix_old_archive.rb` before being imported into fresh installations**
 
 Ahoy there!
 
@@ -9,7 +9,7 @@ community is currently using an ancient bulletin-board system, several
 members have been extolling the virtues of a PHPbb setup with
 subforums and whatnot, and I opened my big fat mouth and said "Hey!
 This looks like a perfect use for the Model-View-Controller design
-pattern!" 
+pattern!"
 
 I may come to regret this.
 
@@ -24,6 +24,9 @@ What not to expect:
  * Magic
  * Fast development
  * Incredibly mind-blowing code
+
+Note: to archive a running T-Board into the usual format, `include ApplicationHelper` into a `rails console`,
+call `helper.dump_posts_in_range(from_date, to_date)`, and put the resulting Marshal-formatted string somewhere..
 
 Developers:
  * Tomash ( krzysdrewniak@gmail.com )

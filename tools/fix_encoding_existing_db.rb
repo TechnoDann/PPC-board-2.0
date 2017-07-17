@@ -28,7 +28,7 @@ the_user_id = User.find_by_name("Archive Script").id
 subj_count = 0
 body_count = 0
 Post.select(:body).find_each do |post|
-  if post.user_id = the_user_id
+  if post.user_id == the_user_id
     new_subj = reencode(post.subject)
     new_body = reencode(post.body)
     if new_subj then
