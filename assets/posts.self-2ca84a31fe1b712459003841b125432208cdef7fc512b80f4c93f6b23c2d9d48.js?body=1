@@ -39,7 +39,7 @@
     }
   };
 
-  $(function() {
+  $(document).on("turbolinks:load", function() {
     return add_show_more_links();
   });
 
