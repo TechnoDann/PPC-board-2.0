@@ -25,8 +25,9 @@ What not to expect:
  * Fast development
  * Incredibly mind-blowing code
 
-Note: to archive a running T-Board into the usual format, `include ApplicationHelper` into a `rails console`,
-call `helper.dump_posts_in_range(from_date, to_date)`, and put the resulting Marshal-formatted string somewhere..
+Note: to archive a running T-Board into the usual format, execute
+`include ApplicationHelper; ApplicationController.helpers.dump_posts_in_range(from_date, to_date)`
+and get the resulting string into a file somewhere (Heroku wants base64 and some newlines after this to prevent data loss)
 
 Developers:
  * Tomash ( krzysdrewniak@gmail.com )
