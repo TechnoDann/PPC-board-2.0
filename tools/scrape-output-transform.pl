@@ -1,5 +1,6 @@
 #!/usr/bin/env perl
-# First, scrape with wget -E -k -p --header "Cookie: foo=bar" ""-i urls
+# First, scrape with wget -E -k -p --header "Cookie: foo=bar" -i urls
+# URLs have the form /posts/scrape/YYYY/MM[abc]?user_id=N
 # Then, point where `posts/scrape` ended up
 # If copying assets, remove 'turbolinks:load'
 # This assumes we're moving from two levels below / to one level, charge the number of ..s in the regexp below to adjust
