@@ -31,6 +31,9 @@ for my $i (0 .. $#in_files) {
     my $nav_stripping = 0;
     while (<$in>) {
         next if /<script.*src=".*turbolinks.*\.js.*">/;
+        next if m{^\s*<link rel="alternate" type="application/atom\+xml" title="ATOM" href="http://.*/posts\.atom" />\s*$};
+        next if m{^\s*<meta name="csrf-param" content="authenticity_token" />\s*};
+        next if m{^\s*<meta name="csrf-token" content="[\w/+=]+" />\s*$};
         if (/^<nav class="navbar navbar-default">$/) {
             $nav_stripping = 1;
         }
