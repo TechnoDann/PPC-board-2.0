@@ -29,16 +29,26 @@ for my $i (0 .. $#in_files) {
     make_path(dirname($out_files[$i]));
     open(my $out, '>', $out_files[$i]) or die "can't open output file $out_files[$i]: $!";
     my $nav_stripping = 0;
+    my $title = "";
     while (<$in>) {
         next if /<script.*src=".*turbolinks.*\.js.*">/;
         next if m{^\s*<link rel="alternate" type="application/atom\+xml" title="ATOM" href="http://.*/posts\.atom" />\s*$};
         next if m{^\s*<meta name="csrf-param" content="authenticity_token" />\s*};
         next if m{^\s*<meta name="csrf-token" content="[\w/+=]+" />\s*$};
+        if (/\s*<title>(.*)\s*$/) {
+            $title = $1;
+        }
+        if ($nav_stripping == 2) {
+            $nav_stripping = 0;
+        }
         if (/^<nav class="navbar navbar-default">$/) {
             $nav_stripping = 1;
         }
         if (m{^</nav>$}) {
-            $nav_stripping = 0;
+            $nav_stripping = 2;
+            if ($title) {
+                print {$out} "<div class=\"row\"><div class=\"col-sm-12\"><h1 style=\"padding-left: 15px; border-bottom: 1px solid #777777; padding-bottom: 30px;\">$title</h1></div></div>\n";
+            }
         }
         next if $nav_stripping;
         s{\.\./\.\./\.\./}{\.\./\.\./};
