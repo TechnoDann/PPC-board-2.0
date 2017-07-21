@@ -11,12 +11,7 @@ The reply:
 
 **Subject:** <%= @post.subject %>
 
-**Author:**
-<% if @post.author == @post.user.name %>
-  <%= @post.author %>
-<% else %>
-  <%= @post.author %> (posted by <%= @post.user.name %>)
-<% end %>
+**Author:** <%= @post.author %>
 
 **Posted at:** <%= @post.created_at %>
 
