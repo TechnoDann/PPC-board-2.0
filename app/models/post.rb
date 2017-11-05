@@ -17,7 +17,7 @@ class Post < ActiveRecord::Base
   validates_length_of :subject, :maximum => 105
   validates_length_of :author, :maximum => 80
 
-  self.per_page = 30
+  self.per_page = 20
 
   include PgSearch
   pg_search_scope :text_search,
