@@ -1,6 +1,6 @@
 <% title("Search results for \"#{@query}\"") %>
 <h1><%= yield(:title) %></h1>
-<%= will_paginate @posts, renderer: BootstrapPagination::Rails %>
+<%= will_paginate @posts %>
 <% @posts.each do |post| %>
   <div class="search-result post thread">
     <%= render :partial => 'post_subject', :object => post %>
@@ -8,4 +8,4 @@
     <%= raw(markdown(post.pg_search_highlight)) %>
   </div>
 <% end %>
-<%= will_paginate @posts, renderer: BootstrapPagination::Rails %>
+<%= will_paginate @posts %>

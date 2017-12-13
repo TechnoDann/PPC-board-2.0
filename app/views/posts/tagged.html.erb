@@ -33,4 +33,4 @@
 <br />
 <%= render :partial => 'new_post_button', 
            :locals => { :tag => @tag && @tag.id, :style => " "} %>
-<%= will_paginate @raw_posts, renderer: BootstrapPagination::Rails %>
+<%= will_paginate @raw_posts %>

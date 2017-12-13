@@ -7,22 +7,22 @@ gem 'rails', '~> 4.2.0'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 gem 'pg'
-gem 'ancestry', '~> 2.1.0'
+gem 'ancestry', '~> 3.0.0'
 gem 'redcarpet'
 gem 'markerb'
 gem 'sanitize'
 
 gem 'will_paginate', '~> 3.1.0'
-gem 'will_paginate-bootstrap'
+gem 'bootstrap-will_paginate'
 
 gem 'turbolinks'
 gem 'jquery-turbolinks'
 
-gem 'pg_search', '~> 1.0.6'
+gem 'pg_search', '~> 2.1.0'
 # Gems used only for assets and not required
 # in production environments by default.
 gem 'sass-rails',   '~> 5.0.3'
-gem 'coffee-rails', '~> 4.1.0'
+gem 'coffee-rails', '~> 4.2.2'
 gem 'bootstrap-sass', '~> 3.3.5'
 
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
@@ -36,7 +36,7 @@ group :development do
 end
 
 group :development, :test do
-  gem 'capybara', '~> 2.4.4'
+  gem 'capybara', '~> 2.16.0'
   gem 'rspec-rails', '~> 3.3'
   gem 'test-unit', '~> 3.0'
 end
@@ -52,7 +52,7 @@ gem 'simple_form'
 gem 'lazy_columns'
 
 # Authentication
-gem 'devise', '~> 4.0.0'
+gem 'devise', '~> 4.3.0'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'

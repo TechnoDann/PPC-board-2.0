@@ -56,5 +56,5 @@
   </div>
 </div>
 <% unless cookies[:sort_mode] == "subforum" %>
-  <%= will_paginate @posts, renderer: BootstrapPagination::Rails%>
+  <%= will_paginate @posts %>
 <% end %>
