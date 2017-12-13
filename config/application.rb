@@ -44,5 +44,8 @@ module PPCBoard20
         YAML.load_file(Rails.root.join('config', 'mailers.yml'))[Rails.env].to_options
     end
     config.active_record.schema_format = :sql
+
+    # Header sillyness
+    config.action_dispatch.default_headers["X-Clacks-Overhead"] = "GNU Terry Pratchett"
   end
 end
