@@ -38,17 +38,15 @@ for my $i (0 .. $#in_files) {
         if (/\s*<title>(.*)\s*$/) {
             $title = $1;
         }
-        if ($nav_stripping == 2) {
-            $nav_stripping = 0;
-        }
         if (/^<nav class="navbar navbar-default">$/) {
             $nav_stripping = 1;
         }
         if (m{^</nav>$}) {
-            $nav_stripping = 2;
             if ($title) {
                 print {$out} "<div class=\"row\"><div class=\"col-sm-12\"><h1 style=\"padding-left: 15px; border-bottom: 1px solid #777777; padding-bottom: 30px;\">$title</h1></div></div>\n";
             }
+            $nav_stripping = 0;
+            next;
         }
         next if $nav_stripping;
         s{\.\./\.\./\.\./}{\.\./\.\./};
