@@ -5,7 +5,7 @@ watched][mail-parent-aaaaa] on the PPC Board. The reply is located
 [here][mail-post-aaaaa] and reproduced below. If you don't want to
 keep receiving emails about replies to "<%= @parent.subject %>",
 please go to [the post you watched][mail-parent-aaaaa] and click
-"Unwatch this thread".
+"Disable reply emails".
 
 The reply:
 
