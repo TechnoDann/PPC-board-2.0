@@ -56,12 +56,13 @@ module ApplicationHelper
 
   class MarkdownHolder
     @@markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML.new, {
-                                           :autolink => true, :strikethrough => true,
+                                           :strikethrough => true,
                                            :lax_html_blocks => true, :superscript => true})
     def self.renderer
       @@markdown
     end
-    def self.renderer= (other)
+
+    def self.renderer=(other)
       @@markdown = other
     end
 
