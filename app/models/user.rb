@@ -10,7 +10,7 @@ class User < ActiveRecord::Base
   before_create :de_guest
   after_create :welcome_mail
 
-  has_many :posts, dependent: :nullify
+  has_many :posts, dependent: :restrict_with_exception
   has_one :ban, dependent: :nullify
   has_and_belongs_to_many :watched_posts, -> { uniq }, :class_name => 'Post'
 
