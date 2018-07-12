@@ -48,7 +48,7 @@ class Post < ActiveRecord::Base
     clone.save :validate => false
     clone
   end
-  
+
   def close_edit_cycle(clone)
     self.previous_version = clone
     self.save
@@ -71,7 +71,7 @@ class Post < ActiveRecord::Base
   end
 
   def no_locked_reply
-    if self.locked || self.ancestors.where(:locked => true).any?
+    if self.locked || self.ancestors.where(:locked => true).exists?
       errors[:base] << "You aren't allowed to reply to locked threads."
     end
   end
