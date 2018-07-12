@@ -1,3 +1,4 @@
+<% watch_checkbox ||= false %>
 <div class="row">
   <div class="col-sm-12">
     <div class="panel-group" id="preview-accordion">
@@ -18,15 +19,16 @@
   <%= simple_form_for @post, wrapper: :horizontal_form, html: { class: 'form-horizontal', id: 'post-change-form' } do |f| %>
     <%= f.error_notification %>
     <% if @post.errors[:base].length > 0 %>
-    <div class="alert alert-error">
-      <%= f.error :base %>
-    </div>
-  <% end %>
-  <div class="form-inputs">
-    <%= f.input :parent_id, :as => :hidden %>
-    <%= f.input :subject, input_html: { maxlength: 100 } %>
-    <%= f.input :author, input_html: { maxlength: 80 } %>
-    <%= f.input :body, :hint => "Posts can either be written in Markdown or a subset of HTML. For formatting help, please see #{link_to 'the formatting guide', '/formatting_help'}.".html_safe, :rows => 15, :cols => 50 %>
+      <div class="alert alert-error">
+        <%= f.error :base %>
+      </div>
+    <% end %>
+    <div class="form-inputs">
+      <%= f.input :parent_id, :as => :hidden %>
+      <%= f.input :subject, input_html: { maxlength: 100 } %>
+      <%= f.input :author, input_html: { maxlength: 80 } %>
+      <%= f.input :body, :hint => "Posts can either be written in Markdown or a subset of HTML. For formatting help, please see #{link_to 'the formatting guide', '/formatting_help'}.".html_safe, :rows => 15, :cols => 50 %>
+
       <div>
         <div class="col-sm-8 col-sm-offset-2">
           <%= f.association :tags, :as => :check_boxes,
@@ -34,6 +36,18 @@
                               id: @post.ancestors.includes(:tags).map(&:tags).flatten) %>
         </div>
       </div>
+
+      <% if watch_checkbox %>
+        <div>
+          <div class="col-sm-8 col-sm-offset-2">
+            <%= f.input :watch, :label => "Enable reply emails", :as => :boolean,
+                        :input_html => { checked: false },
+                        :disabled => @post.ancestors.joins("INNER JOIN posts_users on posts_users.post_id = posts.id")
+                                       .where("posts_users.user_id = ?", [current_user.id]).exists? %>
+          </div>
+        </div>
+      <% end %>
+
       <% if current_user.moderator? %>
         <div>
           <div class="col-sm-offset-2 col-sm-8">
@@ -45,14 +59,14 @@
           <div class="col-sm-10 col-sm-offset-1">
             <%= f.input :sort_timestamp %>
           </div>
-       </div>
-    <% end %>
-  </div>
-  <div class="col-sm-offset-1">
-    <div class="form-actions">
-      <a href="#" onclick="event.preventDefault(); preview()" class="btn btn-success">Preview</a>
-      <%= f.button :submit, class: "btn btn-primary" %>
+        </div>
+      <% end %>
     </div>
-  </div>
+    <div class="col-sm-offset-1">
+      <div class="form-actions">
+        <a href="#" onclick="event.preventDefault(); preview()" class="btn btn-success">Preview</a>
+        <%= f.button :submit, class: "btn btn-primary" %>
+      </div>
+    </div>
   <% end %>
 </div>

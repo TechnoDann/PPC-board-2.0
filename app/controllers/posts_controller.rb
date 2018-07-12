@@ -142,6 +142,7 @@ class PostsController < ApplicationController
   # PUT /posts/preview
   # PATCH /posts/preview
   def preview
+    params[:post].delete(:watch)
     @post = Post.new(post_params)
     @post.user = current_user
     add_nm(@post)
@@ -179,6 +180,8 @@ class PostsController < ApplicationController
   # POST /posts
   # POST /posts.json
   def create
+    watch_check_value = params[:post].delete(:watch) # Strip out non-model param, keeping value
+    adding_watch = (watch_check_value == "1")
     @post = Post.new(post_params)
     @post.user = current_user
     add_nm(@post)
@@ -186,6 +189,9 @@ class PostsController < ApplicationController
     respond_to do |format|
       if @post.save
         notify_watchers(@post)
+        if adding_watch
+          @post.watchers << current_user
+        end
         # Restore to auto-subscribe people to things they post
         # unless @post.ancestors.all.any? do |post|
         #     post.watchers.exists?(current_user.id)

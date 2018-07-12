@@ -1,7 +1,7 @@
 <% title(@post.parent ? "Reply" : "New Post") %>
 <h1><%= yield(:title) %></h1>
 
-<%= render 'form' %>
+<%= render :partial => 'form', :locals => { watch_checkbox: true } %>
 <% if @post.parent %>
 <div class="panel-group" id="parent-post">
   <div class="panel panel-default">
