@@ -12,7 +12,7 @@ if (scalar @ARGV == 1 && $ARGV[0] == "-h") {
 }
 
 my $ifh = (scalar @ARGV >= 1 && $ARGV[0] != "-") ? open($ARGV[0], '<') : (*STDIN);
-my $ofh = (scalar @ARGV >= 2 && $ARGV[0] != "-") ? open($ARGV[1], '>') : (*STDOUT);
+my $ofh = (scalar @ARGV >= 2 && $ARGV[1] != "-") ? open($ARGV[1], '>') : (*STDOUT);
 print $ofh "old_url,new_url,id,date\n";
 
 while (<$ifh>) {
