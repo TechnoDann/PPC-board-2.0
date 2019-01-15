@@ -19,6 +19,9 @@ class User < ActiveRecord::Base
   validates_length_of :name, :maximum => 80
   validate :check_email_ban
 
+  attr_accessor :antispam
+  validate :check_antispam_question, on: :create
+
   def email_changed?
     false
   end
@@ -36,6 +39,12 @@ class User < ActiveRecord::Base
   def check_email_ban
     if Ban.find_ban(:email => self.email)
       errors[:email] << "is banned."
+    end
+  end
+
+  def check_antispam_question
+    unless self.antispam.upcase == "PPC"
+      errors[:antispam] << "Invalid answer"
     end
   end
 end
