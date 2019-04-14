@@ -38,6 +38,25 @@ Please copy `config/database.yml.example` to `config/database.yml` and
 customize it to fit your local database setup. Please do the same for
 `config/mailers.yml.example`.
 
+How to update the archives
+--------------------------
+- Install `mechanize` (it's not in the Gemfile)
+- `./tools/archive-script.rb 'http://disc.yourwebapps.com/Indices/199610.html' >scrape-output-file  2>scrape.log`
+- Make sure your instance has a user named "Archive Script" (and note their ID, it'll be important later)
+- `rake db:post_archive FILE=scrape-output-file LINK_MAP_FILE=link-map-raw.csv`
+- `heroku run rails runner 'include ApplicationHelper; puts(Base64.encode64(ApplicationController.helpers.dump_posts_in_range(Time.parse("YYYY-MM-DD 00:00:00 UTC"), Time.now))); puts("")' > /tmp/t-board-archive`
+- `base64 -d /tmp/t-board-archive > t-board-scrape-file` after cleaning out the error messages and ^Ms (and trailing newline) from the output of the above command
+- `rake db:post_archive FILE=t-board-scrape-file LINK_MAP_FILE=t-board-link-map-raw.csv`
+- `bundle exec unicorn -p 3000 -c ./config/unicorn.rb ` to start the server
+- `for y in {2008..2019}; do; for m in {01..12}; do; for p in a b c; do; echo "http://localhost:3000/posts/scrape/$y/$m$p?user_id=N" >> /tmp/urls; done; done; done`, where `N` is the user id of "Archive Script"
+- `wget -E -k -p --header "Cookie: foo=bar" -i /tmp/urls`
+- `git checkout gh-pages`
+- `./tools/scrape-output-transform.pl localhost:3000/posts/scrape archive`
+- `./tools/transform-link-map.pl t-board-august-2018-to-april-2019-link-map-raw.csv archive/t-board-august-2018-to-april-2019-link-map.csv`
+- `./tools/transform-link-map.pl board-may-2016-to-apr-2019-link-map-raw.csv archive/board-may-2016-to-apr-2019-link-map.csv`
+- Edit `archive/index.html` to point to all the new stuff (probably by copy-paste and search-replace)
+- Commit and push
+
 Licensing
 ---------
 
