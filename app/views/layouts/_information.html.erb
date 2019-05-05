@@ -11,7 +11,7 @@
           end %>
         <% msg = [msg] unless msg.kind_of?(Array) %>
         <% msg.each do |text| %>
-          <div class="alert alert-<%= type %>"> <%=raw text %> </div>
+          <div class="alert alert-<%= type %>" role="alert"> <%=raw text %> </div>
         <% end %>
       <% end %>
     </div>

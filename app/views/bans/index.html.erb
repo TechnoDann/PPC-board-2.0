@@ -49,5 +49,5 @@
 
 <br />
 <% if current_user.moderator? %>
-<%= link_to 'New Ban', new_ban_path, :class => 'btn btn-danger' %>
+<%= link_to 'New Ban', new_ban_path, :class => 'btn btn-danger', :role => 'button' %>
 <% end %>
