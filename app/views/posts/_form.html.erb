@@ -40,7 +40,7 @@
       <% if watch_checkbox %>
         <div>
           <div class="col-sm-8 col-sm-offset-2">
-            <%= f.input :watch, :label => "Enable reply emails", :as => :boolean,
+            <%= f.input :watch_add, :label => "Enable reply emails", :as => :boolean,
                         :input_html => { checked: false },
                         :disabled => @post.ancestors.joins("INNER JOIN posts_users on posts_users.post_id = posts.id")
                                        .where("posts_users.user_id = ?", [current_user.id]).exists? %>

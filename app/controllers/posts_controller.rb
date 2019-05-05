@@ -142,7 +142,6 @@ class PostsController < ApplicationController
   # PUT /posts/preview
   # PATCH /posts/preview
   def preview
-    params[:post].delete(:watch)
     @post = Post.new(post_params)
     @post.user = current_user
     add_nm(@post)
@@ -180,8 +179,6 @@ class PostsController < ApplicationController
   # POST /posts
   # POST /posts.json
   def create
-    watch_check_value = params[:post].delete(:watch) # Strip out non-model param, keeping value
-    adding_watch = (watch_check_value == "1")
     @post = Post.new(post_params)
     @post.user = current_user
     add_nm(@post)
@@ -189,7 +186,7 @@ class PostsController < ApplicationController
     respond_to do |format|
       if @post.save
         notify_watchers(@post)
-        if adding_watch
+        if @post.watch_add
           @post.watchers << current_user
         end
         # Restore to auto-subscribe people to things they post
@@ -273,9 +270,9 @@ class PostsController < ApplicationController
 
   def post_params
     if current_user.moderator?
-      params.require(:post).permit(:locked, :poofed, :sort_timestamp, :body, :subject, :author, :parent_id, :tag_ids => [])
+      params.require(:post).permit(:locked, :poofed, :sort_timestamp, :body, :subject, :author, :parent_id, :watch_add, :tag_ids => [])
     else
-      params.require(:post).permit(:body, :subject, :author, :parent_id, :tag_ids => [])
+      params.require(:post).permit(:body, :subject, :author, :parent_id, :watch_add, :tag_ids => [])
     end
   end
 end
