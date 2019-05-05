@@ -13,6 +13,7 @@ class Post < ActiveRecord::Base
 
   validate :no_memory_hole
   validate :no_locked_reply, :on => :create
+  validate :flood_prevention, :on => :create
   validates :subject, :author, :user_id, :presence => true
   validates_length_of :subject, :maximum => 105
   validates_length_of :author, :maximum => 80
@@ -75,6 +76,12 @@ class Post < ActiveRecord::Base
   def no_locked_reply
     if self.locked || self.ancestors.where(:locked => true).exists?
       errors[:base] << "You aren't allowed to reply to locked threads."
+    end
+  end
+
+  def flood_prevention
+    if Post.where(:user_id => self.user_id, :created_at => 1.minute.ago .. Time.now).exists?
+      errors[:base] << "You can only create one post every minute to prevent spam"
     end
   end
 
