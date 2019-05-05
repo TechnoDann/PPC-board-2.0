@@ -1,6 +1,5 @@
 class BansController < ApplicationController
-  skip_before_filter :ip_ban, :only => [ :show ]
-  before_filter :authenticate_user!, :check_ban, :except => [ :show ]
+  before_filter :ip_ban, :authenticate_user!, :check_ban, :except => [ :show ]
   before_filter :must_be_moderator!, :except => [ :show, :index ]
 
   # GET /bans

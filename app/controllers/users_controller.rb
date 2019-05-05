@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  before_filter :ip_ban
   before_filter :authenticate_user!
   before_filter :check_ban
   # GET /users/1
@@ -8,7 +9,6 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @user }
     end
   end
 end

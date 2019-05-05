@@ -3,7 +3,6 @@ class ApplicationController < ActionController::Base
   before_filter :devise_permitted_parameters, if: :devise_controller?
   @query = ""
   helper_method :flash_message
-  before_filter :ip_ban
 
   def flash_message(type, text)
     flash[type] ||= []
@@ -18,11 +17,10 @@ class ApplicationController < ActionController::Base
         ban = stored_ban
       else
         cookies.delete :ip_banned
-        ban = nil
       end
     end
     if ban != nil
-      cookies[:ip_banned] = { :value => request.remote_ip, :expires => 30.minutes.from_now }
+      cookies[:ip_banned] = { :value => request.remote_ip, :expires => 2.months.from_now }
       redirect_to(ban)
     end
   end

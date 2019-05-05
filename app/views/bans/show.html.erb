@@ -4,7 +4,7 @@
 <% if @ban.user_id != nil %>
 The user <%= @ban.user.name %> is banned.
 <% end %>
-<% if @ban.ip != "" %>
+<% if @ban.ip != nil && ban.ip != "" %>
 The IP address <%= @ban.ip %> is banned.
 <% end %>
 The reason for this ban is: "<%= @ban.reason %>".
@@ -12,14 +12,11 @@ The reason for this ban is: "<%= @ban.reason %>".
 This ban is permanent.
 <% else %>
 This ban will last until <%= @ban.created_at + @ban.length.seconds %>,
-that is, for 
+that is, for
 <%= distance_of_time_in_words(Time.now, @ban.created_at + @ban.length.seconds) %> more.
 <% end %>
 </p>
-<p> 
-If you believe you've been banned in error, please
-contact <a href="mailto:ppc.posting.board@gmail.com"> the Board admin</a>.
-</p>
 <p>
-BAN EVASION <strong><emph>WILL</emph></strong> RESULT IN A LONGER BAN.
+If you believe you've been banned in error, please
+contact the Board admin ((TODO: add their email)).
 </p>

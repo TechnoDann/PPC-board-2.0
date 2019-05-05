@@ -1,4 +1,5 @@
 class WatchesController < ApplicationController
+  before_filter :ip_ban
   before_filter :authenticate_user!
   before_filter :check_ban
 
