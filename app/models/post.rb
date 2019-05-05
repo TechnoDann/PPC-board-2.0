@@ -79,6 +79,8 @@ class Post < ActiveRecord::Base
   end
 
   def set_sort_timestamp
-    self.sort_timestamp = Time.now()
+    if not self.sort_timestamp
+      self.sort_timestamp = Time.now()
+    end
   end
 end
