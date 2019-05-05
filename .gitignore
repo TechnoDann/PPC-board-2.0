@@ -18,3 +18,4 @@ config/mailers.yml
 config/*.sphinx.conf
 db/sphinx
 bin/
+scrape-logs
