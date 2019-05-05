@@ -1,5 +1,5 @@
 class Ban < ActiveRecord::Base
-  belongs_to :user
+  belongs_to :user, :required => false
 
   validates :length, :reason, :presence => true
 
