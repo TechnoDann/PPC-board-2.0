@@ -29,7 +29,7 @@
       <%= f.input :author, input_html: { maxlength: 80 } %>
       <%= f.input :body, :hint => "Posts can either be written in Markdown or a subset of HTML. For formatting help, please see #{link_to 'the formatting guide', '/formatting_help'}.".html_safe, :rows => 15, :cols => 50 %>
 
-      <div>
+      <div class="form-group">
         <div class="col-sm-8 col-sm-offset-2">
           <%= f.association :tags, :as => :check_boxes,
                             :collection => Tag.where.not(
@@ -38,7 +38,7 @@
       </div>
 
       <% if watch_checkbox %>
-        <div>
+        <div class="form-group">
           <div class="col-sm-8 col-sm-offset-2">
             <%= f.input :watch_add, :label => "Enable reply emails", :as => :boolean,
                         :input_html => { checked: false },
@@ -62,8 +62,9 @@
         </div>
       <% end %>
     </div>
-    <div class="col-sm-offset-1">
-      <div class="form-actions">
+
+    <div class="row">
+      <div class="col-sm-offset-1">
         <a href="#" onclick="event.preventDefault(); preview()" class="btn btn-success", role="button">Preview</a>
         <%= f.button :submit, class: "btn btn-primary", role: "button" %>
       </div>
