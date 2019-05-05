@@ -180,13 +180,14 @@ class PostsController < ApplicationController
   # POST /posts.json
   def create
     @post = Post.new(post_params)
+    adding_watch = (@post.watch_add == "1")
     @post.user = current_user
     add_nm(@post)
 
     respond_to do |format|
       if @post.save
         notify_watchers(@post)
-        if @post.watch_add
+        if adding_watch
           @post.watchers << current_user
         end
         # Restore to auto-subscribe people to things they post
