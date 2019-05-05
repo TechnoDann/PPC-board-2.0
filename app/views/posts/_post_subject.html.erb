@@ -3,7 +3,7 @@
 <span class="short-post-subject"><%= link_to raw(htmlic_title(post.subject)), post %></span> by
 <span class="short-post-author author-tag-for-<%= post.user_id %>"><%= post.author %></span>
 <span class="short-post-time">on <%= post.created_at %></span>
-<%= raw '<span class="label label-success">New</span>' if post.new_reply? %>
+<%= raw '<span class="badge" label="New post" title="New post">&nbsp;</span>' if post.new_reply? %>
 <%= raw '<span class="label label-warning">Locked</span>' if post.locked %>
 <%= raw '<span class="label label-danger">Poofed</span>' if post.poofed %>
 <%= raw '<span class="label label-info">Edited</span>' if post.previous_version %>
