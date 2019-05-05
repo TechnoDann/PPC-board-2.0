@@ -2,7 +2,7 @@
 <% style ||= "float:left; margin-right: 20px" %>
 
 <% if tag %>
-<%= link_to 'New Post', new_post_path(:tag_id => tag), :class => "btn btn-success", 
+<%= link_to 'New Post', new_post_path(:tag_id => tag), :class => "btn btn-success",
     :style => style, :role => "button" %>
 <% else %>
 <%= link_to 'New Post', new_post_path, :class => "btn btn-success",
