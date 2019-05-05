@@ -21,7 +21,7 @@ gem 'jquery-turbolinks'
 gem 'pg_search', '~> 2.1.0'
 # Gems used only for assets and not required
 # in production environments by default.
-gem 'sass-rails',   '~> 5.0.3'
+gem 'sassc-rails'
 gem 'coffee-rails', '~> 4.2.2'
 gem 'bootstrap-sass', '~> 3.3.5'
 
