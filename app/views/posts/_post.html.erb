@@ -8,10 +8,10 @@
       <% flash_message(:info, "This post sorts as if it had been posted on #{post.sort_timestamp}, that is #{distance_of_time_in_words(Time.now, post.sort_timestamp)} #{(post.sort_timestamp > Time.now) ? 'from now' : 'ago'}.") %>
      <% end %>
      <% if post.previous_version_id %>
-       <% flash_message(:info, "This post has been edited. The previous version is located #{link_to 'here.', post.previous_version}") %>
+       <% flash_message(:info, "This post has been edited. Here is the #{link_to 'previous version', post.previous_version}.") %>
      <% end %>
      <% if post.next_version_id %>
-       <% flash_message(:info, "This post has been superseded by an edit, which is located #{link_to 'here.', post.next_version}") %>
+       <% flash_message(:info, "This post has been superseded by  #{link_to 'an edit', post.next_version}.") %>
      <% end %>
 
      <% if post.poofed  %>
