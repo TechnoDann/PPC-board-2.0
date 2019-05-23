@@ -2,12 +2,19 @@
 -- PostgreSQL database dump
 --
 
+-- Dumped from database version 10.8 (Ubuntu 10.8-0ubuntu0.18.10.1)
+-- Dumped by pg_dump version 10.8 (Ubuntu 10.8-0ubuntu0.18.10.1)
+
 SET statement_timeout = 0;
 SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
 SET client_encoding = 'UTF8';
 SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
 SET check_function_bodies = false;
+SET xmloption = content;
 SET client_min_messages = warning;
+SET row_security = off;
 
 --
 -- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: -
@@ -23,13 +30,11 @@ CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
 COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
 
 
-SET search_path = public, pg_catalog;
-
 --
 -- Name: crc32(text); Type: FUNCTION; Schema: public; Owner: -
 --
 
-CREATE FUNCTION crc32(word text) RETURNS bigint
+CREATE FUNCTION public.crc32(word text) RETURNS bigint
     LANGUAGE plpgsql IMMUTABLE
     AS $$
           DECLARE tmp bigint;
@@ -71,10 +76,10 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
--- Name: bans; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: bans; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE bans (
+CREATE TABLE public.bans (
     id integer NOT NULL,
     user_id integer,
     ip character varying(255),
@@ -90,7 +95,7 @@ CREATE TABLE bans (
 -- Name: bans_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE bans_id_seq
+CREATE SEQUENCE public.bans_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -102,14 +107,14 @@ CREATE SEQUENCE bans_id_seq
 -- Name: bans_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE bans_id_seq OWNED BY bans.id;
+ALTER SEQUENCE public.bans_id_seq OWNED BY public.bans.id;
 
 
 --
--- Name: posts; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: posts; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE posts (
+CREATE TABLE public.posts (
     id integer NOT NULL,
     locked boolean,
     poofed boolean,
@@ -122,8 +127,7 @@ CREATE TABLE posts (
     updated_at timestamp without time zone NOT NULL,
     ancestry text,
     previous_version_id integer,
-    next_version_id integer,
-    being_cloned boolean DEFAULT false
+    next_version_id integer
 );
 
 
@@ -131,7 +135,7 @@ CREATE TABLE posts (
 -- Name: posts_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE posts_id_seq
+CREATE SEQUENCE public.posts_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -143,43 +147,43 @@ CREATE SEQUENCE posts_id_seq
 -- Name: posts_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE posts_id_seq OWNED BY posts.id;
+ALTER SEQUENCE public.posts_id_seq OWNED BY public.posts.id;
 
 
 --
--- Name: posts_tags; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: posts_tags; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE posts_tags (
+CREATE TABLE public.posts_tags (
     tag_id integer,
     post_id integer
 );
 
 
 --
--- Name: posts_users; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: posts_users; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE posts_users (
+CREATE TABLE public.posts_users (
     post_id integer,
     user_id integer
 );
 
 
 --
--- Name: schema_migrations; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: schema_migrations; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE schema_migrations (
+CREATE TABLE public.schema_migrations (
     version character varying(255) NOT NULL
 );
 
 
 --
--- Name: tags; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: tags; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE tags (
+CREATE TABLE public.tags (
     id integer NOT NULL,
     name character varying(255)
 );
@@ -189,7 +193,7 @@ CREATE TABLE tags (
 -- Name: tags_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE tags_id_seq
+CREATE SEQUENCE public.tags_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -201,14 +205,14 @@ CREATE SEQUENCE tags_id_seq
 -- Name: tags_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE tags_id_seq OWNED BY tags.id;
+ALTER SEQUENCE public.tags_id_seq OWNED BY public.tags.id;
 
 
 --
--- Name: users; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: users; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE users (
+CREATE TABLE public.users (
     id integer NOT NULL,
     name character varying(255) NOT NULL,
     email character varying(255) DEFAULT ''::character varying NOT NULL,
@@ -232,7 +236,7 @@ CREATE TABLE users (
 -- Name: users_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE users_id_seq
+CREATE SEQUENCE public.users_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -244,194 +248,194 @@ CREATE SEQUENCE users_id_seq
 -- Name: users_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE users_id_seq OWNED BY users.id;
+ALTER SEQUENCE public.users_id_seq OWNED BY public.users.id;
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: bans id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY bans ALTER COLUMN id SET DEFAULT nextval('bans_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY posts ALTER COLUMN id SET DEFAULT nextval('posts_id_seq'::regclass);
+ALTER TABLE ONLY public.bans ALTER COLUMN id SET DEFAULT nextval('public.bans_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: posts id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY tags ALTER COLUMN id SET DEFAULT nextval('tags_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY users ALTER COLUMN id SET DEFAULT nextval('users_id_seq'::regclass);
+ALTER TABLE ONLY public.posts ALTER COLUMN id SET DEFAULT nextval('public.posts_id_seq'::regclass);
 
 
 --
--- Name: bans_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: tags id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY bans
+ALTER TABLE ONLY public.tags ALTER COLUMN id SET DEFAULT nextval('public.tags_id_seq'::regclass);
+
+
+--
+-- Name: users id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_id_seq'::regclass);
+
+
+--
+-- Name: bans bans_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.bans
     ADD CONSTRAINT bans_pkey PRIMARY KEY (id);
 
 
 --
--- Name: posts_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: posts posts_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY posts
+ALTER TABLE ONLY public.posts
     ADD CONSTRAINT posts_pkey PRIMARY KEY (id);
 
 
 --
--- Name: tags_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: tags tags_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY tags
+ALTER TABLE ONLY public.tags
     ADD CONSTRAINT tags_pkey PRIMARY KEY (id);
 
 
 --
--- Name: users_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: users users_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY users
+ALTER TABLE ONLY public.users
     ADD CONSTRAINT users_pkey PRIMARY KEY (id);
 
 
 --
--- Name: index_bans_on_email; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_bans_on_email; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_bans_on_email ON bans USING btree (email);
-
-
---
--- Name: index_bans_on_ip; Type: INDEX; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE INDEX index_bans_on_ip ON bans USING btree (ip);
+CREATE INDEX index_bans_on_email ON public.bans USING btree (email);
 
 
 --
--- Name: index_posts_on_ancestry; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_bans_on_ip; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_posts_on_ancestry ON posts USING btree (ancestry text_pattern_ops NULLS FIRST);
-
-
---
--- Name: index_posts_on_text_search; Type: INDEX; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE INDEX index_posts_on_text_search ON posts USING gin ((((setweight(to_tsvector('english'::regconfig, COALESCE((subject)::text, ''::text)), 'A'::"char") || setweight(to_tsvector('english'::regconfig, COALESCE((author)::text, ''::text)), 'C'::"char")) || setweight(to_tsvector('english'::regconfig, COALESCE(body, ''::text)), 'B'::"char"))));
+CREATE INDEX index_bans_on_ip ON public.bans USING btree (ip);
 
 
 --
--- Name: index_posts_on_user_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_posts_on_ancestry; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_posts_on_user_id ON posts USING btree (user_id);
-
-
---
--- Name: index_users_on_name; Type: INDEX; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE UNIQUE INDEX index_users_on_name ON users USING btree (name);
+CREATE INDEX index_posts_on_ancestry ON public.posts USING btree (ancestry text_pattern_ops NULLS FIRST);
 
 
 --
--- Name: index_users_on_reset_password_token; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_posts_on_text_search; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX index_users_on_reset_password_token ON users USING btree (reset_password_token);
-
-
---
--- Name: unique_schema_migrations; Type: INDEX; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE UNIQUE INDEX unique_schema_migrations ON schema_migrations USING btree (version);
+CREATE INDEX index_posts_on_text_search ON public.posts USING gin ((((setweight(to_tsvector('english'::regconfig, COALESCE((subject)::text, ''::text)), 'A'::"char") || setweight(to_tsvector('english'::regconfig, COALESCE((author)::text, ''::text)), 'C'::"char")) || setweight(to_tsvector('english'::regconfig, COALESCE(body, ''::text)), 'B'::"char"))));
 
 
 --
--- Name: bans_user_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: index_posts_on_user_id; Type: INDEX; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY bans
-    ADD CONSTRAINT bans_user_id_fk FOREIGN KEY (user_id) REFERENCES users(id);
-
-
---
--- Name: posts_next_version_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY posts
-    ADD CONSTRAINT posts_next_version_id_fk FOREIGN KEY (next_version_id) REFERENCES posts(id);
+CREATE INDEX index_posts_on_user_id ON public.posts USING btree (user_id);
 
 
 --
--- Name: posts_previous_version_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: index_users_on_name; Type: INDEX; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY posts
-    ADD CONSTRAINT posts_previous_version_id_fk FOREIGN KEY (previous_version_id) REFERENCES posts(id);
-
-
---
--- Name: posts_tags_post_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY posts_tags
-    ADD CONSTRAINT posts_tags_post_id_fk FOREIGN KEY (post_id) REFERENCES posts(id);
+CREATE UNIQUE INDEX index_users_on_name ON public.users USING btree (name);
 
 
 --
--- Name: posts_tags_tag_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: index_users_on_reset_password_token; Type: INDEX; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY posts_tags
-    ADD CONSTRAINT posts_tags_tag_id_fk FOREIGN KEY (tag_id) REFERENCES tags(id);
-
-
---
--- Name: posts_user_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY posts
-    ADD CONSTRAINT posts_user_id_fk FOREIGN KEY (user_id) REFERENCES users(id);
+CREATE UNIQUE INDEX index_users_on_reset_password_token ON public.users USING btree (reset_password_token);
 
 
 --
--- Name: posts_users_post_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: unique_schema_migrations; Type: INDEX; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY posts_users
-    ADD CONSTRAINT posts_users_post_id_fk FOREIGN KEY (post_id) REFERENCES posts(id);
+CREATE UNIQUE INDEX unique_schema_migrations ON public.schema_migrations USING btree (version);
 
 
 --
--- Name: posts_users_user_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: bans bans_user_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY posts_users
-    ADD CONSTRAINT posts_users_user_id_fk FOREIGN KEY (user_id) REFERENCES users(id);
+ALTER TABLE ONLY public.bans
+    ADD CONSTRAINT bans_user_id_fk FOREIGN KEY (user_id) REFERENCES public.users(id);
+
+
+--
+-- Name: posts posts_next_version_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.posts
+    ADD CONSTRAINT posts_next_version_id_fk FOREIGN KEY (next_version_id) REFERENCES public.posts(id);
+
+
+--
+-- Name: posts posts_previous_version_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.posts
+    ADD CONSTRAINT posts_previous_version_id_fk FOREIGN KEY (previous_version_id) REFERENCES public.posts(id);
+
+
+--
+-- Name: posts_tags posts_tags_post_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.posts_tags
+    ADD CONSTRAINT posts_tags_post_id_fk FOREIGN KEY (post_id) REFERENCES public.posts(id);
+
+
+--
+-- Name: posts_tags posts_tags_tag_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.posts_tags
+    ADD CONSTRAINT posts_tags_tag_id_fk FOREIGN KEY (tag_id) REFERENCES public.tags(id);
+
+
+--
+-- Name: posts posts_user_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.posts
+    ADD CONSTRAINT posts_user_id_fk FOREIGN KEY (user_id) REFERENCES public.users(id);
+
+
+--
+-- Name: posts_users posts_users_post_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.posts_users
+    ADD CONSTRAINT posts_users_post_id_fk FOREIGN KEY (post_id) REFERENCES public.posts(id);
+
+
+--
+-- Name: posts_users posts_users_user_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.posts_users
+    ADD CONSTRAINT posts_users_user_id_fk FOREIGN KEY (user_id) REFERENCES public.users(id);
 
 
 --
 -- PostgreSQL database dump complete
 --
 
-SET search_path TO "$user",public;
+SET search_path TO "$user", public;
 
 INSERT INTO schema_migrations (version) VALUES ('20120807155544');
 
@@ -472,4 +476,6 @@ INSERT INTO schema_migrations (version) VALUES ('20140403211929');
 INSERT INTO schema_migrations (version) VALUES ('20150723034043');
 
 INSERT INTO schema_migrations (version) VALUES ('20160727003452');
+
+INSERT INTO schema_migrations (version) VALUES ('20190523223248');
 

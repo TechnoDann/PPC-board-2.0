@@ -19,6 +19,7 @@ class Post < ActiveRecord::Base
   validates_length_of :author, :maximum => 80
 
   attr_accessor :watch_add
+  attr_accessor :being_cloned
 
   self.per_page = 25
 
