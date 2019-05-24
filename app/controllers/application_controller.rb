@@ -35,6 +35,13 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def must_be_moderator!
+    unless user_signed_in? && current_user.moderator?
+      redirect_to root_path, :flash => { :error => "You must be a moderator to perform this action." },
+          :status => :forbidden
+    end
+  end
+
   protected
 
   def devise_permitted_parameters

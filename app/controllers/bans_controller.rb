@@ -85,13 +85,6 @@ class BansController < ApplicationController
   end
 
   private
-  def must_be_moderator!
-    unless user_signed_in? && current_user.moderator?
-      redirect_to root_path, :flash => { :error => "You must be a moderator to operate the ban subsystem." },
-          :status => :forbidden
-    end
-  end
-
   def ban_params
     params.require(:ban).permit(:email, :ip, :user_id, :length, :reason)
   end

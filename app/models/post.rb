@@ -1,9 +1,14 @@
 class Post < ActiveRecord::Base
+  ## NOTE: next_version should be current_version,
+  ## but renaming it to reflect the actual semantics of the code seems tricky
   has_ancestry orphan_strategy: :adopt
   lazy_load :body
 
   attr_readonly :parent_id
   before_create :set_sort_timestamp
+
+  before_destroy :destroy_past_versions
+  before_destroy :remove_previous_version_reference
 
   belongs_to :previous_version, :class_name => 'Post', :foreign_key => 'previous_version_id', :required => false
   belongs_to :next_version, :class_name => 'Post', :foreign_key => 'next_version_id', :required => false
@@ -20,6 +25,7 @@ class Post < ActiveRecord::Base
 
   attr_accessor :watch_add
   attr_accessor :being_cloned
+  attr_accessor :recursive_destroy
 
   self.per_page = 25
 
@@ -89,6 +95,39 @@ class Post < ActiveRecord::Base
   def set_sort_timestamp
     if not self.sort_timestamp
       self.sort_timestamp = Time.now()
+    end
+  end
+
+  def destroy_past_versions
+    if not self.recursive_destroy
+      current = self
+      next_post = nil
+      while current != nil
+        next_post = current.previous_version
+        current.previous_version_id = nil
+        current.being_cloned = true
+        current.save!
+        current.being_cloned = false
+        if current != self
+          current.recursive_destroy = true
+          current.destroy!
+        end
+        current = next_post
+      end
+    end
+  end
+
+  def remove_previous_version_reference
+    if (not self.recursive_destroy) && self.next_version_id != nil
+      self_id = self.id
+      probe = self.next_version
+      while probe.previous_version_id != self_id
+        probe = probe.previous_version
+      end
+      probe.previous_version_id = nil
+      probe.being_cloned = true
+      probe.save!
+      probe.being_cloned = false
     end
   end
 end

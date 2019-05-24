@@ -1,7 +1,8 @@
 class PostsController < ApplicationController
   before_filter :clear_return_url
   before_filter :ip_ban, :authenticate_user_board!, :check_ban,
-                :only => [:new, :create, :update, :edit, :preview]
+                :only => [:new, :create, :update, :edit, :preview, :destroy]
+  before_filter :must_be_moderator!, :only => [:destroy]
   helper_method :allowed_to_edit?
 
   # GET /posts/search
@@ -225,6 +226,27 @@ class PostsController < ApplicationController
       else
         @clone.destroy
         format.html { render action: "edit" }
+        format.json { render json: @post.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  # DELETE /posts/1
+  # DELETE /posts/1.json
+  def destroy
+    @post = Post.find(params[:id])
+    unless user_signed_in? && current_user.moderator?
+      redirect_to posts_url, :flash => { :error => "You can't delete posts unless you're a moderator" }
+      logger.error("#{current_user.name} (#{current_user.id}) is trying to DELETE #{@post.author}'s post (#{post.id}). CRACKER!")
+    end
+
+    respond_to do |format|
+      if @post.destroy
+        format.html { flash[:success] = ['Post successfully deleted.']
+          redirect_to(root_path) }
+        format.json { head :no_content }
+      else
+        format.html { render action: "show", flash: {error: "Failed to delete post" } }
         format.json { render json: @post.errors, status: :unprocessable_entity }
       end
     end

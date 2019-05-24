@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   devise_for :users
   resources :users, :only => [:show]
 
-  resources :posts, :except => [:delete, :destroy] do
+  resources :posts do
     collection do
       get 'search'
       post 'preview'
