@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class PostsController < ApplicationController
   before_filter :clear_return_url
   before_filter :ip_ban, :authenticate_user_board!, :check_ban,
@@ -28,8 +29,6 @@ class PostsController < ApplicationController
 
     @posts = Post.where(:ancestry => nil, :next_version_id => nil)
       .paginate(:page => params[:page]).order("sort_timestamp DESC")
-
-#    @posts.each { |post| Post.where("ancestry LIKE '#{post.id}/%'").includes(:tags, :user).all }
 
     @tagged_posts = Hash.new do |hash, key|
       hash[key] = []
@@ -132,7 +131,6 @@ class PostsController < ApplicationController
   # GET /posts/1.json
   def show
     @post = Post.find(params[:id])
-#    Post.where("ancestry LIKE '#{@post.id}/%'").includes(:tags, :user).all
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @post.subtree }
@@ -173,7 +171,7 @@ class PostsController < ApplicationController
   def edit
     @post = Post.find(params[:id])
     if !allowed_to_edit? @post, current_user
-      redirect_to posts_url, :flash => { :error => "You can\'t edit other people\'s posts." } 
+      redirect_to posts_url, :flash => { :error => "You can't edit other people's posts." } 
     end
   end
 
@@ -197,7 +195,7 @@ class PostsController < ApplicationController
         #   end
         #   @post.watchers = [current_user]
         # end
-        format.html { flash[:success] = ['Post was successfully created.']
+        format.html { flash[:success] = ["Post was successfully created."]
           redirect_to @post }
         format.json { render json: @post, status: :created, location: @post }
       else
@@ -212,7 +210,7 @@ class PostsController < ApplicationController
   def update
     @post = Post.find(params[:id])
     if !allowed_to_edit? @post, current_user
-      redirect_to posts_url, :flash => { :error => "You can\'t edit other people\'s posts. Also, why are you bypassing access controls?" }
+      redirect_to posts_url, :flash => { :error => "You can't edit other people's posts. Also, why are you bypassing access controls?" }
       logger.error("#{current_user.name} (#{current_user.id}) is trying to PUT #{@post.author}'s post (#{post.id}). CRACKER!")
     end
     @clone = @post.clone_before_edit
@@ -220,7 +218,7 @@ class PostsController < ApplicationController
     respond_to do |format|
       if @post.update_attributes(post_params)
         @post.close_edit_cycle @clone
-        format.html { flash[:success] = ['Post was successfully updated.']
+        format.html { flash[:success] = ["Post was successfully updated."]
           redirect_to @post }
         format.json { head :no_content }
       else
@@ -242,7 +240,7 @@ class PostsController < ApplicationController
 
     respond_to do |format|
       if @post.destroy
-        format.html { flash[:success] = ['Post successfully deleted.']
+        format.html { flash[:success] = ["Post successfully deleted."]
           redirect_to(root_path) }
         format.json { head :no_content }
       else

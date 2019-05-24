@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class BansController < ApplicationController
   before_filter :ip_ban, :authenticate_user!, :check_ban, :except => [ :show ]
   before_filter :must_be_moderator!, :except => [ :show, :index ]
