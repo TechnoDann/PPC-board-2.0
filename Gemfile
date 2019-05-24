@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby '2.4.0'
+ruby '2.6.3'
 
 gem 'rails', '~> 4.2.0'
 
@@ -23,7 +23,7 @@ gem 'pg_search', '~> 2.1.0'
 # in production environments by default.
 gem 'sassc-rails'
 gem 'coffee-rails', '~> 4.2.2'
-gem 'bootstrap-sass', '~> 3.3.5'
+gem 'bootstrap-sass', '~> 3.4.0'
 
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 #gem 'therubyracer', :platforms => :ruby
