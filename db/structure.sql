@@ -76,6 +76,18 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
+-- Name: ar_internal_metadata; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.ar_internal_metadata (
+    key character varying NOT NULL,
+    value character varying,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
 -- Name: bans; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -116,12 +128,12 @@ ALTER SEQUENCE public.bans_id_seq OWNED BY public.bans.id;
 
 CREATE TABLE public.posts (
     id integer NOT NULL,
-    locked boolean,
-    poofed boolean,
-    sort_timestamp timestamp without time zone,
-    subject character varying(255),
-    user_id integer,
-    author character varying(255),
+    locked boolean DEFAULT false NOT NULL,
+    poofed boolean DEFAULT false NOT NULL,
+    sort_timestamp timestamp without time zone NOT NULL,
+    subject character varying(255) NOT NULL,
+    user_id integer NOT NULL,
+    author character varying(255) NOT NULL,
     body text,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
@@ -185,7 +197,7 @@ CREATE TABLE public.schema_migrations (
 
 CREATE TABLE public.tags (
     id integer NOT NULL,
-    name character varying(255)
+    name character varying(255) NOT NULL
 );
 
 
@@ -277,6 +289,14 @@ ALTER TABLE ONLY public.tags ALTER COLUMN id SET DEFAULT nextval('public.tags_id
 --
 
 ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_id_seq'::regclass);
+
+
+--
+-- Name: ar_internal_metadata ar_internal_metadata_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.ar_internal_metadata
+    ADD CONSTRAINT ar_internal_metadata_pkey PRIMARY KEY (key);
 
 
 --
@@ -437,45 +457,28 @@ ALTER TABLE ONLY public.posts_users
 
 SET search_path TO "$user", public;
 
-INSERT INTO schema_migrations (version) VALUES ('20120807155544');
+INSERT INTO "schema_migrations" (version) VALUES
+('20120807155544'),
+('20120807210241'),
+('20120807210832'),
+('20120808140632'),
+('20120808145818'),
+('20120808215504'),
+('20120809212240'),
+('20120810143218'),
+('20120810153105'),
+('20120810155937'),
+('20120810161317'),
+('20120811142914'),
+('20120811181007'),
+('20120811230633'),
+('20120812220416'),
+('20120814011643'),
+('20130822190500'),
+('20140403211929'),
+('20150723034043'),
+('20160727003452'),
+('20190523223248'),
+('20190526181703');
 
-INSERT INTO schema_migrations (version) VALUES ('20120807210241');
-
-INSERT INTO schema_migrations (version) VALUES ('20120807210832');
-
-INSERT INTO schema_migrations (version) VALUES ('20120808140632');
-
-INSERT INTO schema_migrations (version) VALUES ('20120808145818');
-
-INSERT INTO schema_migrations (version) VALUES ('20120808215504');
-
-INSERT INTO schema_migrations (version) VALUES ('20120809212240');
-
-INSERT INTO schema_migrations (version) VALUES ('20120810143218');
-
-INSERT INTO schema_migrations (version) VALUES ('20120810153105');
-
-INSERT INTO schema_migrations (version) VALUES ('20120810155937');
-
-INSERT INTO schema_migrations (version) VALUES ('20120810161317');
-
-INSERT INTO schema_migrations (version) VALUES ('20120811142914');
-
-INSERT INTO schema_migrations (version) VALUES ('20120811181007');
-
-INSERT INTO schema_migrations (version) VALUES ('20120811230633');
-
-INSERT INTO schema_migrations (version) VALUES ('20120812220416');
-
-INSERT INTO schema_migrations (version) VALUES ('20120814011643');
-
-INSERT INTO schema_migrations (version) VALUES ('20130822190500');
-
-INSERT INTO schema_migrations (version) VALUES ('20140403211929');
-
-INSERT INTO schema_migrations (version) VALUES ('20150723034043');
-
-INSERT INTO schema_migrations (version) VALUES ('20160727003452');
-
-INSERT INTO schema_migrations (version) VALUES ('20190523223248');
 
