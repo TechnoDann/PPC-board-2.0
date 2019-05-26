@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 ruby '2.6.3'
 
-gem 'rails', '~> 4.2.0'
+gem 'rails', '~> 5.0.0'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -33,6 +33,7 @@ gem 'bootstrap-sass', '~> 3.4.0'
 gem 'uglifier', '>= 1.0.3'
 
 group :development do
+  gem 'listen'
   gem 'immigrant', '~> 0.3.4'
   gem 'web-console', '~> 2.0'
 end
@@ -62,8 +63,8 @@ gem 'devise', '~> 4.6.2'
 # To use Jbuilder templates for JSON
 # gem 'jbuilder'
 
-# Use unicorn as the app server
-gem 'unicorn'
+# Use puma as the app server
+gem 'puma'
 
 # Deploy with Capistrano
 # gem 'capistrano'

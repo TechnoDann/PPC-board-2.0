@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-class Post < ActiveRecord::Base
+class Post < ApplicationRecord
   ## NOTE: next_version should be current_version,
   ## but renaming it to reflect the actual semantics of the code seems tricky
   has_ancestry orphan_strategy: :adopt

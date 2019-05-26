@@ -1,4 +1,4 @@
-class Ban < ActiveRecord::Base
+class Ban < ApplicationRecord
   belongs_to :user, :required => false
 
   validates :length, :reason, :presence => true
