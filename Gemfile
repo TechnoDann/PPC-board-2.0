@@ -34,14 +34,13 @@ gem 'uglifier', '>= 1.0.3'
 
 group :development do
   gem 'listen'
-  gem 'immigrant', '~> 0.3.4'
   gem 'web-console', '~> 2.0'
 end
 
 group :development, :test do
-  gem 'capybara', '~> 2.16.0'
-  gem 'rspec-rails', '~> 3.3'
-  gem 'test-unit', '~> 3.0'
+  gem 'capybara', '~> 3.21'
+  gem 'rspec-rails', '~> 3.8'
+  gem 'test-unit', '~> 3.3'
 end
 
 group :production do
