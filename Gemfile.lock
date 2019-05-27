@@ -76,7 +76,9 @@ GEM
       execjs
     coffee-script-source (1.12.2)
     concurrent-ruby (1.1.5)
+    connection_pool (2.2.2)
     crass (1.0.4)
+    dalli (2.7.10)
     debug_inspector (0.0.3)
     devise (4.6.2)
       bcrypt (~> 3.0)
@@ -115,6 +117,7 @@ GEM
     marcel (0.3.3)
       mimemagic (~> 0.3.2)
     markerb (1.1.0)
+    memcachier (0.0.2)
     method_source (0.9.2)
     mimemagic (0.3.3)
     mini_mime (1.0.1)
@@ -252,6 +255,8 @@ DEPENDENCIES
   bootstrap-will_paginate
   capybara (~> 3.21)
   coffee-rails (~> 5.0)
+  connection_pool
+  dalli
   devise (~> 4.6.2)
   jquery-rails
   jquery-rails-cdn
@@ -259,6 +264,7 @@ DEPENDENCIES
   lazy_columns
   listen
   markerb
+  memcachier
   pg (~> 1.1.4)
   pg_search (~> 2.2.0)
   puma

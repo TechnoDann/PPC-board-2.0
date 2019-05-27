@@ -102,4 +102,15 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+
+  config.cache_store = :mem_cache_store,
+  (ENV["MEMCACHE_SERVERS"] || "").split(","),
+  {:username => ENV["MEMCACHE_USERNAME"],
+   :password => ENV["MEMCACHE_PASSWORD"],
+   :failover => true,
+   :socket_timeout => 1.5,
+   :socket_failure_delay => 0.2,
+   :down_retry_delay => 60,
+   :pool_size => 5
+  }
 end

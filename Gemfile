@@ -65,3 +65,7 @@ gem 'bootsnap', require: false
 # Deploy with Capistrano
 # gem 'capistrano'
 
+# Gems to use memcached on Heroku
+gem 'connection_pool'
+gem 'memcachier'
+gem 'dalli'
