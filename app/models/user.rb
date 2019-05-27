@@ -13,7 +13,7 @@ class User < ApplicationRecord
 
   has_many :posts, dependent: :restrict_with_exception
   has_one :ban, dependent: :nullify
-  has_and_belongs_to_many :watched_posts, -> { uniq }, :class_name => 'Post'
+  has_and_belongs_to_many :watched_posts, -> { distinct }, :class_name => 'Post'
 
   validates :name, :presence => true
   validates :name, :uniqueness => true

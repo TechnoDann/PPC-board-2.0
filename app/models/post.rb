@@ -11,8 +11,8 @@ class Post < ApplicationRecord
   before_destroy :destroy_past_versions
   before_destroy :remove_previous_version_reference
 
-  belongs_to :previous_version, :class_name => 'Post', :foreign_key => 'previous_version_id', :required => false
-  belongs_to :next_version, :class_name => 'Post', :foreign_key => 'next_version_id', :required => false
+  belongs_to :previous_version, :class_name => 'Post', :foreign_key => 'previous_version_id', :optional => true
+  belongs_to :next_version, :class_name => 'Post', :foreign_key => 'next_version_id', :optional => true
   has_and_belongs_to_many :tags
   belongs_to :user
   has_and_belongs_to_many :watchers, -> { uniq }, :class_name => 'User'

@@ -1,5 +1,5 @@
 class Ban < ApplicationRecord
-  belongs_to :user, :required => false
+  belongs_to :user, :optional => true
 
   validates :length, :reason, :presence => true
 
