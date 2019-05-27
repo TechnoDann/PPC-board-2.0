@@ -27,6 +27,8 @@ class Post < ApplicationRecord
   validates_length_of :author, :maximum => 80
 
   attr_accessor :watch_add
+  attr_accessor :override_sort_timestamp
+
   attr_accessor :being_cloned
   attr_accessor :recursive_destroy
 
@@ -101,7 +103,7 @@ class Post < ApplicationRecord
   end
 
   def set_sort_timestamp
-    if not self.sort_timestamp
+    if (not self.sort_timestamp) || (not self.override_sort_timestamp)
       self.sort_timestamp = Time.now()
     end
   end
