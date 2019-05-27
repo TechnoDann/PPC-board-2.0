@@ -11,6 +11,8 @@ class Post < ApplicationRecord
   before_destroy :destroy_past_versions
   before_destroy :remove_previous_version_reference
 
+  after_save :invalidate_thread_cache
+
   belongs_to :previous_version, :class_name => 'Post', :foreign_key => 'previous_version_id', :optional => true
   belongs_to :next_version, :class_name => 'Post', :foreign_key => 'next_version_id', :optional => true
   has_and_belongs_to_many :tags
@@ -135,5 +137,9 @@ class Post < ApplicationRecord
       probe.save!
       probe.being_cloned = false
     end
+  end
+
+  def invalidate_thread_cache
+    self.root.touch
   end
 end

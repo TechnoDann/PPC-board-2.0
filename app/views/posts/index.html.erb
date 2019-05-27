@@ -28,12 +28,15 @@
     <% unless tag == false %>
       <h3>Posts tagged: <%= tag.name %></h3>
       <% posts.each do |post| %>
+        <%# Template Dependency: post/post_subject %>
+        <% cache(post, namespace: 'post_threads') do %>
         <%= render :partial => 'thread', :locals => { :bodies => false, :id => false },
                    :object =>
                    Post.arrange_nodes(post.subtree
                                        .includes([:tags])
                                        .order("ancestry NULLS FIRST, sort_timestamp DESC").load)
         %>
+        <% end %>
       <% end %>
     <% end %>
   <% end %>
@@ -41,12 +44,15 @@
     <h3>Untagged Posts</h3>
   <% end %>
   <% @tagged_posts[false].each do |post| %>
+    <%# Template Dependency: post/post_subject %>
+    <% cache(post, namespace: 'post_threads') do %>
     <%= render :partial => 'thread', :locals => { :bodies => false, :id => false },
       :object =>
       Post.arrange_nodes(post.subtree
                           .includes([:tags])
                           .order("ancestry NULLS FIRST, sort_timestamp DESC").load)
     %>
+    <% end %>
   <% end %>
 <% end %>
 <br />
