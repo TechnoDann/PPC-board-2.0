@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 class ApplicationController < ActionController::Base
-  protect_from_forgery
   before_action :devise_permitted_parameters, if: :devise_controller?
   @query = ""
   helper_method :flash_message

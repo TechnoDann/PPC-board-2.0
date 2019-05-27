@@ -1,13 +1,12 @@
 source 'https://rubygems.org'
 ruby '2.6.3'
 
-gem 'rails', '~> 5.1.0'
+gem 'rails', '~> 5.2.0'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-# Bump past 1.0 on rails 5.2
-gem 'pg', '~> 0.21'
+gem 'pg', '~> 1.1.4'
 gem 'ancestry', '~> 3.0.0'
 gem 'redcarpet'
 gem 'markerb'
@@ -20,15 +19,10 @@ gem 'turbolinks'
 gem 'jquery-turbolinks'
 
 gem 'pg_search', '~> 2.2.0'
-# Gems used only for assets and not required
-# in production environments by default.
-gem 'sassc-rails'
-# Bump to 5.0 on rails 5.2
-gem 'coffee-rails', '~> 4.2.2'
-gem 'bootstrap-sass', '~> 3.4.0'
 
-# See https://github.com/sstephenson/execjs#readme for more supported runtimes
-#gem 'therubyracer', :platforms => :ruby
+gem 'sassc-rails'
+gem 'coffee-rails', '~> 5.0'
+gem 'bootstrap-sass', '~> 3.4.0'
 
 gem 'uglifier', '>= 1.0.3'
 
@@ -64,6 +58,9 @@ gem 'devise', '~> 4.6.2'
 
 # Use puma as the app server
 gem 'puma'
+
+# Performance improvements in 5.2
+gem 'bootsnap', require: false
 
 # Deploy with Capistrano
 # gem 'capistrano'

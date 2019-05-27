@@ -15,7 +15,7 @@ class Post < ApplicationRecord
   belongs_to :next_version, :class_name => 'Post', :foreign_key => 'next_version_id', :optional => true
   has_and_belongs_to_many :tags
   belongs_to :user
-  has_and_belongs_to_many :watchers, -> { uniq }, :class_name => 'User'
+  has_and_belongs_to_many :watchers, -> { distinct }, :class_name => 'User'
 
   validate :no_memory_hole
   validate :no_locked_reply, :on => :create
