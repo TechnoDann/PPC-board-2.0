@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
-  before_filter :ip_ban
-  before_filter :authenticate_user!
-  before_filter :check_ban
+  before_action :ip_ban
+  before_action :authenticate_user!
+  before_action :check_ban
   # GET /users/1
   # GET /users/1.json
   def show

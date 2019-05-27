@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 class BansController < ApplicationController
-  before_filter :ip_ban, :authenticate_user!, :check_ban, :except => [ :show ]
-  before_filter :must_be_moderator!, :except => [ :show, :index ]
+  before_action :ip_ban, :authenticate_user!, :check_ban, :except => [ :show ]
+  before_action :must_be_moderator!, :except => [ :show, :index ]
 
   # GET /bans
   # GET /bans.json

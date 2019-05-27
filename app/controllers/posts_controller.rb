@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 class PostsController < ApplicationController
-  before_filter :clear_return_url
-  before_filter :ip_ban, :authenticate_user_board!, :check_ban,
+  before_action :clear_return_url
+  before_action :ip_ban, :authenticate_user_board!, :check_ban,
                 :only => [:new, :create, :update, :edit, :preview, :destroy]
-  before_filter :must_be_moderator!, :only => [:destroy]
+  before_action :must_be_moderator!, :only => [:destroy]
   helper_method :allowed_to_edit?
 
   # GET /posts/search

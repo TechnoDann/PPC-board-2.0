@@ -1,7 +1,7 @@
 class WatchesController < ApplicationController
-  before_filter :ip_ban
-  before_filter :authenticate_user!
-  before_filter :check_ban
+  before_action :ip_ban
+  before_action :authenticate_user!
+  before_action :check_ban
 
   # POST /post/1/watch
   # POST /bans/1/watch.json

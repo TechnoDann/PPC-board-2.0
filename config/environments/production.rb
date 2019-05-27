@@ -17,6 +17,13 @@ Rails.application.configure do
 
   # Disable spammy logs from recursive partials & cache reads
   config.action_view.logger = nil
+  config.action_controller.enable_fragment_cache_logging = false
+
+  # Attempt to read encrypted secrets from `config/secrets.yml.enc`.
+  # Requires an encryption key in `ENV["RAILS_MASTER_KEY"]` or
+  # `config/secrets.yml.key`.
+  ## TODO maybe move to this
+  config.read_encrypted_secrets = false
 
   # Disable serving static files from the `/public` folder by default since
   # Apache or NGINX already handles this.
