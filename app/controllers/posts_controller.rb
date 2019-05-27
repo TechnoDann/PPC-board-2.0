@@ -252,7 +252,7 @@ class PostsController < ApplicationController
 
   def allowed_to_edit?(post, user)
     return false if !user
-    status = post.user == user || user.moderator?
+    status = post.user_id == user.id || user.moderator?
     if !status && (post.previous_version_id != nil)
       status = allowed_to_edit? post.previous_version, user
     end
