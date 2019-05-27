@@ -65,8 +65,13 @@ class Post < ApplicationRecord
     self.save
   end
 
+  DAY = 24.hours
+  def recent?
+    Time.now - self.created_at < DAY
+  end
+
   def new_reply?
-    (Time.now - self.created_at < 24.hours) && (Time.now - self.root.created_at > 24.hours) && !self.is_root?
+    (Time.now - self.created_at < DAY) && (Time.now - self.root.created_at > DAY) && !self.is_root?
   end
 
   def reSorted?

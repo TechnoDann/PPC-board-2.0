@@ -1,5 +1,5 @@
 <% post = post_subject %>
-<% cache(post, namespace: 'post_subject', expires_in: 6.hours, race_condition_ttl: 30.seconds) do %>
+<% cache_unless(post.recent?, post, namespace: 'post_subject', expires_in: 72.hours, race_condition_ttl: 30.seconds) do %>
 <span class="short-post-subject"><%= link_to raw(htmlic_title(post.subject)), post %></span> by
 <span class="short-post-author author-tag-for-<%= post.user_id %>"><%= post.author %></span>
 <span class="short-post-time">on <%= post.created_at %></span>

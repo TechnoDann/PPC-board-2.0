@@ -18,14 +18,10 @@
 </ul>
 <% @posts.each do |post| %>
   <div class="post thread">
-    <% if Time.now - post.created_at < 48.hours %>
-      <span class="label label-success">New thread</span>
-    <% end %>
-    <% new_post_count = post.descendants.select(&:new_reply?).length %>
+    <% new_post_count = post.subtree.select(&:recent?).count %>
     <% if new_post_count > 0 %>
-      <span class="label label-success">
-        <%= new_post_count.to_s + " new post".pluralize(new_post_count) %>
-      </span>
+      <span class="badge" label="<%= new_post_count %> new post".pluralize(new_post_count)
+            title="<%= new_post_count %> new post".pluralize(new_post_count)><%= new_post_count %></span>
     <% end %>
     <%= render :partial => 'post_subject', :object => post %>
   </div>
