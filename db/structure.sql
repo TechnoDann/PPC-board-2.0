@@ -30,47 +30,6 @@ CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
 COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
 
 
---
--- Name: crc32(text); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION public.crc32(word text) RETURNS bigint
-    LANGUAGE plpgsql IMMUTABLE
-    AS $$
-          DECLARE tmp bigint;
-          DECLARE i int;
-          DECLARE j int;
-          DECLARE byte_length int;
-          DECLARE word_array bytea;
-          BEGIN
-            IF COALESCE(word, '') = '' THEN
-              return 0;
-            END IF;
-
-            i = 0;
-            tmp = 4294967295;
-            byte_length = bit_length(word) / 8;
-            word_array = decode(replace(word, E'\\', E'\\\\'), 'escape');
-            LOOP
-              tmp = (tmp # get_byte(word_array, i))::bigint;
-              i = i + 1;
-              j = 0;
-              LOOP
-                tmp = ((tmp >> 1) # (3988292384 * (tmp & 1)))::bigint;
-                j = j + 1;
-                IF j >= 8 THEN
-                  EXIT;
-                END IF;
-              END LOOP;
-              IF i >= byte_length THEN
-                EXIT;
-              END IF;
-            END LOOP;
-            return (tmp # 4294967295);
-          END
-        $$;
-
-
 SET default_tablespace = '';
 
 SET default_with_oids = false;
@@ -475,7 +434,6 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20120812220416'),
 ('20120814011643'),
 ('20130822190500'),
-('20140403211929'),
 ('20150723034043'),
 ('20160727003452'),
 ('20190523223248'),
