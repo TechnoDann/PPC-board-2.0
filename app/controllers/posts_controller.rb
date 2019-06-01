@@ -291,7 +291,7 @@ class PostsController < ApplicationController
 
   def post_params
     if current_user.moderator?
-      params.require(:post).permit(:locked, :poofed, :sort_timestamp, :body, :subject, :author, :parent_id, :watch_add, :tag_ids => [])
+      params.require(:post).permit(:locked, :poofed, :override_sort_timestamp, :sort_timestamp, :body, :subject, :author, :parent_id, :watch_add, :tag_ids => [])
     else
       params.require(:post).permit(:body, :subject, :author, :parent_id, :watch_add, :tag_ids => [])
     end
