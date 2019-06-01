@@ -38,9 +38,9 @@
         <br /><br />
       <% end %>
     </li>
-    <ul class="subthread list-unstyled">
+    <li><ul class="subthread list-unstyled">
       <%= render_thread(subthreads, bodies, id) %>
-    </ul>
+    </ul></li>
 
     <% if post.poofed && bodies && !post.next_version%></div> <% end %>
   <% end %>
