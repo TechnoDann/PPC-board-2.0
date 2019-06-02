@@ -103,7 +103,7 @@ class Post < ApplicationRecord
   end
 
   def set_sort_timestamp
-    if (not self.sort_timestamp) || (not self.override_sort_timestamp)
+    if (not self.sort_timestamp) || (self.override_sort_timestamp != "1")
       self.sort_timestamp = Time.now()
     end
   end
