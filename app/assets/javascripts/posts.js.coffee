@@ -10,6 +10,7 @@ window.preview = () ->
         success: (html) ->
             $('#preview').html(html)
             $('#preview-accordion').collapse('hide').collapse('show')
+            instrument_spoiler_tags()
             document.location.hash = "#preview-accordion"
         error: (object, thing, text) ->
             $('#preview').html("<div class=\"alert alert-error\"> Preview failed.</div>")
@@ -35,4 +36,7 @@ window.add_show_more_links = () ->
     if location.hash
       location.hash = location.hash
 
-$(document).on("turbolinks:load", () -> add_show_more_links())
+window.instrument_spoiler_tags = () ->
+    $('a[href="#s"]').attr("data-turbolinks", "false")
+
+$(document).on("turbolinks:load", () -> add_show_more_links(); instrument_spoiler_tags())
