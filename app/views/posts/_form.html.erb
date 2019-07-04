@@ -38,13 +38,10 @@
       <% end %>
       <%= f.input :body, :hint => "Posts can either be written in Markdown or a subset of HTML. For formatting help, please see #{link_to 'the formatting guide', '/formatting_help'}.".html_safe, :rows => 15, :cols => 50 %>
 
-      <div class="form-group">
-        <div class="col-sm-8 col-sm-offset-2">
-          <%= f.association :tags, :as => :check_boxes,
-                            :collection => Tag.where.not(
-                              id: @post.ancestors.includes(:tags).map(&:tags).flatten) %>
-        </div>
-      </div>
+      <%= f.association :tags, :as => :check_boxes,
+                        :wrapper => :tag_checkboxes,
+                        :collection => Tag.where.not(
+                          id: @post.ancestors.includes(:tags).map(&:tags).flatten) %>
 
       <% if current_user.moderator? %>
         <%= f.input :locked, :label => 'Locked thread?', wrapper: :board_vertical_boolean%>
