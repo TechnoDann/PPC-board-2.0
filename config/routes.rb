@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   root :to => 'posts#index'
   match 'users' => 'posts#index', :via => :delete
   get 'formatting_help' => 'pages#formatting_help'
+  get 'data_collection' => 'pages#data_collection'
   devise_for :users
   resources :users, :only => [:show]
 

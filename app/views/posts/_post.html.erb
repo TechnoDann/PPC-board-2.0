@@ -40,13 +40,14 @@
        </script>
     <% end %>
   <% end %>
-  <b>Subject:</b> <span class="long-post-subject"><%= raw(htmlic_title(post.subject)) %></span> <br />
-  <b>Author:</b> 
-  <span class="long-post-author"><%= link_to post.author, post.user %></span>
-  <br />
-  <b>Posted on:</b> <span class="long-post-time"><%= post.created_at %></span><br />
-  <br />
-  <div class="current-post-body">
-    <%= raw(markdown(post.body)) %>
-  </div>
+  <p>
+    <b>Subject:</b> <span class="long-post-subject"><%= raw(htmlic_title(post.subject)) %></span> <br />
+    <b>Author:</b> <span class="long-post-author"><%= link_to post.author, post.user %></span>
+    <br />
+    <b>Posted on:</b> <span class="long-post-time"><%= post.created_at %></span><br />
+    <br />
+    <div class="current-post-body">
+      <%= raw(markdown(post.body)) %>
+    </div>
+  </p>
 </div>
