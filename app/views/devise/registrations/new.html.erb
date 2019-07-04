@@ -5,6 +5,12 @@
   <%= f.error_notification %>
 
   <div class="row">
+    <div class="col-sm-9 col-sm-offset-1">
+      <p>All of these values can be changed later</p>
+    </div>
+  </div>
+
+  <div class="row">
     <div class="form-inputs">
       <%= f.input :name,
                   required: true,
@@ -19,6 +25,8 @@
       <%= f.input :password_confirmation,
                   required: true,
                   input_html: { autocomplete: "new-password" } %>
+      <%= f.input :show_email, as: :boolean, wrapper: :board_vertical_boolean,
+          hint: "Check if you want your email visible to logged-in Boarders." %>
       <%= f.input :antispam,
                   required: true,
                   as: :string,

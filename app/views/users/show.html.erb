@@ -3,4 +3,8 @@
 <% if @user.moderator %>
 <p><%= @user.name %> is a moderator of the PPC Board</p>
 <% end %>
+<% if @user.show_email || (user_signed_in? && current_user.moderator?) %>
 <p><a href="mailto:<%= @user.email %>">Email <%= @user.name %></a></p>
+<% else %>
+<p><%= @user.name %> has not chosen to share their email with other Boarders.</p>
+<% end %>

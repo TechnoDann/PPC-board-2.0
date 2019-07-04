@@ -1,10 +1,3 @@
---
--- PostgreSQL database dump
---
-
--- Dumped from database version 10.8 (Ubuntu 10.8-0ubuntu0.18.10.1)
--- Dumped by pg_dump version 10.8 (Ubuntu 10.8-0ubuntu0.18.10.1)
-
 SET statement_timeout = 0;
 SET lock_timeout = 0;
 SET idle_in_transaction_session_timeout = 0;
@@ -185,7 +178,8 @@ CREATE TABLE public.users (
     current_sign_in_at timestamp without time zone,
     last_sign_in_at timestamp without time zone,
     current_sign_in_ip character varying(255),
-    last_sign_in_ip character varying(255)
+    last_sign_in_ip character varying(255),
+    show_email boolean DEFAULT false NOT NULL
 );
 
 
@@ -423,6 +417,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20150723034043'),
 ('20160727003452'),
 ('20190523223248'),
-('20190526181703');
+('20190526181703'),
+('20190704204622');
 
 
