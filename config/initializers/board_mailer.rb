@@ -14,9 +14,6 @@ if ENV['SENDGRID_USERNAME'] && ENV['SENDGRID_PASSWORD']
   Rails.application.config.action_mailer.default_url_options = {
     :host => 'ppc-posting-board-2-proto.herokuapp.com',
     :only_path => false }
-elsif File.exists?(Rails.root.join('config', 'mailers.yml'))
-  Rails.application.config.action_mailer.smtp_settings =
-    YAML.load_file(Rails.root.join('config', 'mailers.yml'))[Rails.env].to_options
 else
   Rails.application.config.action_mailer.delivery_method = :file
 end

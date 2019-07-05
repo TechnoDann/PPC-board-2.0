@@ -13,9 +13,8 @@
 # Ignore all logfiles and tempfiles.
 /log/*
 /tmp
-config/database.yml
-config/mailers.yml
-config/*.sphinx.conf
-db/sphinx
 bin/
 scrape-logs
+
+# Ignore master key for decrypting credentials and more.
+/config/master.key

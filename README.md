@@ -34,9 +34,7 @@ Developers:
  * Delta Juliette (AKA Captain Vim, Techno.Dann@gmail.com)
 Development setup
 -----------------
-Please copy `config/database.yml.example` to `config/database.yml` and
-customize it to fit your local database setup. Please do the same for
-`config/mailers.yml.example`.
+Please build yourself a new secret key and set the keys refered to in `config/database.yml`
 
 How to update the archives
 --------------------------
