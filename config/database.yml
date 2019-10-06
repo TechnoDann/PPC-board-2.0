@@ -50,9 +50,9 @@ test:
 
 production:
   adapter: postgresql
-  host: localhost
+  host: /var/run/postgresql
   encoding: unicode
   database: PPC-board-2-0_production
-  pool: 5
+  pool: 1
   username: <=% Rails.application.credentials.database[:username] %>
   password: <=% Rails.application.credentials.database[:password] %>
