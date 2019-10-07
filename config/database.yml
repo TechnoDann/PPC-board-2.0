@@ -54,5 +54,3 @@ production:
   encoding: unicode
   database: PPC-board-2-0_production
   pool: 1
-  username: <=% Rails.application.credentials.database[:username] %>
-  password: <=% Rails.application.credentials.database[:password] %>
