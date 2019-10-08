@@ -1,8 +1,13 @@
 <div class="top-matter">
+<% if Rails.application.config.banner_kind == :devel %>
 <p>
-<strong><u><span style="font-size:large;">THIS IS THE BACKUP AND RP BOARD FOR THE PROTECTORS OF THE PLOT CONTINUUM. THE MAIN BOARD IS AT <a href="http://disc.yourwebapps.com/Indices/199610.html">THIS LINK</a>!</span></u></strong>
-Please feel free to test out the software and leave comments on it while you're here.
+<strong><u><span style="font-size:large;">THIS IS A DEVELOPMENT INSTANCE FOR THE PPC BOARD. TO CONFIGURE THIS MESSAGE, SEE app/views/posts/_header.html.erb and config/</span></u></strong>
 </p>
+<% elsif Rails.application.config.banner_kind == :rp %>
+<p>
+This is the RP and backup Board for the Protectors of the Plot Continuum. <strong>Our main board is at</strong> <a href="https://www.plotprotectors.org/">https://www.plotprotectors.org/</a>
+</p>
+<% end %>
 <p>
 Welcome, fans of the Protectors of the Plot Continuum and supporters of the Canon Protection Initiative!
 If you've got a story to plug, an opinion to share, or a discussion you want to join in, this is the place!

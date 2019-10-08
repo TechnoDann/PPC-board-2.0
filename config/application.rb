@@ -19,5 +19,7 @@ module PPCBoard20
     config.active_record.schema_format = :sql
 
     config.time_zone = "UTC"
+
+    config.banner_kind = :devel
   end
 end

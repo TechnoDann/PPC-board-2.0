@@ -101,6 +101,12 @@ Rails.application.configure do
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 
+  if ENV["RP_BOARD"]
+    config.banner_kind = :rp
+  else
+    config.batter_kind = :none
+  end
+
   config.cache_store = :mem_cache_store,
   (ENV["MEMCACHE_SERVERS"] || "").split(","),
   {:username => ENV["MEMCACHE_USERNAME"],
