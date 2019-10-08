@@ -37,10 +37,6 @@ group :development, :test do
   gem 'test-unit', '~> 3.3'
 end
 
-group :production do
-  gem 'rails_12factor'
-end
-
 gem 'jquery-rails'
 gem 'jquery-rails-cdn'
 gem 'simple_form'
