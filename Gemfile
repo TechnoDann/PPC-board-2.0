@@ -26,8 +26,9 @@ gem 'bootstrap-sass', '~> 3.4.0'
 
 gem 'uglifier', '>= 1.0.3'
 
+gem 'listen'
+
 group :development do
-  gem 'listen'
   gem 'web-console', '~> 2.0'
 end
 
