@@ -104,7 +104,7 @@ Rails.application.configure do
   if ENV["RP_BOARD"]
     config.banner_kind = :rp
   else
-    config.batter_kind = :none
+    config.banner_kind = :none
   end
 
   config.cache_store = :mem_cache_store,
