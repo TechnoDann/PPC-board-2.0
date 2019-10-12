@@ -1,5 +1,8 @@
 # frozen_string_literal: true
 Rails.application.configure do
+  if ENV["RAILS_STAGING"]
+      Rails.application.credentials.merge!(Rails.application.credentials.staging)
+  end
   # Settings specified here will take precedence over those in config/application.rb.
 
   # Code is not reloaded between requests.
@@ -107,8 +110,8 @@ Rails.application.configure do
     config.banner_kind = :none
   end
 
-  config.admin_contact = ENV["ADMIN_CONTACT"] || Cails.application.credentials.admin_contact || nil
-  config.hostname = ENV["APP_HOST"] || Rails.application.credentials.host || nil
+  config.admin_contact = ENV["ADMIN_CONTACT"] || nil
+  config.hostname = ENV["APP_HOST"] || nil
 
   if config.hostname == nil or config.admin_contact == nil
     raise Exception.new "App hostname or admin contact unconfigured"
