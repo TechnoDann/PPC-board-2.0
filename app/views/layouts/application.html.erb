@@ -42,7 +42,6 @@
         <% if user_signed_in? %>
           <li><%= link_to 'New post', new_post_path %></li>
         <% end %>
-        <li><%= link_to 'Current bans', bans_path %></li>
       </ul>
       <%= form_tag(search_posts_path, :method => "get", :class => "navbar-form navbar-right") do %>
         <%= text_field_tag(:query, @query, :class => "search-query form-control col-sm-2", :placeholder => "Search ...") %>
@@ -77,7 +76,10 @@
         Source code is located <%= link_to "at Github", "https://github.com/TechnoDann/PPC-board-2.0" %>.
       </p>
       <p>
-        <%= link_to 'Data collection info', '/data_collection' %>
+        <%= link_to 'Our data collection info', '/data_collection' %>
+        &emsp;
+        <%= link_to 'Current bans', bans_path %>
+      </p>
     </footer>
   </div>
 </div>
