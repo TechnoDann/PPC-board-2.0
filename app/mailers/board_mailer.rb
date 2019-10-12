@@ -1,5 +1,5 @@
 class BoardMailer < ActionMailer::Base
-  default from: "system@#{Rails.application.config.hostname}"
+  default from: "system@#{Rails.application.config.mail_host}"
   
   def welcome_email(user)
     @user = user

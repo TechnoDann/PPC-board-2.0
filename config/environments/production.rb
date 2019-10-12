@@ -111,14 +111,14 @@ Rails.application.configure do
   end
 
   config.admin_contact = ENV["ADMIN_CONTACT"] || nil
-  config.hostname = ENV["APP_HOST"] || nil
+  config.mail_host = ENV["MAIL_HOST"] || nil
 
-  if config.hostname == nil or config.admin_contact == nil
-    raise Exception.new "App hostname or admin contact unconfigured"
+  if config.mail_host == nil or config.admin_contact == nil
+    raise Exception.new "Mail hostname or admin contact unconfigured"
   end
 
   config.action_mailer.default_url_options = {
-    :host => config.hostname,
+    :host => config.mail_host,
     :only_path => false }
 
   if ENV['SENDGRID_USERNAME'] && ENV['SENDGRID_PASSWORD']
@@ -136,7 +136,7 @@ Rails.application.configure do
     config.action_mailer.delivery_method = :mailgun
     config.action_mailer.mailgun_settings = {
       api_key: Rails.application.credentials.mailgun_key,
-      domain: config.hostname,
+      domain: config.mail_host,
   }
   else
     config.action_mailer.delivery_method = :file
