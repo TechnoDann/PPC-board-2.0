@@ -1,5 +1,5 @@
 class BoardMailer < ActionMailer::Base
-  default from: "system@ppc-posting-board-2-proto.herokuapp.com"
+  default from: "system@#{Rails.application.config.hostname}"
   
   def welcome_email(user)
     @user = user

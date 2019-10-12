@@ -107,6 +107,39 @@ Rails.application.configure do
     config.banner_kind = :none
   end
 
+  config.admin_contact = ENV["ADMIN_CONTACT"] || Cails.applicaiton.credentials.admin_contact || nil
+  config.hostname = ENV["APP_HOST"] || Rails.application.credentials.host || nil
+
+  if config.hostname == nil or config.admin_contact == nil
+    raise Exception.new "App hostname or admin contact unconfigured"
+  end
+
+  config.action_mailer.default_url_options = {
+    :host => config.hostname,
+    :only_path => false }
+
+  if ENV['SENDGRID_USERNAME'] && ENV['SENDGRID_PASSWORD']
+    config.action_mailer.delivery_method = :smtp
+    config.action_mailer.smtp_settings = {
+      :address        => 'smtp.sendgrid.net',
+      :port           => '587',
+      :authentication => :plain,
+      :user_name      => ENV['SENDGRID_USERNAME'],
+      :password       => ENV['SENDGRID_PASSWORD'],
+      :domain         => 'heroku.com',
+      :enable_starttls_auto => true
+    }
+  elsif Rails.applicaiton.credentials.mailgun_key
+    config.action_mailer.delivery_method = :mailgun
+    config.action_mailer.mailgun_settings = {
+      api_key: Rails.application.credentials.mailgun_key,
+      domain: config.hostname,
+  }
+  else
+    config.action_mailer.delivery_method = :file
+    # raise Exception.new "No known mail setup configured"
+  end
+
   config.cache_store = :mem_cache_store,
   (ENV["MEMCACHE_SERVERS"] || "").split(","),
   {:username => ENV["MEMCACHE_USERNAME"],

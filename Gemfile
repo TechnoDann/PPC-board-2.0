@@ -38,6 +38,10 @@ group :development, :test do
   gem 'test-unit', '~> 3.3'
 end
 
+group :production do
+  gem 'mailgun-ruby', '~>1.1.6'
+end
+
 gem 'jquery-rails'
 gem 'jquery-rails-cdn'
 gem 'simple_form'
@@ -66,3 +70,6 @@ gem 'bootsnap', require: false
 gem 'connection_pool'
 gem 'memcachier'
 gem 'dalli'
+
+# TODO: upgrade this later
+gem 'sprockets', '< 4.0'
