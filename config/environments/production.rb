@@ -107,7 +107,7 @@ Rails.application.configure do
     config.banner_kind = :none
   end
 
-  config.admin_contact = ENV["ADMIN_CONTACT"] || Cails.applicaiton.credentials.admin_contact || nil
+  config.admin_contact = ENV["ADMIN_CONTACT"] || Cails.application.credentials.admin_contact || nil
   config.hostname = ENV["APP_HOST"] || Rails.application.credentials.host || nil
 
   if config.hostname == nil or config.admin_contact == nil
@@ -129,7 +129,7 @@ Rails.application.configure do
       :domain         => 'heroku.com',
       :enable_starttls_auto => true
     }
-  elsif Rails.applicaiton.credentials.mailgun_key
+  elsif Rails.application.credentials.mailgun_key
     config.action_mailer.delivery_method = :mailgun
     config.action_mailer.mailgun_settings = {
       api_key: Rails.application.credentials.mailgun_key,
