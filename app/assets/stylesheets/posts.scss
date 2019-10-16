@@ -33,6 +33,10 @@
     }
 }
 
+.current-post-body {
+    @include threadishLinks();
+}
+
 .top-matter {
     font-family: $serif-font-family;
     @include threadishLinks();
