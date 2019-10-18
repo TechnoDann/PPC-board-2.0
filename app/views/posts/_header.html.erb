@@ -1,9 +1,9 @@
 <div class="top-matter">
-<% if Rails.application.config.banner_kind == :devel %>
+<% if SITE_KIND == :devel %>
 <p>
-<strong><u><span style="font-size:large;">THIS IS A DEVELOPMENT INSTANCE FOR THE PPC BOARD. TO CONFIGURE THIS MESSAGE, SEE app/views/posts/_header.html.erb and config/</span></u></strong>
+<strong><u><span style="font-size:large;">THIS IS A DEVELOPMENT INSTANCE FOR THE PPC BOARD.</span></u></strong>
 </p>
-<% elsif Rails.application.config.banner_kind == :rp %>
+<% elsif SITE_KIND == :rp %>
 <p>
 This is the RP and backup Board for the Protectors of the Plot Continuum. <strong>Our main board is at</strong> <a href="https://www.plotprotectors.org/">https://www.plotprotectors.org/</a>
 </p>

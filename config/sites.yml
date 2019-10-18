@@ -1,0 +1,13 @@
+devel:
+  title: Development PPC Posting Board
+  app_host: localhost
+  admin_contact: example@place.invalid
+main:
+  title: PPC Posting Board
+  app_host: www.plotprotectors.org
+  mail_host: mg.plotprotectors.org
+  admin_contact: admin@mg.plotprotectors.org
+rp:
+  title: PPC Roleplay Board
+  app_host: ppc-posting-board-2-proto.herokuapp.com
+  admin_contact: admin@mg.plotprotectors.org
