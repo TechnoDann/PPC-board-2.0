@@ -19,7 +19,8 @@ window.preview = () ->
 window.add_show_more_links = () ->
     $('.show-more-link').each () ->
         link_span = $(this)
-        div = link_span.parent().children(".post-body")
+        post = link_span.parent()
+        div = post.children(".post-body")
         if (div.height() > (14 * 10) && div.attr("data-show-more-state") != "expanded")\
           || div.attr("data-show-more-state") == "unexpanded"
             div.height(14 * 10)
@@ -27,10 +28,11 @@ window.add_show_more_links = () ->
             div.attr("data-show-more-state", "unexpanded")
             link_span.html("<br><a href=\"javascript:void(0)\">Expand this post &rarr;</a><br>")
             link_span.children("a").click (event) ->
-                div.height("auto")
                 div.css("overflow", "visible")
+                div.height("auto")
                 div.attr("data-show-more-state", "expanded")
                 link_span.html("")
+                post.hide().show(0) # Force redraw
                 event.preventDefault()
                 return false
     if location.hash
