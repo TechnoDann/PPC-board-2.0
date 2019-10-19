@@ -97,8 +97,8 @@ class Post < ApplicationRecord
   end
 
   def flood_prevention
-    if !Rails.env.test? && Post.where(:user_id => self.user_id, :created_at => 1.minute.ago .. Time.now).exists?
-      errors[:base] << "You can only create one post every minute to prevent spam"
+    if !Rails.env.test? && Post.where(:user_id => self.user_id, :created_at => 10.second.ago .. Time.now).exists?
+      errors[:base] << "You can only create one post every 10 seconds to prevent spam"
     end
   end
 
