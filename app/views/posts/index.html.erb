@@ -29,7 +29,7 @@
       <h3>Posts tagged: <%= tag.name %></h3>
       <% posts.each do |post| %>
         <%# Template Dependency: post/post_subject %>
-        <% cache(post, namespace: 'post_threads') do %>
+        <% cache_unless(post.seeing_activity?, post, namespace: 'post_threads') do %>
         <%= render :partial => 'thread', :locals => { :bodies => false, :id => false },
                    :object =>
                    Post.arrange_nodes(post.subtree
@@ -45,7 +45,7 @@
   <% end %>
   <% @tagged_posts[false].each do |post| %>
     <%# Template Dependency: post/post_subject %>
-    <% cache(post, namespace: 'post_threads') do %>
+    <% cache_unless(post.seeing_activity?, post, namespace: 'post_threads') do %>
     <%= render :partial => 'thread', :locals => { :bodies => false, :id => false },
       :object =>
       Post.arrange_nodes(post.subtree

@@ -78,6 +78,10 @@ class Post < ApplicationRecord
     (Time.now - self.created_at < DAY) && (Time.now - self.root.created_at > DAY) && !self.is_root?
   end
 
+  def seeing_activity?
+    (Time.now - self.updated_at) < DAY
+  end
+
   def reSorted?
     (self.sort_timestamp - self.created_at).abs > 60
   end
