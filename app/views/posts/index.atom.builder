@@ -1,5 +1,5 @@
 atom_feed do |feed|
-  feed.title("Threads from the PPC Posting Board")
+  feed.title("Threads from the #{SITE_CONFIG[:title]}")
   feed.updated(Post.order("created_at DESC").first.created_at ) if @posts.length > 0
 
   @posts.each do |post|

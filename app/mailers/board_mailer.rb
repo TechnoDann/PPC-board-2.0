@@ -15,7 +15,7 @@ class BoardMailer < ActionMailer::Base
     @post = new_reply
     @parent = post_watched
     mail(:to => "#{@user.name} <#{@user.email}>", 
-         :subject => "New reply to \"#{@parent.subject}\" on the PPC Board") do |format|
+         :subject => "New reply to \"#{@parent.subject}\" on the #{SITE_CONFIG[:title]}") do |format|
       format.text
       format.html
     end
