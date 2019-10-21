@@ -6,6 +6,18 @@ require 'rails/all'
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
+SITE_KIND = :devel
+if ENV["BOARD_SITE"]
+  SITE_KIND = ENV["BOARD_SITE"].to_sym
+end
+
+SITE_CONFIG = HashWithIndifferentAccess.new(
+  YAML.load_file(File.expand_path('../../config/sites.yml', __FILE__)))[SITE_KIND]
+
+unless SITE_CONFIG.key?(:mail_host)
+  SITE_CONFIG[:mail_host] = SITE_CONFIG[:app_host]
+end
+
 module PPCBoard20
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
@@ -19,7 +31,5 @@ module PPCBoard20
     config.active_record.schema_format = :sql
 
     config.time_zone = "UTC"
-
-    config.banner_kind = :devel
   end
 end

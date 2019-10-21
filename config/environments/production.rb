@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 Rails.application.configure do
-  if ENV["RAILS_STAGING"]
+  if ENV["RAILS_STAGING"] || SITE_KIND == :rp
       Rails.application.credentials.merge!(Rails.application.credentials.staging)
   end
   # Settings specified here will take precedence over those in config/application.rb.
@@ -104,21 +104,8 @@ Rails.application.configure do
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 
-  if ENV["RP_BOARD"]
-    config.banner_kind = :rp
-  else
-    config.banner_kind = :none
-  end
-
-  config.admin_contact = ENV["ADMIN_CONTACT"] || nil
-  config.mail_host = ENV["MAIL_HOST"] || nil
-
-  if config.mail_host == nil or config.admin_contact == nil
-    raise Exception.new "Mail hostname or admin contact unconfigured"
-  end
-
   config.action_mailer.default_url_options = {
-    :host => config.mail_host,
+    :host => SITE_CONFIG[:app_host],
     :only_path => false }
 
   if ENV['SENDGRID_USERNAME'] && ENV['SENDGRID_PASSWORD']
@@ -136,7 +123,7 @@ Rails.application.configure do
     config.action_mailer.delivery_method = :mailgun
     config.action_mailer.mailgun_settings = {
       api_key: Rails.application.credentials.mailgun_key,
-      domain: config.mail_host,
+      domain: SITE_CONFIG[:mail_host],
   }
   else
     config.action_mailer.delivery_method = :file
