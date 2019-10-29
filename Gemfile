@@ -49,7 +49,7 @@ gem 'simple_form'
 gem 'lazy_columns'
 
 # Authentication
-gem 'devise', '~> 4.6.2'
+gem 'devise', '~> 4.7.1'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
