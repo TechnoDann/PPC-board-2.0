@@ -9,7 +9,6 @@ class User < ApplicationRecord
 #         :openid_authenticatable #Don't feel like dealing with this
 
   before_create :de_guest
-  after_confirmation :welcome_mail
 
   has_many :posts, dependent: :restrict_with_exception
   has_one :ban, dependent: :nullify
@@ -33,7 +32,7 @@ class User < ApplicationRecord
     true
   end
 
-  def welcome_mail
+  def after_confirmation
     BoardMailer.welcome_email(self).deliver_now
   end
 
