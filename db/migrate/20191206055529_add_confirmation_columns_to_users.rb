@@ -7,10 +7,7 @@ class AddConfirmationColumnsToUsers < ActiveRecord::Migration[5.2]
       t.string   :unconfirmed_email # Only if using reconfirmable
     end
 
-    execute <<-SQL
-      update users
-      set confirmed_at = '2019-10-31 00:00:00', confirmation_token = id;
-    SQL
+    User.update_all confirmed_at: DateTime::parse('2019-10-31 00:00:00')
 
     add_index :users, :confirmation_token,   :unique => true
   end
