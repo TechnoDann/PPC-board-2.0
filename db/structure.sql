@@ -9,50 +9,9 @@ SET xmloption = content;
 SET client_min_messages = warning;
 SET row_security = off;
 
---
--- Name: crc32(text); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION public.crc32(word text) RETURNS bigint
-    LANGUAGE plpgsql IMMUTABLE
-    AS $$
-          DECLARE tmp bigint;
-          DECLARE i int;
-          DECLARE j int;
-          DECLARE byte_length int;
-          DECLARE word_array bytea;
-          BEGIN
-            IF COALESCE(word, '') = '' THEN
-              return 0;
-            END IF;
-
-            i = 0;
-            tmp = 4294967295;
-            byte_length = bit_length(word) / 8;
-            word_array = decode(replace(word, E'\\', E'\\\\'), 'escape');
-            LOOP
-              tmp = (tmp # get_byte(word_array, i))::bigint;
-              i = i + 1;
-              j = 0;
-              LOOP
-                tmp = ((tmp >> 1) # (3988292384 * (tmp & 1)))::bigint;
-                j = j + 1;
-                IF j >= 8 THEN
-                  EXIT;
-                END IF;
-              END LOOP;
-              IF i >= byte_length THEN
-                EXIT;
-              END IF;
-            END LOOP;
-            return (tmp # 4294967295);
-          END
-        $$;
-
-
 SET default_tablespace = '';
 
-SET default_with_oids = false;
+SET default_table_access_method = heap;
 
 --
 -- Name: ar_internal_metadata; Type: TABLE; Schema: public; Owner: -
@@ -73,12 +32,12 @@ CREATE TABLE public.ar_internal_metadata (
 CREATE TABLE public.bans (
     id integer NOT NULL,
     user_id integer,
-    ip character varying(255),
-    email character varying(255),
+    ip character varying,
+    email character varying,
     length integer DEFAULT 60 NOT NULL,
     reason character varying(500) NOT NULL,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
 );
 
 
@@ -87,6 +46,7 @@ CREATE TABLE public.bans (
 --
 
 CREATE SEQUENCE public.bans_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -110,12 +70,12 @@ CREATE TABLE public.posts (
     locked boolean DEFAULT false NOT NULL,
     poofed boolean DEFAULT false NOT NULL,
     sort_timestamp timestamp without time zone NOT NULL,
-    subject character varying(255) NOT NULL,
+    subject character varying NOT NULL,
     user_id integer NOT NULL,
-    author character varying(255) NOT NULL,
+    author character varying NOT NULL,
     body text,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone,
     ancestry text,
     previous_version_id integer,
     next_version_id integer
@@ -127,6 +87,7 @@ CREATE TABLE public.posts (
 --
 
 CREATE SEQUENCE public.posts_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -166,7 +127,7 @@ CREATE TABLE public.posts_users (
 --
 
 CREATE TABLE public.schema_migrations (
-    version character varying(255) NOT NULL
+    version character varying NOT NULL
 );
 
 
@@ -176,7 +137,7 @@ CREATE TABLE public.schema_migrations (
 
 CREATE TABLE public.tags (
     id integer NOT NULL,
-    name character varying(255) NOT NULL
+    name character varying NOT NULL
 );
 
 
@@ -185,6 +146,7 @@ CREATE TABLE public.tags (
 --
 
 CREATE SEQUENCE public.tags_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -205,22 +167,26 @@ ALTER SEQUENCE public.tags_id_seq OWNED BY public.tags.id;
 
 CREATE TABLE public.users (
     id integer NOT NULL,
-    name character varying(255) NOT NULL,
-    email character varying(255) DEFAULT ''::character varying NOT NULL,
+    name character varying NOT NULL,
+    email character varying DEFAULT ''::character varying NOT NULL,
     moderator boolean DEFAULT false,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone,
     guest_user boolean DEFAULT true,
-    encrypted_password character varying(255) DEFAULT ''::character varying NOT NULL,
-    reset_password_token character varying(255),
+    encrypted_password character varying DEFAULT ''::character varying NOT NULL,
+    reset_password_token character varying,
     reset_password_sent_at timestamp without time zone,
     remember_created_at timestamp without time zone,
     sign_in_count integer DEFAULT 0,
     current_sign_in_at timestamp without time zone,
     last_sign_in_at timestamp without time zone,
-    current_sign_in_ip character varying(255),
-    last_sign_in_ip character varying(255),
-    show_email boolean DEFAULT false NOT NULL
+    current_sign_in_ip character varying,
+    last_sign_in_ip character varying,
+    show_email boolean DEFAULT false NOT NULL,
+    confirmation_token character varying,
+    confirmed_at timestamp without time zone,
+    confirmation_sent_at timestamp without time zone,
+    unconfirmed_email character varying
 );
 
 
@@ -229,6 +195,7 @@ CREATE TABLE public.users (
 --
 
 CREATE SEQUENCE public.users_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -296,6 +263,14 @@ ALTER TABLE ONLY public.posts
 
 
 --
+-- Name: schema_migrations schema_migrations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.schema_migrations
+    ADD CONSTRAINT schema_migrations_pkey PRIMARY KEY (version);
+
+
+--
 -- Name: tags tags_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -347,6 +322,13 @@ CREATE INDEX index_posts_on_user_id ON public.posts USING btree (user_id);
 
 
 --
+-- Name: index_users_on_confirmation_token; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_users_on_confirmation_token ON public.users USING btree (confirmation_token);
+
+
+--
 -- Name: index_users_on_name; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -358,13 +340,6 @@ CREATE UNIQUE INDEX index_users_on_name ON public.users USING btree (name);
 --
 
 CREATE UNIQUE INDEX index_users_on_reset_password_token ON public.users USING btree (reset_password_token);
-
-
---
--- Name: unique_schema_migrations; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE UNIQUE INDEX unique_schema_migrations ON public.schema_migrations USING btree (version);
 
 
 --
@@ -455,11 +430,11 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20120812220416'),
 ('20120814011643'),
 ('20130822190500'),
-('20140403211929'),
 ('20150723034043'),
 ('20160727003452'),
 ('20190523223248'),
 ('20190526181703'),
-('20190704204622');
+('20190704204622'),
+('20191206055529');
 
 
