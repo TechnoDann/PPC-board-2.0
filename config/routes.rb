@@ -6,7 +6,9 @@ Rails.application.routes.draw do
   match 'users' => 'posts#index', :via => :delete
   get 'formatting_help' => 'pages#formatting_help'
   get 'data_collection' => 'pages#data_collection'
-  devise_for :users
+  devise_for :users, controllers: {
+               registrations: 'users/registrations'
+             }
   resources :users, :only => [:show]
 
   resources :posts do
