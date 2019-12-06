@@ -4,7 +4,7 @@
 <% if @ban.user_id != nil %>
 The user <%= @ban.user.name %> is banned.
 <% end %>
-<% if @ban.ip != nil && ban.ip != "" %>
+<% if @ban.ip != nil && @ban.ip != "" %>
 The IP address <%= @ban.ip %> is banned.
 <% end %>
 The reason for this ban is: "<%= @ban.reason %>".
