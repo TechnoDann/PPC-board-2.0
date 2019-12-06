@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'resolv' unless defined?(Resolv)
+
 class Users::RegistrationsController < Devise::RegistrationsController
   before_action :prevent_tor_sign_up, only: [ :new, :create ]
   # before_action :configure_sign_up_params, only: [:create]
@@ -67,7 +69,36 @@ class Users::RegistrationsController < Devise::RegistrationsController
     end
   end
 
+  TOR_BLACKLIST = ".torexit.dan.me.uk"
+  TOR_LOOKUP_SUCCESS = "127.0.0.100"
+  RDNS_IPV4_SUFFIX = ".in-addr.arpa"
+  RDNS_IPV6_SUFFIX = ".ip6.arpa"
+
+  def ip_for_dnsbl(ip_address)
+    addr = IPAddr::new(ip_address)
+    addr.reverse
+      .sub(RDNS_IPV4_SUFFIX, TOR_BLACKLIST)
+      .sub(RDNS_IPV6_SUFFIX, TOR_BLACKLIST)
+  end
+
   def is_tor(ip_address)
-    ip_address == "127.0.0.1" || ip_address == "::1"
+    hostname = ip_for_dnsbl(ip_address)
+    # DNS lookup code from https://github.com/dryruby/tor.rb/blob/master/lib/tor/dnsel.rb
+    begin
+      Resolv::each_address(hostname) do |addr|
+        if a.to_s == TOR_LOOKUP_SUCCESS
+          return true
+        end
+      end
+      false
+    rescue Resolv::ResolvError # NXDOMAIN
+      false
+    rescue Resolv::ResolvTimeout
+      nil
+    rescue Errno::EHOSTUNREACH
+      nil
+    rescue Errno::EADDRNOTAVAIL
+      nil
+    end
   end
 end
