@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 class ApplicationController < ActionController::Base
   before_action :devise_permitted_parameters, if: :devise_controller?
+  before_action :ip_ban
+  before_action :check_ban
+
   @query = ""
   helper_method :flash_message
 
@@ -28,8 +31,11 @@ class ApplicationController < ActionController::Base
   def check_ban
     if user_signed_in?
       ban = Ban.find_ban(:user_id => current_user.id)
-      if  ban
-        sign_out current_user
+      if ban
+        # Signing in as a banned user is sticky until ban expiry.
+        # In the event someone actually has a problem with this
+        # have them wipe the cookie
+        # sign_out current_user
         redirect_to ban_path(ban)
       end
     end

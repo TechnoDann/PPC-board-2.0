@@ -1,7 +1,9 @@
 # frozen_string_literal: true
 class PostsController < ApplicationController
   before_action :clear_return_url
-  before_action :ip_ban, :authenticate_user_board!, :check_ban,
+  skip_before_action :ip_ban, :check_ban,
+                     :except => [:new, :create, :update, :edit, :preview, :destroy]
+  before_action :authenticate_user_board!,
                 :only => [:new, :create, :update, :edit, :preview, :destroy]
   before_action :must_be_moderator!, :only => [:destroy]
   helper_method :allowed_to_edit?
@@ -133,7 +135,7 @@ class PostsController < ApplicationController
     @post = Post.find(params[:id])
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @post.subtree }
+      format.json { @post.body; render json: @post }
     end
   end
 

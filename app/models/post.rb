@@ -78,6 +78,10 @@ class Post < ApplicationRecord
     (Time.now - self.created_at < DAY) && (Time.now - self.root.created_at > DAY) && !self.is_root?
   end
 
+  def seeing_activity?
+    (Time.now - self.updated_at) < DAY
+  end
+
   def reSorted?
     (self.sort_timestamp - self.created_at).abs > 60
   end
@@ -97,8 +101,8 @@ class Post < ApplicationRecord
   end
 
   def flood_prevention
-    if !Rails.env.test? && Post.where(:user_id => self.user_id, :created_at => 1.minute.ago .. Time.now).exists?
-      errors[:base] << "You can only create one post every minute to prevent spam"
+    if !Rails.env.test? && Post.where(:user_id => self.user_id, :created_at => 10.second.ago .. Time.now).exists?
+      errors[:base] << "You can only create one post every 10 seconds to prevent spam"
     end
   end
 

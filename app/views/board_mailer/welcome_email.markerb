@@ -3,4 +3,12 @@ Welcome to the PPC, <%= @user.name %>! If you haven't read
 yet, please do so. It's important. If you're new, please make an
 introduction post so we can get to know you and shower you with gifts. 
 
-_Insert the actual welcome text here_
+We also have [a wiki](https://ppc.fandom.com/wiki/PPC_Wiki), on which can be found
+the usual FAQs:
+
+* [For newbies](https://ppc.fandom.com/wiki/FAQ:_For_Newbies)
+* [For writing for us](https://ppc.fandom.com/wiki/Permission)
+* [And for other people](https://ppc.fandom.com/wiki/FAQ:_For_Other_People)
+
+Welcome to the community! Just in case you need it, 
+the board itself can be found at [www.plotprotectors.org](https://www.plotprotectors.org)

@@ -1,7 +1,7 @@
 <% title(@user.name) %>
 <h1><%= @user.name %></h1>
 <% if @user.moderator %>
-<p><%= @user.name %> is a moderator of the PPC Board</p>
+<p><%= @user.name %> is a moderator of the <%= SITE_CONFIG[:title] %></p>
 <% end %>
 <% if @user.show_email || (user_signed_in? && current_user.moderator?) %>
 <p><a href="mailto:<%= @user.email %>">Email <%= @user.name %></a></p>

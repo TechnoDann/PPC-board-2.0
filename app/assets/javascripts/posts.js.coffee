@@ -20,16 +20,16 @@ window.add_show_more_links = () ->
     $('.show-more-link').each () ->
         link_span = $(this)
         div = link_span.parent().children(".post-body")
-#        console.log(div.height())
-#        console.log(div.html())
-        if div.height() > (14 * 10)
-            div.data("oldHeight", div.height())
+        if (div.height() > (14 * 10) && div.attr("data-show-more-state") != "expanded")\
+          || div.attr("data-show-more-state") == "unexpanded"
             div.height(14 * 10)
             div.css("overflow", "hidden")
+            div.attr("data-show-more-state", "unexpanded")
             link_span.html("<br><a href=\"javascript:void(0)\">Expand this post &rarr;</a><br>")
             link_span.children("a").click (event) ->
-                div.height(div.data("oldHeight"))
+                div.height("auto")
                 div.css("overflow", "visible")
+                div.attr("data-show-more-state", "expanded")
                 link_span.html("")
                 event.preventDefault()
                 return false
