@@ -3,13 +3,12 @@ class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable,
+  devise :database_authenticatable, :registerable, :confirmable,
          :recoverable, :rememberable, :trackable, :validatable,
          :authentication_keys => [ :name ]
 #         :openid_authenticatable #Don't feel like dealing with this
 
   before_create :de_guest
-  after_create :welcome_mail
 
   has_many :posts, dependent: :restrict_with_exception
   has_one :ban, dependent: :nullify
@@ -33,7 +32,7 @@ class User < ApplicationRecord
     true
   end
 
-  def welcome_mail
+  def after_confirmation
     BoardMailer.welcome_email(self).deliver_now
   end
 

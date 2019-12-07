@@ -220,7 +220,11 @@ CREATE TABLE public.users (
     last_sign_in_at timestamp without time zone,
     current_sign_in_ip character varying(255),
     last_sign_in_ip character varying(255),
-    show_email boolean DEFAULT false NOT NULL
+    show_email boolean DEFAULT false NOT NULL,
+    confirmation_token character varying,
+    confirmed_at timestamp without time zone,
+    confirmation_sent_at timestamp without time zone,
+    unconfirmed_email character varying
 );
 
 
@@ -347,6 +351,13 @@ CREATE INDEX index_posts_on_user_id ON public.posts USING btree (user_id);
 
 
 --
+-- Name: index_users_on_confirmation_token; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_users_on_confirmation_token ON public.users USING btree (confirmation_token);
+
+
+--
 -- Name: index_users_on_name; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -460,6 +471,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20160727003452'),
 ('20190523223248'),
 ('20190526181703'),
-('20190704204622');
+('20190704204622'),
+('20191206055529');
 
 
