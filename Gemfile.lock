@@ -145,7 +145,7 @@ GEM
       activesupport (>= 4.2)
     power_assert (1.1.5)
     public_suffix (4.0.1)
-    puma (4.2.1)
+    puma (4.3.1)
       nio4r (~> 2.0)
     rack (2.0.8)
     rack-test (1.1.0)
