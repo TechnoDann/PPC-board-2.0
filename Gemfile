@@ -29,13 +29,14 @@ gem 'uglifier', '>= 1.0.3'
 gem 'listen'
 
 group :development do
-  gem 'web-console', '~> 2.0'
+  gem 'web-console', '~> 3.5.1'
 end
 
 group :development, :test do
   gem 'capybara', '~> 3.21'
   gem 'rspec-rails', '~> 3.8'
   gem 'test-unit', '~> 3.3'
+  gem 'tzinfo-data', '~>1.2020.1', platforms: [:x64_mingw]
 end
 
 group :production do
