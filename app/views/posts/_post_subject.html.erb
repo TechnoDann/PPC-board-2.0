@@ -1,14 +1,17 @@
 <% post = post_subject %>
 <% cache_unless(post.recent?, post, namespace: 'post_subject', expires_in: 72.hours, race_condition_ttl: 30.seconds) do %>
-<span class="short-post-subject"><%= link_to raw(htmlic_title(post.subject)), post %></span> by
-<span class="short-post-author author-tag-for-<%= post.user_id %>"><%= post.author %></span>
-<span class="short-post-time">on <%= post.created_at %></span>
-<%= raw '<span class="badge" label="New post" title="New post">&nbsp;</span>' if post.new_reply? %>
-<%= raw '<span class="label label-warning">Locked</span>' if post.locked %>
-<%= raw '<span class="label label-danger">Poofed</span>' if post.poofed %>
-<%= raw '<span class="label label-info">Edited</span>' if post.previous_version %>
-<%= raw '<span class="label label-important">Previous Version</span>' if post.next_version %>
-<% post.tags.each do |tag| %>
-<span class="label label-default short-post-tag"><%= tag.name %></span>
-<% end %>
+  <span class="short-post-subject"><%= link_to raw(htmlic_title(post.subject)), post %></span> by
+  <span class="short-post-author author-tag-for-<%= post.user_id %>"><%= post.author %></span>
+  <span class="short-post-time">on <%= post.created_at %></span>
+  <%= raw '<span class="badge" label="New post" title="New post">&nbsp;</span>' if post.new_reply? %>
+  <%= raw '<span class="label label-warning">Locked</span>' if post.locked %>
+  <%= raw '<span class="label label-danger">Poofed</span>' if post.poofed %>
+  <%= raw '<span class="label label-info">Edited</span>' if post.previous_version %>
+  <%= raw '<span class="label label-important">Previous Version</span>' if post.next_version %>
+  <% unless post.has_parent? %>
+    <span class="label label-primary"><%= post.descendant_ids.length %> replies</span>
+  <% end %>
+  <% post.tags.each do |tag| %>
+    <span class="label label-default short-post-tag"><%= tag.name %></span>
+  <% end %>
 <% end %>
