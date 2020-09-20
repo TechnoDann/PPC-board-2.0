@@ -2,21 +2,21 @@
 <html>
 <head>
   <title><%= content_for(:title) ? yield(:title) : "Index" %>
-         - <%= SITE_CONFIG[:title] %></title>
+    - <%= SITE_CONFIG[:title] %></title>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <%= stylesheet_link_tag    "application", :media => "all" %>
-  <%= jquery_include_tag :google  %>
+  <%= stylesheet_link_tag "application", :media => "all" %>
+  <%= jquery_include_tag :google %>
   <%= javascript_include_tag "application" %>
-  <link rel="shortcut icon" href="/favicon.ico" />
+  <link rel="shortcut icon" href="/favicon.ico"/>
   <%= csrf_meta_tags %>
   <%= auto_discovery_link_tag(:atom, posts_url(:atom)) %>
   <% if current_user %>
     <style media="all" type="text/css">
-      span.author-tag-for-<%= current_user.id %> {
-          font-weight: bold;
-      }
+        span.author-tag-for-<%= current_user.id %> {
+            font-weight: bold;
+        }
     </style>
   <% end %>
   <!--[if lt IE 9]>
@@ -64,7 +64,7 @@
     </div>
   </div>
 </nav>
-<%= render :partial => 'layouts/information', :locals => { :flash => flash } %>
+<%= render :partial => 'layouts/information', :locals => {:flash => flash} %>
 <% flash[:info] = [] %>
 <div id="main" role="main">
   <%= yield %>
@@ -72,7 +72,7 @@
     <footer class="col-sm-6 col-md-offset-3">
       <p>
         This software is licensed under the
-        <%= link_to "GNU Affero GPL version 3 or later", "http://www.gnu.org/licenses/agpl-3.0.html" =%>.
+        <%= link_to "GNU Affero GPL version 3 or later", "http://www.gnu.org/licenses/agpl-3.0.html" %>.
         Source code is located <%= link_to "at Github", "https://github.com/TechnoDann/PPC-board-2.0" %>.
       </p>
       <p>
