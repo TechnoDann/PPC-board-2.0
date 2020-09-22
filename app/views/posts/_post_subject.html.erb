@@ -6,7 +6,7 @@
 <%= raw '<span class="badge" label="New post" title="New post">&nbsp;</span>' if post.new_reply? %>
 <%= raw '<span class="label label-warning">Locked</span>' if post.locked %>
 <%= raw '<span class="label label-danger">Poofed</span>' if post.poofed %>
-<%= raw '<span class="label label-info">Edited</span>' if post.previous_version %>
+<%= raw '<span class="label label-info" title="Edited" label="Edited">&nbsp;<span class="sr-only">Edited</span></span>' if post.previous_version %>
 <%= raw '<span class="label label-important">Previous Version</span>' if post.next_version %>
 <% post.tags.each do |tag| %>
 <span class="label label-default short-post-tag"><%= tag.name %></span>
