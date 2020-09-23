@@ -9,7 +9,7 @@
   <%= raw '<span class="label label-info">Edited</span>' if post.previous_version %>
   <%= raw '<span class="label label-important">Previous Version</span>' if post.next_version %>
   <% unless post.has_parent? %>
-    <span class="label label-primary"><%= post.descendant_ids.length %> replies</span>
+    <span class="label label-primary"><%= post.descendants.count(:all) %> replies</span>
   <% end %>
   <% post.tags.each do |tag| %>
     <span class="label label-default short-post-tag"><%= tag.name %></span>
