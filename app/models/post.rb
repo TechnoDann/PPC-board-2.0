@@ -9,7 +9,7 @@ class Post < ApplicationRecord
   before_create :set_sort_timestamp
 
   before_destroy :destroy_past_versions
-  before_destroy :remove_previous_version_reference
+  before_destroy :remove_previous_version_ref
 
   after_save :invalidate_thread_cache
 
@@ -134,7 +134,7 @@ class Post < ApplicationRecord
     end
   end
 
-  def remove_previous_version_reference
+  def remove_previous_version_ref
     if (not self.recursive_destroy) && self.next_version_id != nil
       self_id = self.id
       probe = self.next_version
