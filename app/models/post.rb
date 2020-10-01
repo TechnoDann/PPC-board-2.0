@@ -9,7 +9,7 @@ class Post < ApplicationRecord
   before_create :set_sort_timestamp
 
   before_destroy :destroy_past_versions
-  before_destroy :remove_previous_version_reference
+  before_destroy :remove_previous_version_ref
 
   after_save :invalidate_thread_cache
 
@@ -41,12 +41,13 @@ class Post < ApplicationRecord
                                           :negation => true,
                                           :dictionary => "english",
                                           :highlight => {
-                                            :start_sel => "<b>",
-                                            :stop_sel => "</b>",
-                                            :max_fragments => 5
+                                              :start_sel => "<b>",
+                                              :stop_sel => "</b>",
+                                              :max_fragments => 5
                                           }
-                                         }},
+                  }},
                   :order_within_rank => "sort_timestamp DESC"
+
   def clone_before_edit
     clone = Post.new
     load_body = self.body # Skip lazy_columns
@@ -70,6 +71,7 @@ class Post < ApplicationRecord
   end
 
   DAY = 24.hours
+
   def recent?
     Time.now - self.created_at < DAY
   end
@@ -87,6 +89,7 @@ class Post < ApplicationRecord
   end
 
   private
+
   def no_memory_hole
     self.next_version
     if self.next_version && !self.being_cloned
@@ -101,19 +104,19 @@ class Post < ApplicationRecord
   end
 
   def flood_prevention
-    if !Rails.env.test? && Post.where(:user_id => self.user_id, :created_at => 10.second.ago .. Time.now).exists?
+    if !Rails.env.test? && Post.where(:user_id => self.user_id, :created_at => 10.second.ago..Time.now).exists?
       errors[:base] << "You can only create one post every 10 seconds to prevent spam"
     end
   end
 
   def set_sort_timestamp
     if (not self.sort_timestamp) || (self.override_sort_timestamp != "1")
-      self.sort_timestamp = Time.now()
+      self.sort_timestamp = Time.now
     end
   end
 
   def destroy_past_versions
-    if not self.recursive_destroy
+    unless self.recursive_destroy
       current = self
       next_post = nil
       while current != nil
@@ -131,7 +134,7 @@ class Post < ApplicationRecord
     end
   end
 
-  def remove_previous_version_reference
+  def remove_previous_version_ref
     if (not self.recursive_destroy) && self.next_version_id != nil
       self_id = self.id
       probe = self.next_version

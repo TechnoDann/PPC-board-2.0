@@ -13,11 +13,11 @@ class PostsController < ApplicationController
   def search
     @query = params[:query] || ""
     @posts = Post.text_search(@query).paginate(:page => params[:page])
-             .with_pg_search_highlight.includes([:tags])
+                 .with_pg_search_highlight.includes([:tags])
     respond_to do |format|
       format.html
       format.json { render json: @posts }
-      end
+    end
   end
 
   # GET /posts
@@ -25,19 +25,19 @@ class PostsController < ApplicationController
   def index
     if params[:sort_mode]
       cookies.delete :sort_mode
-      cookies[:sort_mode] = { :value => params[:sort_mode], :expires => 20.years.from_now }
+      cookies[:sort_mode] = {:value => params[:sort_mode], :expires => 20.years.from_now}
     end
     cookies.delete :last_subforum
 
     @posts = Post.where(:ancestry => nil, :next_version_id => nil)
-      .paginate(:page => params[:page]).order("sort_timestamp DESC")
+                 .paginate(:page => params[:page]).order("sort_timestamp DESC")
 
     @tagged_posts = Hash.new do |hash, key|
       hash[key] = []
     end
     if cookies[:sort_mode] == "tag" || cookies[:sort_mode] == "subforum"
       @posts.each do |thread|
-        if not (thread.tags.any?)
+        unless thread.tags.any?
           @tagged_posts[false] << thread #This takes care of "no tags at all"
         end
         tags = {}
@@ -49,7 +49,7 @@ class PostsController < ApplicationController
           end
         end
         if tags.length > 0
-          tags.each do |tag, truth|
+          tags.each do |tag, _|
             @tagged_posts[tag] << thread
           end
         end
@@ -68,19 +68,19 @@ class PostsController < ApplicationController
   # GET /posts/tagged/1
   # GET /posts/tagged/1.json
   def tagged
-    cookies[:last_subforum] = { :value => params[:tag_id], :expires => 3.months.from_now }
+    cookies[:last_subforum] = {:value => params[:tag_id], :expires => 3.months.from_now}
 
     if params[:tag_id] == "nothing"
       @tag = false
       @raw_posts = Post.joins("LEFT JOIN posts_tags pt ON pt.post_id = posts.id")
-        .where("pt.tag_id" => nil, "posts.next_version_id" => nil, "posts.ancestry" => nil)
-        .paginate(:page => params[:page]).order("posts.sort_timestamp DESC")
+                       .where("pt.tag_id" => nil, "posts.next_version_id" => nil, "posts.ancestry" => nil)
+                       .paginate(:page => params[:page]).order("posts.sort_timestamp DESC")
       @posts = @raw_posts.map(&:root)
       @posts.uniq!
     else
       @tag = Tag.find(params[:tag_id])
       @raw_posts = @tag.posts.where(:next_version_id => nil)
-        .paginate(:page => params[:page]).order("sort_timestamp DESC")
+                       .paginate(:page => params[:page]).order("sort_timestamp DESC")
       @posts = @raw_posts.map(&:root)
       @posts.uniq!
     end
@@ -96,8 +96,8 @@ class PostsController < ApplicationController
   # GET /posts/scrape/2016/01?user_id=1
   # ...
   def scrape
-    if cookies["foo"] != "bar" then
-        return head :forbidden
+    if cookies["foo"] != "bar"
+      return head :forbidden
     end
     @month_num = params[:month][0..-2].to_i(10)
     @month_side = params[:month][-1]
@@ -106,15 +106,15 @@ class PostsController < ApplicationController
     one_third = date.beginning_of_month + 10.days
     two_thirds = date.beginning_of_month + 20.days
     range =
-      if @month_side == 'a' then
-        date.beginning_of_month .. one_third
-      elsif @month_side == 'b'
-        one_third .. two_thirds
-      elsif @month_side == 'c'
-        two_thirds .. date.end_of_month
-      else
-        date.beginning_of_month .. date.end_of_month
-      end
+        if @month_side == 'a'
+          date.beginning_of_month..one_third
+        elsif @month_side == 'b'
+          one_third..two_thirds
+        elsif @month_side == 'c'
+          two_thirds..date.end_of_month
+        else
+          date.beginning_of_month..date.end_of_month
+        end
     conditions = {:ancestry => nil, :next_version_id => nil,
                   :sort_timestamp => range}
     if params[:user_id]
@@ -122,9 +122,9 @@ class PostsController < ApplicationController
     end
     @posts = Post.where(conditions).order("sort_timestamp ASC")
 
-    status = if @posts.empty? then :not_found else :ok end
+    status = @posts.empty? ? :not_found : :ok
     respond_to do |format|
-      format.html { render status: status }# scrape.html.erb
+      format.html { render status: status } # scrape.html.erb
       format.json { render json: @posts, status: status }
     end
   end
@@ -148,7 +148,7 @@ class PostsController < ApplicationController
     add_nm(@post)
 
     respond_to do |format|
-      format.html { render :partial => 'post', :object => @post, :locals => { :hide_status_info => true } }
+      format.html { render :partial => 'post', :object => @post, :locals => {:hide_status_info => true} }
     end
   end
 
@@ -172,8 +172,8 @@ class PostsController < ApplicationController
   # GET /posts/1/edit
   def edit
     @post = Post.find(params[:id])
-    if !allowed_to_edit? @post, current_user
-      redirect_to posts_url, :flash => { :error => "You can't edit other people's posts." } 
+    unless allowed_to_edit? @post, current_user
+      redirect_to posts_url, :flash => {:error => "You can't edit other people's posts."}
     end
   end
 
@@ -198,7 +198,7 @@ class PostsController < ApplicationController
         #   @post.watchers = [current_user]
         # end
         format.html { flash[:success] = ["Post was successfully created."]
-          redirect_to @post }
+        redirect_to @post }
         format.json { render json: @post, status: :created, location: @post }
       else
         format.html { render action: "new" }
@@ -211,8 +211,8 @@ class PostsController < ApplicationController
   # PUT /posts/1.json
   def update
     @post = Post.find(params[:id])
-    if !allowed_to_edit? @post, current_user
-      redirect_to posts_url, :flash => { :error => "You can't edit other people's posts. Also, why are you bypassing access controls?" }
+    unless allowed_to_edit? @post, current_user
+      redirect_to posts_url, :flash => {:error => "You can't edit other people's posts. Also, why are you bypassing access controls?"}
       logger.error("#{current_user.name} (#{current_user.id}) is trying to PUT #{@post.author}'s post (#{post.id}). CRACKER!")
     end
     @clone = @post.clone_before_edit
@@ -221,7 +221,7 @@ class PostsController < ApplicationController
       if @post.update_attributes(post_params)
         @post.close_edit_cycle @clone
         format.html { flash[:success] = ["Post was successfully updated."]
-          redirect_to @post }
+        redirect_to @post }
         format.json { head :no_content }
       else
         @clone.destroy
@@ -236,24 +236,24 @@ class PostsController < ApplicationController
   def destroy
     @post = Post.find(params[:id])
     unless user_signed_in? && current_user.moderator?
-      redirect_to posts_url, :flash => { :error => "You can't delete posts unless you're a moderator" }
+      redirect_to posts_url, :flash => {:error => "You can't delete posts unless you're a moderator"}
       logger.error("#{current_user.name} (#{current_user.id}) is trying to DELETE #{@post.author}'s post (#{post.id}). CRACKER!")
     end
 
     respond_to do |format|
       if @post.destroy
         format.html { flash[:success] = ["Post successfully deleted."]
-          redirect_to(root_path) }
+        redirect_to(root_path) }
         format.json { head :no_content }
       else
-        format.html { render action: "show", flash: {error: "Failed to delete post" } }
+        format.html { render action: "show", flash: {error: "Failed to delete post"} }
         format.json { render json: @post.errors, status: :unprocessable_entity }
       end
     end
   end
 
   def allowed_to_edit?(post, user)
-    return false if !user
+    return false unless user
     status = post.user_id == user.id || user.moderator?
     if !status && (post.previous_version_id != nil)
       status = allowed_to_edit? post.previous_version, user
@@ -276,6 +276,7 @@ class PostsController < ApplicationController
   end
 
   private
+
   def clear_return_url
     session[:user_return_to] = nil
   end
