@@ -1,6 +1,6 @@
 atom_feed do |feed|
   feed.title("Threads from the #{SITE_CONFIG[:title]}")
-  feed.updated(Post.order("created_at DESC").first.created_at ) if @posts.length > 0
+  feed.updated(@posts.first.sort_timestamp) if @posts.length > 0
 
   @posts.each do |post|
     feed.entry(post) do |entry|
@@ -10,6 +10,7 @@ atom_feed do |feed|
       else
         entry.content("No body provided.", :type => 'text')
       end
+      entry.pubDate(post.created_at)
       entry.author do |author|
         author.name(post.author)
         author.url(user_url(post.user, :only_path => false))

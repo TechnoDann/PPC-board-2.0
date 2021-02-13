@@ -61,6 +61,19 @@ class PostsController < ApplicationController
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @posts }
+    end
+  end
+
+  # GET /posts/latest
+  # GET /posts/latest.json
+  # GET /posts/latest.atom
+  def latest
+    @posts = Post.where(:next_version_id => nil)
+      .paginate(:page => params[:page]).order("sort_timestamp DESC")
+
+    respond_to do |format|
+      format.html # index.html.erb
+      format.json { render json: @posts }
       format.atom
     end
   end

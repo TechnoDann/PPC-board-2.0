@@ -1,0 +1,27 @@
+<h1>The <%= SITE_CONFIG[:title] %> - Latest posts </h1>
+<%= render 'header' %>
+<ul class="nav nav-tabs">
+  <%= render :partial => 'new_post_button'%>
+  <li>
+    <%= link_to 'Threads', posts_path() %> </li>
+  <li class="active">
+    <%= link_to 'Latest posts', latest_posts_path() %></li>
+  </li>
+</ul>
+<ul class="thread row">
+  <div class="col-sm-12">
+    <% @posts.each do |post| %>
+      <li class="post post-in-thread" id="post-<%= post.id %>">
+        <%= render :partial => 'post_subject', :object => post %>
+    </li>
+    <% end %>
+  </div>
+</ul>
+
+<br />
+<div class="row">
+  <div class="col-sm-2">
+    <%= render :partial => 'new_post_button', :locals => { :style => " "} %>
+  </div>
+</div>
+<%= will_paginate @posts %>
