@@ -18,7 +18,10 @@
       <% end %>
       <li><%= link_to "None of the Above", tagged_path(:tag_id => "nothing") %></li>
     </ul>
-  </li>
+    </li>
+    <li>
+      <%= link_to 'Latest posts', latest_posts_path() %>
+    </li>
 </ul>
 
 <% if cookies[:sort_mode] == "subforum" %>

@@ -11,7 +11,7 @@
   <%= javascript_include_tag "application" %>
   <link rel="shortcut icon" href="/favicon.ico" />
   <%= csrf_meta_tags %>
-  <%= auto_discovery_link_tag(:atom, posts_url(:atom)) %>
+  <%= auto_discovery_link_tag(:atom, posts_url(:latest, :atom)) %>
   <% if current_user %>
     <style media="all" type="text/css">
       span.author-tag-for-<%= current_user.id %> {
