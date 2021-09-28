@@ -1,24 +1,24 @@
 source 'https://rubygems.org'
-ruby '>=2.6.4'
+ruby '>=2.7.4'
 
 gem 'rails', '~> 5.2.0'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-gem 'pg', '~> 1.1.4'
-gem 'ancestry', '~> 3.0.0'
+gem 'pg', '~> 1.2.0'
+gem 'ancestry', '~> 4.1.0'
 gem 'redcarpet'
 gem 'markerb'
 gem 'sanitize'
 
-gem 'will_paginate', '~> 3.1.0'
+gem 'will_paginate', '~> 3.3.0'
 gem 'bootstrap-will_paginate'
 
 gem 'turbolinks'
 gem 'jquery-turbolinks'
 
-gem 'pg_search', '~> 2.2.0'
+gem 'pg_search', '~> 2.3.0'
 
 gem 'sassc-rails'
 gem 'coffee-rails', '~> 5.0'
@@ -40,7 +40,7 @@ group :development, :test do
 end
 
 group :production do
-  gem 'mailgun-ruby', '~>1.1.6'
+  gem 'mailgun-ruby', '~> 1.1.6'
 end
 
 gem 'jquery-rails'
@@ -50,7 +50,7 @@ gem 'simple_form'
 gem 'lazy_columns'
 
 # Authentication
-gem 'devise', '~> 4.7.1'
+gem 'devise', '~> 4.8.0'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
@@ -74,3 +74,4 @@ gem 'dalli'
 
 # TODO: upgrade this later
 gem 'sprockets', '< 4.0'
+

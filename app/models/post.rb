@@ -34,7 +34,7 @@ class Post < ApplicationRecord
 
   self.per_page = 25
 
-  include PgSearch
+  include PgSearch::Model
   pg_search_scope :text_search,
                   :against => {:subject => 'A', :author => 'C', :body => 'B'},
                   :using => {:tsearch => {:prefix => true,
