@@ -41,7 +41,7 @@
     padding-left: 12px
 }
 
-.top-matter {
+#top-matter {
     font-family: $serif-font-family;
     @include threadishLinks();
     font-size: $font-size-base + 2px;
@@ -64,7 +64,7 @@
     margin-right: 10%;
 }
 
-#main {
+#main, #page_header {
     /* Old Bootstrap 2 container-fluid */
     padding-left: 20px;
     padding-right: 20px;

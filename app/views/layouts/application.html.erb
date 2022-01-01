@@ -11,7 +11,7 @@
   <%= javascript_include_tag "application" %>
   <link rel="shortcut icon" href="/favicon.ico" />
   <%= csrf_meta_tags %>
-  <%= auto_discovery_link_tag(:atom, posts_url(:latest, :atom)) %>
+  <%= auto_discovery_link_tag(:atom, "/posts/latest.atom", {:title => "Latest posts" }) %>
   <% if current_user %>
     <style media="all" type="text/css">
       span.author-tag-for-<%= current_user.id %> {
@@ -24,6 +24,7 @@
   <![endif]-->
 </head>
 <body>
+<a class="sr-only sr-only-focusable" href="#main">Skip to main content</a>
 <nav class="navbar navbar-default">
   <div class="container" id="top-nav-bar">
     <div class="navbar-header">
@@ -66,6 +67,9 @@
 </nav>
 <%= render :partial => 'layouts/information', :locals => { :flash => flash } %>
 <% flash[:info] = [] %>
+<% if content_for?(:page_header) %>
+  <%= yield :page_header %>
+<% end %>
 <div id="main" role="main">
   <%= yield %>
   <div class="row">
