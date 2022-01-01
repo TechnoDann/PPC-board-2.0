@@ -1,22 +1,28 @@
-<h1>The <%= SITE_CONFIG[:title] %> - Latest posts </h1>
-<%= render 'header' %>
-<ul class="nav nav-tabs">
+<% title "Latest posts" %>
+<% content_for(:header_title_override) {
+   "The #{SITE_CONFIG[:title]} - Latest posts" }
+%>
+<% content_for(:body_nav_tabs) do %>
   <%= render :partial => 'new_post_button'%>
   <li>
     <%= link_to 'Threads', posts_path() %> </li>
   <li class="active">
     <%= link_to 'Latest posts', latest_posts_path() %></li>
   </li>
-</ul>
-<ul class="thread row">
+<% end %>
+<%= render 'header' %>
+
+<div class="row">
   <div class="col-sm-12">
-    <% @posts.each do |post| %>
-      <li class="post post-in-thread" id="post-<%= post.id %>">
-        <%= render :partial => 'post_subject', :object => post %>
-    </li>
-    <% end %>
+    <p>This list is also available as a <a href="<%= url_for(action: 'latest', controller: 'posts') %>.atom">Atom/RSS feed</a></p>
   </div>
-</ul>
+</div>
+<% @posts.each do |post| %>
+<% post.body %>
+<%= render :partial => 'thread', :locals => { :bodies => true, :id => nil },
+   :object => {post => []}
+%>
+<% end %>
 
 <br />
 <div class="row">

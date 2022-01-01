@@ -1,4 +1,13 @@
-<div class="top-matter">
+<% content_for(:page_header) do %>
+<header id="page_header">
+<h1>
+<% if content_for?(:header_title_override) %>
+<%= yield :header_title_override %>
+<% else %>
+<%= yield :title %>
+<% end %>
+</h1>
+<div id="top-matter">
 <% if SITE_KIND == :devel %>
 <p>
 <strong><u><span style="font-size:large;">THIS IS A DEVELOPMENT INSTANCE FOR THE PPC BOARD.</span></u></strong>
@@ -45,3 +54,9 @@ We like it when people do the research.</li>
 </ul>
 </p>
 </div>
+
+<ul class="nav nav-tabs" role="navigation">
+<%= yield :body_nav_tabs %>
+</ul>
+</header>
+<% end %>

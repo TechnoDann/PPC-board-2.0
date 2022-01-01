@@ -1,8 +1,5 @@
 <% title (@tag && @tag.name.pluralize) || "None of the Above" %>
-<h1><%= yield :title %></h1>
-<%= render 'header' %>
-
-<ul class="nav nav-tabs">
+<% content_for(:body_nav_tabs) do %>
   <%= render :partial => 'new_post_button', :locals => { :tag => @tag && @tag.id } %>
   <li><%= link_to 'All subforums', posts_path(:sort_mode => "subforum") %></li>
   <li class="dropdown">
@@ -15,7 +12,9 @@
       <li><%= link_to "None of the Above", tagged_path(:tag_id => "nothing"), :style => ('font-weight: bold' if @tag == false) %></li>
     </ul>
   </li>
-</ul>
+<% end %>
+<%= render 'header' %>
+
 <% @posts.each do |post| %>
   <div class="post thread">
     <% new_post_count = post.subtree.select(&:recent?).count %>
