@@ -16,7 +16,7 @@
 <%= render 'header' %>
 
 <% @posts.each do |post| %>
-  <div class="post thread">
+  <div class="post thread" id="post-<%= post.id %>">
     <% new_post_count = post.subtree.select(&:recent?).count %>
     <% if new_post_count > 0 %>
       <span class="badge" label="<%= new_post_count %> new post".pluralize(new_post_count)
@@ -26,6 +26,6 @@
   </div>
 <% end %>
 <br />
-<%= render :partial => 'new_post_button', 
+<%= render :partial => 'new_post_button',
            :locals => { :tag => @tag && @tag.id, :style => " "} %>
 <%= will_paginate @raw_posts %>
