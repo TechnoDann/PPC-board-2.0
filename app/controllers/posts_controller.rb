@@ -12,8 +12,8 @@ class PostsController < ApplicationController
   # GET /posts/search.json
   def search
     @query = params[:query] || ""
-    @posts = Post.text_search(@query).paginate(:page => params[:page])
-                 .with_pg_search_highlight.includes([:tags])
+    @posts = Post.order("sort_timestamp DESC")
+               .web_search(@query).paginate(:page => params[:page])
     respond_to do |format|
       format.html
       format.json { render json: @posts }

@@ -18,7 +18,7 @@ gem 'bootstrap-will_paginate'
 gem 'turbolinks'
 gem 'jquery-turbolinks'
 
-gem 'pg_search', '~> 2.2.0'
+gem 'textacular', '~> 5.0'
 
 gem 'sassc-rails'
 gem 'coffee-rails', '~> 5.0'

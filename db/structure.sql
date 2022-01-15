@@ -52,7 +52,7 @@ CREATE FUNCTION public.crc32(word text) RETURNS bigint
 
 SET default_tablespace = '';
 
-SET default_with_oids = false;
+SET default_table_access_method = heap;
 
 --
 -- Name: ar_internal_metadata; Type: TABLE; Schema: public; Owner: -
@@ -330,6 +330,20 @@ CREATE INDEX index_bans_on_ip ON public.bans USING btree (ip);
 
 
 --
+-- Name: index_posts_authors_for_search; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_posts_authors_for_search ON public.posts USING gin (to_tsvector('english'::regconfig, (author)::text));
+
+
+--
+-- Name: index_posts_bodies_for_search; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_posts_bodies_for_search ON public.posts USING gin (to_tsvector('english'::regconfig, body));
+
+
+--
 -- Name: index_posts_on_ancestry; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -348,6 +362,13 @@ CREATE INDEX index_posts_on_text_search ON public.posts USING gin ((((setweight(
 --
 
 CREATE INDEX index_posts_on_user_id ON public.posts USING btree (user_id);
+
+
+--
+-- Name: index_posts_subjects_for_search; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_posts_subjects_for_search ON public.posts USING gin (to_tsvector('english'::regconfig, (subject)::text));
 
 
 --
@@ -472,6 +493,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20190523223248'),
 ('20190526181703'),
 ('20190704204622'),
-('20191206055529');
+('20191206055529'),
+('20220115230706');
 
 

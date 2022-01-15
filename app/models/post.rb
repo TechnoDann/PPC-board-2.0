@@ -34,19 +34,12 @@ class Post < ApplicationRecord
 
   self.per_page = 25
 
-  include PgSearch
-  pg_search_scope :text_search,
-                  :against => {:subject => 'A', :author => 'C', :body => 'B'},
-                  :using => {:tsearch => {:prefix => true,
-                                          :negation => true,
-                                          :dictionary => "english",
-                                          :highlight => {
-                                              :start_sel => "<b>",
-                                              :stop_sel => "</b>",
-                                              :max_fragments => 5
-                                          }
-                  }},
-                  :order_within_rank => "sort_timestamp DESC"
+  def self.searchable_language
+    'english'
+  end
+  def self.searchable_columns
+    [:subject, :author, :body]
+  end
 
   def clone_before_edit
     clone = Post.new
