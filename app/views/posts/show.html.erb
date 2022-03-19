@@ -14,9 +14,9 @@
       <% end %>
     <% end %>
     <% if cookies[:last_subforum] %>
-      <%= link_to 'Return to messages', "/posts/tagged/#{cookies[:last_subforum]}", :class => 'btn btn-default', :role => "button" %>
+      <%= link_to 'Return to messages', "/posts/tagged/#{cookies[:last_subforum]}#post-#{@post.root.id}", :class => 'btn btn-default', :role => "button" %>
     <% else %>
-      <%= link_to 'Return to messages', posts_path, :class => 'btn btn-default', :role => "button" %>
+      <%= link_to 'Return to messages', posts_path(anchor: "post-#{@post.root.id}"), :class => 'btn btn-default', :role => "button" %>
     <% end %>
   <% end %>
   <% if user_signed_in? && current_user.moderator? %>
