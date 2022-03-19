@@ -3,9 +3,9 @@
   <%= render :partial => 'new_post_button', :locals => { :tag => @tag && @tag.id } %>
   <li><%= link_to 'All subforums', posts_path(:sort_mode => "subforum") %></li>
   <li class="dropdown">
-    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+    <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false" aria-controls="subform-list-menu" aria-haspopup="menu">
       Jump to subforum <b class="caret"></b></a>
-    <ul class="dropdown-menu">
+    <ul class="dropdown-menu" id="subforum-list-menu">
       <% Tag.all.each do |tag| %>
       <li><%= link_to tag.name.pluralize, tagged_path(:tag_id => tag.id), :style => ('font-weight: bold' if tag == @tag) %></li>
       <% end %>

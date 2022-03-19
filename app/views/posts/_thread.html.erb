@@ -6,7 +6,8 @@
      for post, subthreads in thread do %>
   <% if post.poofed && bodies && !post.next_version %>
     <div class="poof-hider">
-      <a href="#thread-from-<%= post.id %>" data-turbolinks="false" style="font-weight: bold;" data-toggle="collapse" data-target="#thread-from-<%= post.id %>">
+      <a href="#thread-from-<%= post.id %>" data-turbolinks="false" style="font-weight: bold;" data-toggle="collapse" data-target="#thread-from-<%= post.id %>"
+         aria-expanded="false" aria-controls="thread-from-<%= post.id %>">
         This subthread is poofed. Click to show it.
       </a>
     </div>

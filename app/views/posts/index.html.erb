@@ -6,13 +6,13 @@
   <li class="<%= 'active' if cookies[:sort_mode] == "tag" %>">
     <%= link_to 'Sort by tags', posts_path(:sort_mode => "tag") %> </li>
   <li class="<%= 'active' if cookies[:sort_mode] == "subforum" %>">
-    <%= link_to 'Subforum view', posts_path(:sort_mode => "subforum") %> </li>  
+    <%= link_to 'Subforum view', posts_path(:sort_mode => "subforum") %> </li>
   <li class="dropdown">
-    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+    <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false" aria-controls="subforum-list-menu" aria-haspopup="menu">
       Jump to subforum <b class="caret"></b></a>
-    <ul class="dropdown-menu">
+    <ul class="dropdown-menu" id="subforum-list-menu">
       <% Tag.all.each do |tag| %>
-        <li><%= link_to tag.name.pluralize, tagged_path(:tag_id => tag.id) %><li>
+        <li><%= link_to tag.name.pluralize, tagged_path(:tag_id => tag.id) %></li>
       <% end %>
       <li><%= link_to "None of the Above", tagged_path(:tag_id => "nothing") %></li>
     </ul>
