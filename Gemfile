@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby '>=2.6.4'
+ruby '>=2.6.9'
 
 gem 'rails', '~> 5.2.0'
 
@@ -18,7 +18,7 @@ gem 'bootstrap-will_paginate'
 gem 'turbolinks'
 gem 'jquery-turbolinks'
 
-gem 'pg_search', '~> 2.2.0'
+gem 'textacular', '~> 5.0'
 
 gem 'sassc-rails'
 gem 'coffee-rails', '~> 5.0'
