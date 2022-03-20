@@ -351,13 +351,6 @@ CREATE INDEX index_posts_on_ancestry ON public.posts USING btree (ancestry text_
 
 
 --
--- Name: index_posts_on_text_search; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_posts_on_text_search ON public.posts USING gin ((((setweight(to_tsvector('english'::regconfig, COALESCE((subject)::text, ''::text)), 'A'::"char") || setweight(to_tsvector('english'::regconfig, COALESCE((author)::text, ''::text)), 'C'::"char")) || setweight(to_tsvector('english'::regconfig, COALESCE(body, ''::text)), 'B'::"char"))));
-
-
---
 -- Name: index_posts_on_user_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -494,6 +487,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20190526181703'),
 ('20190704204622'),
 ('20191206055529'),
-('20220115230706');
+('20220115230706'),
+('20220320190118');
 
 
