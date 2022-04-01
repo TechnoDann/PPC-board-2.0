@@ -23,8 +23,8 @@ class Post < ApplicationRecord
   validate :no_locked_reply, :on => :create
   validate :flood_prevention, :on => :create
   validates :subject, :author, :user_id, :presence => true
-  validates_length_of :subject, :maximum => 105
-  validates_length_of :author, :maximum => 80
+  validates_length_of :subject, :minimum => 1, :maximum => 105
+  validates_length_of :author, :minimum => 1, :maximum => 80
 
   attr_accessor :watch_add
   attr_accessor :override_sort_timestamp
