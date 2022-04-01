@@ -42,7 +42,7 @@
 }
 
 #top-matter {
-    font-family: $serif-font-family;
+    font-family: $font-family-serif;
     @include threadishLinks();
     font-size: $font-size-base + 2px;
     border-top: $font-size-base solid $visited-red;
