@@ -79,7 +79,12 @@ module ApplicationHelper
   end
 
   def htmlic_title(text)
-      Sanitize.clean(text, TitleCleaner)
+    result = Sanitize.clean(text, TitleCleaner)
+    if result.blank?
+      "[[[bad HTML in subject]]]"
+    else
+      result
+    end
   end
 
   def render_subthread_as_archive(hash)
