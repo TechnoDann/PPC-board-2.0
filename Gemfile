@@ -6,8 +6,8 @@ gem 'rails', '~> 5.2.0'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-gem 'pg', '~> 1.1.4'
-gem 'ancestry', '~> 3.0.0'
+gem 'pg', '~> 1.3.0'
+gem 'ancestry', '~> 4.1.0'
 gem 'redcarpet'
 gem 'markerb'
 gem 'sanitize'
