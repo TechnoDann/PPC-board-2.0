@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
-ruby '>=2.6.9'
+ruby '>=3.1.2'
 
-gem 'rails', '~> 5.2.0'
+gem 'rails', '~> 6.0.0'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -12,7 +12,7 @@ gem 'redcarpet'
 gem 'markerb'
 gem 'sanitize'
 
-gem 'will_paginate', '~> 3.1.0'
+gem 'will_paginate', '~> 3.3.0'
 gem 'bootstrap-will_paginate'
 
 gem 'turbolinks'
@@ -29,7 +29,7 @@ gem 'uglifier', '>= 1.0.3'
 gem 'listen'
 
 group :development do
-  gem 'web-console', '~> 3.5.1'
+  gem 'web-console', '~> 4.2.0'
 end
 
 group :development, :test do
@@ -71,5 +71,8 @@ gem 'bootsnap', require: false
 gem 'connection_pool'
 gem 'memcachier'
 gem 'dalli'
+
+# net-smtp for Ruby 3.1
+gem 'net-smtp'
 
 gem 'sprockets', '~> 4.0'
