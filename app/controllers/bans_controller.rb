@@ -64,7 +64,7 @@ class BansController < ApplicationController
     @ban = Ban.find(params[:id])
 
     respond_to do |format|
-      if @ban.update_attributes(ban_params)
+      if @ban.update(ban_params)
         format.html { redirect_to root_path, notice: 'Ban was successfully updated.' }
         format.json { head :no_content }
       else

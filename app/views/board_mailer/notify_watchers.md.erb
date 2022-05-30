@@ -1,13 +1,7 @@
 Hello <%= @user.name %>,
 
 [A reply][mail-post-aaaaa] has been posted to [a thread you have
-watched][mail-parent-aaaaa] on the PPC Board. The reply is located
-[here][mail-post-aaaaa] and reproduced below. If you don't want to
-keep receiving emails about replies to "<%= @parent.subject %>",
-please go to [the post you watched][mail-parent-aaaaa] and click
-"Disable reply emails".
-
-The reply:
+watched][mail-parent-aaaaa] on the PPC Board.
 
 **Subject:** <%= @post.subject %>
 
@@ -17,6 +11,10 @@ The reply:
 
 <%= Sanitize.clean(@post.body, Sanitize::Config::RELAXED) || "" %>
 
+<hr />
+
+If you don't want to keep receiving emails about replies to "<%= @parent.subject %>", please go to [the post you watched][mail-parent-aaaaa] and click
+"Disable reply emails".
 
 [mail-post-aaaaa]: <%= post_url(@post, :only_path => false)  %>
 [mail-parent-aaaaa]: <%= post_url(@parent, :only_path => false) %>

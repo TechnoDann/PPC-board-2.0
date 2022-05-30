@@ -224,17 +224,17 @@ class PostsController < ApplicationController
   # PUT /posts/1.json
   def update
     @post = Post.find(params[:id])
-    unless allowed_to_edit? @post, current_user
-      redirect_to posts_url, :flash => {:error => "You can't edit other people's posts. Also, why are you bypassing access controls?"}
-      logger.error("#{current_user.name} (#{current_user.id}) is trying to PUT #{@post.author}'s post (#{post.id}). CRACKER!")
-    end
-    @clone = @post.clone_before_edit
-    @post.user = current_user
     respond_to do |format|
-      if @post.update_attributes(post_params)
+      unless allowed_to_edit? @post, current_user
+        redirect_to posts_url, :flash => {:error => "You can't edit other people's posts. Also, why are you bypassing access controls?"}
+        logger.error("#{current_user.name} (#{current_user.id}) is trying to PUT #{@post.author}'s post (#{post.id}). CRACKER!")
+      end
+      @clone = @post.clone_before_edit
+      @post.user = current_user
+      if @post.update(post_params)
         @post.close_edit_cycle @clone
         format.html { flash[:success] = ["Post was successfully updated."]
-        redirect_to @post }
+          redirect_to @post }
         format.json { head :no_content }
       else
         @clone.destroy
@@ -248,12 +248,12 @@ class PostsController < ApplicationController
   # DELETE /posts/1.json
   def destroy
     @post = Post.find(params[:id])
-    unless user_signed_in? && current_user.moderator?
-      redirect_to posts_url, :flash => {:error => "You can't delete posts unless you're a moderator"}
-      logger.error("#{current_user.name} (#{current_user.id}) is trying to DELETE #{@post.author}'s post (#{post.id}). CRACKER!")
-    end
-
     respond_to do |format|
+      unless user_signed_in? && current_user.moderator?
+        redirect_to posts_url, :flash => {:error => "You can't delete posts unless you're a moderator"}
+        logger.error("#{current_user.name} (#{current_user.id}) is trying to DELETE #{@post.author}'s post (#{post.id}). CRACKER!")
+      end
+
       if @post.destroy
         format.html { flash[:success] = ["Post successfully deleted."]
         redirect_to(root_path) }

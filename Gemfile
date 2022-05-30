@@ -9,7 +9,7 @@ gem 'rails', '~> 6.0.0'
 gem 'pg', '~> 1.3.0'
 gem 'ancestry', '~> 4.1.0'
 gem 'redcarpet'
-gem 'markerb'
+gem 'maildown'
 gem 'sanitize'
 
 gem 'will_paginate', '~> 3.3.0'
@@ -50,7 +50,7 @@ gem 'simple_form'
 gem 'lazy_columns'
 
 # Authentication
-gem 'devise', '~> 4.7.1'
+gem 'devise', '~> 4.8.0'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
