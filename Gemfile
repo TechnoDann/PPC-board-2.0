@@ -21,8 +21,8 @@ gem 'jquery-turbolinks'
 gem 'textacular', '~> 5.0'
 
 gem 'sassc-rails'
-gem 'coffee-rails', '~> 5.0'
 gem 'bootstrap-sass', '~> 3.4.0'
+gem 'babel-transpiler'
 
 gem 'uglifier', '>= 1.0.3'
 
@@ -72,5 +72,4 @@ gem 'connection_pool'
 gem 'memcachier'
 gem 'dalli'
 
-# TODO: upgrade this later
-gem 'sprockets', '< 4.0'
+gem 'sprockets', '~> 4.0'
