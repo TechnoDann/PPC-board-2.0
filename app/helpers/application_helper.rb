@@ -48,7 +48,7 @@ module ApplicationHelper
   }
 
   TitleCleaner = {
-    :elements => %w[b em i strong del]
+    :elements => %w[b em i strong s del]
   }
 
   def title(page_title)
