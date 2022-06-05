@@ -73,6 +73,8 @@ gem 'memcachier'
 gem 'dalli'
 
 # net-smtp for Ruby 3.1
-gem 'net-smtp'
+gem 'net-smtp', require: false
+gem 'net-pop', require: false
+gem 'net-imap', require: false
 
 gem 'sprockets', '~> 4.0'
