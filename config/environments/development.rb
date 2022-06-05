@@ -28,7 +28,7 @@ Rails.application.configure do
     config.cache_store = :null_store
   end
 
-  if Rails.root.join('tmp/view-logging-dev.txt').exist?
+  if Rails.root.join('tmp', 'view-logging-dev.txt').exist?
     config.action_controller.enable_fragment_cache_logging = true
   else
     # Disable spammy logs from recursive partials & cache reads

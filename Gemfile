@@ -1,18 +1,18 @@
 source 'https://rubygems.org'
-ruby '>=2.6.9'
+ruby '>=3.1.2'
 
-gem 'rails', '~> 5.2.0'
+gem 'rails', '~> 6.0.0'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-gem 'pg', '~> 1.1.4'
-gem 'ancestry', '~> 3.0.0'
+gem 'pg', '~> 1.3.0'
+gem 'ancestry', '~> 4.1.0'
 gem 'redcarpet'
-gem 'markerb'
+gem 'maildown'
 gem 'sanitize'
 
-gem 'will_paginate', '~> 3.1.0'
+gem 'will_paginate', '~> 3.3.0'
 gem 'bootstrap-will_paginate'
 
 gem 'turbolinks'
@@ -21,15 +21,15 @@ gem 'jquery-turbolinks'
 gem 'textacular', '~> 5.0'
 
 gem 'sassc-rails'
-gem 'coffee-rails', '~> 5.0'
 gem 'bootstrap-sass', '~> 3.4.0'
+gem 'babel-transpiler'
 
 gem 'uglifier', '>= 1.0.3'
 
 gem 'listen'
 
 group :development do
-  gem 'web-console', '~> 3.5.1'
+  gem 'web-console', '~> 4.2.0'
 end
 
 group :development, :test do
@@ -50,7 +50,7 @@ gem 'simple_form'
 gem 'lazy_columns'
 
 # Authentication
-gem 'devise', '~> 4.7.1'
+gem 'devise', '~> 4.8.0'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
@@ -72,5 +72,7 @@ gem 'connection_pool'
 gem 'memcachier'
 gem 'dalli'
 
-# TODO: upgrade this later
-gem 'sprockets', '< 4.0'
+# net-smtp for Ruby 3.1
+gem 'net-smtp'
+
+gem 'sprockets', '~> 4.0'
