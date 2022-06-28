@@ -36,7 +36,7 @@
         :disabled => @post.ancestors.joins("INNER JOIN posts_users on posts_users.post_id = posts.id")
         .where("posts_users.user_id = ?", [current_user.id]).exists? %>
       <% end %>
-      <%= f.input :body, :hint => "Posts can either be written in Markdown or a subset of HTML. For formatting help, please see #{link_to 'the formatting guide', '/formatting_help'}.".html_safe, :rows => 15, :cols => 50 %>
+      <%= f.input :body, :hint => "Posts can either be written in Markdown or a subset of HTML. For formatting help, please see #{link_to 'the formatting guide', '/formatting_help', target: '_blank'}.".html_safe, :rows => 15, :cols => 50 %>
 
       <%= f.association :tags, :as => :check_boxes,
                         :wrapper => :tag_checkboxes,
