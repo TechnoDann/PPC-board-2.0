@@ -10,4 +10,5 @@ main:
 rp:
   title: PPC Roleplay Board
   app_host: ppc-posting-board-2-proto.herokuapp.com
+  mail_host: rpmail.plotprotectors.org
   admin_contact: admin@mg.plotprotectors.org
