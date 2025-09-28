@@ -6,10 +6,7 @@ require 'rails/all'
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
-SITE_KIND = :devel
-if ENV["BOARD_SITE"]
-  SITE_KIND = ENV["BOARD_SITE"].to_sym
-end
+SITE_KIND = if ENV["BOARD_SITE"] then ENV["BOARD_SITE"].to_sym else :devel end
 
 SITE_CONFIG = HashWithIndifferentAccess.new(
   YAML.load_file(File.expand_path('../../config/sites.yml', __FILE__)))[SITE_KIND]
