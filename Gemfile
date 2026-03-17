@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 ruby '>=3.3.5'
 
-gem 'rails', '~> 6.0.0'
+gem 'rails', '~> 8.1.2'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -50,7 +50,7 @@ gem 'simple_form'
 gem 'lazy_columns'
 
 # Authentication
-gem 'devise', '~> 4.8.0'
+gem 'devise', '~> 5.0.3'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
