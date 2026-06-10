@@ -68,7 +68,7 @@ gem 'bootsnap', require: false
 # gem 'capistrano'
 
 # Gems to use memcached on Heroku
-gem 'connection_pool'
+gem 'connection_pool', '~> 2.4.1'
 gem 'memcachier'
 gem 'dalli'
 
